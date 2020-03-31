@@ -65,18 +65,28 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Bootstrapper.cs" />
     <Compile Include="Assets\Scripts\Constants.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\ICell.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IControlManager.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IDataLoadManager.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IDiapasonSpawnPosition.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\ILevel.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ILevelManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IObjectStorage.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IObstacle.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IUnit.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IUpdatable.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IUpdateManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ControlManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\DataLoadManager.cs" />
     <Compile Include="Assets\Scripts\Managers\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ObjectStorage.cs" />
     <Compile Include="Assets\Scripts\Managers\UpdateManager.cs" />
     <Compile Include="Assets\Scripts\Models\Cell.cs" />
-    <Compile Include="Assets\Scripts\Models\Player.cs" />
+    <Compile Include="Assets\Scripts\Models\DiapasonSpawnPosition.cs" />
+    <Compile Include="Assets\Scripts\Models\Level.cs" />
+    <Compile Include="Assets\Scripts\Models\Obstacle.cs" />
+    <Compile Include="Assets\Scripts\Models\Unit.cs" />
+    <None Include="Assets\Config\Objects.xml" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Projects/AstroCow/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

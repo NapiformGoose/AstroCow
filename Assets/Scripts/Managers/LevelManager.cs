@@ -25,24 +25,20 @@ public class LevelManager : ILevelManager, IUpdatable
 				GenerateCell(i);
 			}
 		}
-		MoveCamera();
 	}
 	public void StartLevel()
 	{
 		_objectStorage.Cells[0].CellGameObject.transform.position = Constants.startCellPosition;
 		_objectStorage.Cells[1].CellGameObject.transform.position = _objectStorage.Cells[0].CellGameObject.transform.position + Constants.distanceToNextCell;
 		_objectStorage.Cells[2].CellGameObject.transform.position = _objectStorage.Cells[1].CellGameObject.transform.position + Constants.distanceToNextCell; ;
-		_topCell = _objectStorage.Cells[2];
+		//_topCell = _objectStorage.Cells[2];
 	}
 	void GenerateCell(int i)
 	{
 		_objectStorage.Cells[i].CellGameObject.transform.position = _topCell.CellGameObject.transform.position + Constants.distanceToNextCell;
-		_topCell = _objectStorage.Cells[i];
+		//_topCell = _objectStorage.Cells[i];
 		_objectStorage.Cells[i].CellGameObject.SetActive(true);
 
 	}
-	void MoveCamera()
-	{
-		Camera.main.transform.position += new Vector3(0, Constants.cameraSpeed * Time.deltaTime, 0);
-	}
+
 }

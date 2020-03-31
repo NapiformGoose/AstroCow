@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Assets.Scripts.Interfaces;
-using Assets.Scripts.Models;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Managers
 {
@@ -11,7 +9,7 @@ namespace Assets.Scripts.Managers
         IUpdateManager _updateManager;
         IObjectStorage _objectStorage;
 
-        Player _player;
+        IUnit _player;
         Vector3 clickPos = new Vector3();
         Vector3 newPlayerPosition = new Vector3();
         Vector3 distToPlayer = new Vector3();
@@ -22,7 +20,8 @@ namespace Assets.Scripts.Managers
             _objectStorage = objectStorage;
 
             _updateManager.AddUpdatable(this);
-            _player = _objectStorage.Player;
+            IList<ICell> list = _objectStorage.CellSets[1];
+            _player = list[0].Units[0];
         }
         public void Initialization()
         {
@@ -31,6 +30,7 @@ namespace Assets.Scripts.Managers
         public void CustomUpdate()
         {
             PlayerControl();
+            MoveCamera();
         }
 
         void PlayerControl()
@@ -61,6 +61,10 @@ namespace Assets.Scripts.Managers
         void MovePlayer()
         {
             _player.UnitGameObject.transform.position = newPlayerPosition;
+        }
+        void MoveCamera()
+        {
+            Camera.main.transform.position += new Vector3(0, Constants.cameraSpeed * Time.deltaTime, 0);
         }
     }
 }

@@ -13,16 +13,20 @@ namespace Assets.Scripts
         IControlManager _controlManager;
         IObjectStorage _objectStorage;
         ILevelManager _levelManager;
+        IDataLoadManager _dataLoadManager;
         void Start()
         {
             var updateManagerObject = new GameObject("UpdateManager");
             _updateManager = updateManagerObject.AddComponent<UpdateManager>();
 
             _objectStorage = new ObjectStorage();
+
+            //_levelManager = new LevelManager(_updateManager, _objectStorage);
+            //_levelManager.StartLevel();
+            _dataLoadManager = new DataLoadManager(_objectStorage);
+            _dataLoadManager.Read();
             _objectStorage.Initialization(Constants.playerPrefabName);
             _controlManager = new ControlManager(_updateManager, _objectStorage);
-            _levelManager = new LevelManager(_updateManager, _objectStorage);
-            _levelManager.StartLevel();
 
             _updateManager.CustomStart();
         }
