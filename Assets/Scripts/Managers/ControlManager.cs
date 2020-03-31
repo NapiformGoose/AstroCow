@@ -10,8 +10,9 @@ namespace Assets.Scripts.Managers
         IObjectStorage _objectStorage;
 
         IUnit _player;
+        GameObject _background;
         Vector3 clickPos = new Vector3();
-        Vector3 newPlayerPosition = new Vector3();
+        Vector3 newPlayerPosition = Vector3.zero;
         Vector3 distToPlayer = new Vector3();
 
         public ControlManager(IUpdateManager updateManager, IObjectStorage objectStorage)
@@ -22,6 +23,7 @@ namespace Assets.Scripts.Managers
             _updateManager.AddUpdatable(this);
             IList<ICell> list = _objectStorage.CellSets[1];
             _player = list[0].Units[0];
+            _background = GameObject.Find("Background");
         }
         public void Initialization()
         {
@@ -55,7 +57,22 @@ namespace Assets.Scripts.Managers
                     newPlayerPosition = new Vector3(hit.point.x + distToPlayer.x, hit.point.y + distToPlayer.y, 0);
                 }
             }
+            if (!Input.GetMouseButton(0))
+            {
+                newPlayerPosition = _player.UnitGameObject.transform.position += new Vector3(0, Constants.cameraSpeed * Time.deltaTime, 0);
+            }
+
+            if (newPlayerPosition.x > -35 && newPlayerPosition.x < 35 &&
+           newPlayerPosition.y > _background.transform.position.y -35 &&
+           newPlayerPosition.y < _background.transform.position.y + 35)
+            {
                 MovePlayer();
+
+            }
+            if(newPlayerPosition.y < _background.transform.position.y - 35)
+            {
+                _player.UnitGameObject.transform.position = new Vector3(_player.UnitGameObject.transform.position.x, _background.transform.position.y - 35, _player.UnitGameObject.transform.position.z);
+            }
         }
 
         void MovePlayer()
