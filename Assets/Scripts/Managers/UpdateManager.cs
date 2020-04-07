@@ -28,6 +28,15 @@ public class UpdateManager : MonoBehaviour, IUpdateManager
         }
     }
 
+    public void FixedUpdate()
+    {
+        if (IsOpenUpdate == false)
+            return;
+        for (int i = 0; i < _customUpdatables.Count; i++)
+        {
+            _customUpdatables[i].CustomFixedUpdate();
+        }
+    }
     public void CustomStart()
     {
         IsOpenUpdate = true;

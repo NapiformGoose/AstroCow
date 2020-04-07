@@ -6,6 +6,8 @@ public interface IUnit
 {
     string Alias { get; set; } 
     GameObject UnitGameObject { get; set; }
+    Collider2D UnitCollider2D { get; set; }
+    Rigidbody2D UnitRigidBody2D { get; set; }
     UnitType UnitType { get; set; }
     float BaseAttack { get; set; }
     int Health { get; set; }

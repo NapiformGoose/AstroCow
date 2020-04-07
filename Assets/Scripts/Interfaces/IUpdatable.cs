@@ -7,5 +7,6 @@ namespace Assets.Scripts.Interfaces
     public interface IUpdatable
     {
         void CustomUpdate();
+        void CustomFixedUpdate();
     }
 }

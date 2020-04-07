@@ -30,7 +30,7 @@ namespace Assets.Scripts
 
             _updateManager.CustomStart();
         }
-        
+
     }
 }
 

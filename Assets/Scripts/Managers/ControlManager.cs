@@ -2,6 +2,7 @@
 using Assets.Scripts.Interfaces;
 using System.Collections.Generic;
 
+
 namespace Assets.Scripts.Managers
 {
     public class ControlManager : IControlManager, IUpdatable
@@ -10,11 +11,12 @@ namespace Assets.Scripts.Managers
         IObjectStorage _objectStorage;
 
         IUnit _player;
-        GameObject _background;
-        Vector3 clickPos = new Vector3();
+        Vector3 firstClickPos = new Vector3();
         Vector3 newPlayerPosition = Vector3.zero;
         Vector3 distToPlayer = new Vector3();
+        Vector3 direction = new Vector3();
 
+        bool isMoving = false;
         public ControlManager(IUpdateManager updateManager, IObjectStorage objectStorage)
         {
             _updateManager = updateManager;
@@ -23,28 +25,40 @@ namespace Assets.Scripts.Managers
             _updateManager.AddUpdatable(this);
             IList<ICell> list = _objectStorage.CellSets[1];
             _player = list[0].Units[0];
-            _background = GameObject.Find("Background");
         }
         public void Initialization()
         {
         }
 
+        public void CustomFixedUpdate()
+        {
+            MoveCamera();
+            if(isMoving)
+            {
+                Moving();
+            }
+            else
+            {
+                FollowCamera();
+            }
+        }
         public void CustomUpdate()
         {
-            PlayerControl();
-            MoveCamera();
+            CalculatePosition();
         }
 
-        void PlayerControl()
+        void CalculatePosition()
         {
+            isMoving = true;
             if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))
                 {
-                    clickPos = hit.point;
-                    distToPlayer = new Vector3(_player.UnitGameObject.transform.position.x - clickPos.x, _player.UnitGameObject.transform.position.y - clickPos.y, 10);
+                    firstClickPos = hit.point;
+                    distToPlayer = new Vector3(_player.UnitGameObject.transform.position.x - firstClickPos.x, _player.UnitGameObject.transform.position.y - firstClickPos.y, 0);
+                    Debug.Log(distToPlayer);
                 }
             }
             if (Input.GetMouseButton(0))
@@ -53,31 +67,23 @@ namespace Assets.Scripts.Managers
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))
                 {
-
+                    direction = hit.point - firstClickPos;
                     newPlayerPosition = new Vector3(hit.point.x + distToPlayer.x, hit.point.y + distToPlayer.y, 0);
                 }
             }
             if (!Input.GetMouseButton(0))
             {
-                newPlayerPosition = _player.UnitGameObject.transform.position += new Vector3(0, Constants.cameraSpeed * Time.deltaTime, 0);
-            }
-
-            if (newPlayerPosition.x > -35 && newPlayerPosition.x < 35 &&
-           newPlayerPosition.y > _background.transform.position.y -35 &&
-           newPlayerPosition.y < _background.transform.position.y + 35)
-            {
-                MovePlayer();
-
-            }
-            if(newPlayerPosition.y < _background.transform.position.y - 35)
-            {
-                _player.UnitGameObject.transform.position = new Vector3(_player.UnitGameObject.transform.position.x, _background.transform.position.y - 35, _player.UnitGameObject.transform.position.z);
+                isMoving = false;
             }
         }
-
-        void MovePlayer()
+        void FollowCamera()
         {
-            _player.UnitGameObject.transform.position = newPlayerPosition;
+            _player.UnitGameObject.GetComponent<Rigidbody2D>().MovePosition(Vector2.MoveTowards(_player.UnitGameObject.transform.position, new Vector2(_player.UnitGameObject.transform.position.x, _player.UnitGameObject.transform.position.y) + new Vector2(0, 20) * Time.fixedDeltaTime, 5f));
+        }
+
+        void Moving()
+        {
+            _player.UnitGameObject.GetComponent<Rigidbody2D>().MovePosition(Vector2.MoveTowards(_player.UnitGameObject.transform.position, newPlayerPosition, 1f));
         }
         void MoveCamera()
         {
@@ -85,22 +91,3 @@ namespace Assets.Scripts.Managers
         }
     }
 }
-
-//контроллер следует за камерой
-//resultVector = new Vector3(secondPos.x - firstPos.x, secondPos.y - firstPos.y, 0);
-//_player.UnitGameObject.transform.Translate(resultVector * 22f * Time.deltaTime, Space.World);
-//secondPos += new Vector3(0, 5f * Time.deltaTime, 0);
-//_objectStorage.Controller.transform.position += new Vector3(0, 5f * Time.deltaTime, 0); 
-
-// разворот юнита "головой" к позиции в 2д
-//void LookAt2D(Transform me, Vector3 target, Vector3? eye = null)
-//{
-//    float signedAngle = Vector2.SignedAngle(eye ?? me.up, target - me.position); 
-
-//    if (Mathf.Abs(signedAngle) >= 1e-3f)
-//    {
-//        var angles = me.eulerAngles;
-//        angles.z += signedAngle;
-//        me.eulerAngles = angles;
-//    }
-//}

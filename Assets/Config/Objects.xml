@@ -17,6 +17,8 @@
 	<ObstacleSet id="1">
 		<Obstacle type="SteelWall" x="0" y="10" z="0"/>
 		<Obstacle type="SteelWall" x="-20" y="20" z="0"/>
+		<Obstacle type="SteelWall" x="0" y="10" z="0"/>
+		<Obstacle type="SteelWall" x="-20" y="20" z="0"/>
 	</ObstacleSet>
 	<ObstacleSet id="2">
 		<Obstacle type="EnergyWall" x="12" y="10" z="0"/>
@@ -40,7 +42,7 @@
 	</Cell>
 	<Cell id="1" difficult="null">
 		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-30" maxXPos="30" minYPos="15" maxYPos="25" ZPos="0"/> //координаты точек спавна для юнитов
+			<diapasonSpawnPosition id="1" minXPos="-30" maxXPos="0" minYPos="15" maxYPos="25" ZPos="0"/> //координаты точек спавна для юнитов
 			<diapasonSpawnPosition id="2" minXPos="-30" maxXPos="30" minYPos="0" maxYPos="5" ZPos="0"/>
 		</SpawnPositions>
 		<Units>
@@ -52,7 +54,7 @@
 	<Cell id="2" difficult="null">
 		<SpawnPositions>
 			<diapasonSpawnPosition id="1" minXPos="0" maxXPos="5" minYPos="10" maxYPos="25" ZPos="0"/> //координаты точек спавна для юнитов
-			<diapasonSpawnPosition id="2" minXPos="15" maxXPos="20" minYPos="0" maxYPos="5" ZPos="0"/>
+			<diapasonSpawnPosition id="2" minXPos="150" maxXPos="20" minYPos="0" maxYPos="5" ZPos="0"/>
 		</SpawnPositions>
 		<Units>
 			<Unit type="EnemyType2" diapasonSpawnPosition="2"/> //конкретный экзепляр юнита, указываем его тип и позицию
@@ -65,6 +67,10 @@
 <CellSets>
 	<CellSet id="1" maxDifficult="null"> 
 		<Cell cellId="0"/>
+		<Cell cellId="1"/>
+		<Cell cellId="2"/>
+		<Cell cellId="1"/>
+		<Cell cellId="2"/>
 		<Cell cellId="1"/>
 		<Cell cellId="2"/>
 	</CellSet>

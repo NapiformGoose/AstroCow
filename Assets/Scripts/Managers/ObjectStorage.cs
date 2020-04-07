@@ -68,6 +68,9 @@ namespace Assets.Scripts.Managers
             foreach(IObstacle obstacle in obstacles)
             {
                 obstacle.ObstacleGameObject = GameObject.Instantiate(_prefabs[obstacle.ObstacleType.ToString()]);
+                obstacle.ObstacleCollider2D = obstacle.ObstacleGameObject.GetComponent<Collider2D>() as Collider2D;
+                obstacle.ObstacleRigidBody2D = obstacle.ObstacleGameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
+
                 Vector3 spawnPos = new Vector3(currentPos.x + obstacle.SpawnPosition.x, currentPos.y + obstacle.SpawnPosition.y, obstacle.SpawnPosition.z);
                 obstacle.ObstacleGameObject.transform.position = spawnPos;
             }
@@ -77,6 +80,8 @@ namespace Assets.Scripts.Managers
             foreach(IUnit unit in units)
             {
                 unit.UnitGameObject = GameObject.Instantiate(_prefabs[unit.UnitType.ToString()]);
+                unit.UnitCollider2D = unit.UnitGameObject.GetComponent<Collider2D>() as Collider2D;
+                unit.UnitRigidBody2D = unit.UnitGameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
                 unit.UnitGameObject.transform.position = CalculateUnitSpawnPosition(unit.DiapasonSpawnPosition, currentPos);
             }
         }
