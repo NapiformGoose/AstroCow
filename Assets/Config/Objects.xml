@@ -54,7 +54,7 @@
 	<Cell id="2" difficult="null">
 		<SpawnPositions>
 			<diapasonSpawnPosition id="1" minXPos="0" maxXPos="5" minYPos="10" maxYPos="25" ZPos="0"/> //координаты точек спавна для юнитов
-			<diapasonSpawnPosition id="2" minXPos="150" maxXPos="20" minYPos="0" maxYPos="5" ZPos="0"/>
+			<diapasonSpawnPosition id="2" minXPos="15" maxXPos="20" minYPos="0" maxYPos="5" ZPos="0"/>
 		</SpawnPositions>
 		<Units>
 			<Unit type="EnemyType2" diapasonSpawnPosition="2"/> //конкретный экзепляр юнита, указываем его тип и позицию

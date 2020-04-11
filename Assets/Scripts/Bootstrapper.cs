@@ -14,12 +14,13 @@ namespace Assets.Scripts
         IObjectStorage _objectStorage;
         ILevelManager _levelManager;
         IDataLoadManager _dataLoadManager;
+        IObjectCreateManager _objectCreateManager;
         void Start()
         {
             var updateManagerObject = new GameObject("UpdateManager");
             _updateManager = updateManagerObject.AddComponent<UpdateManager>();
-
-            _objectStorage = new ObjectStorage();
+            _objectCreateManager = new ObjectCreateManager();
+            _objectStorage = new ObjectStorage(_objectCreateManager);
 
             //_levelManager = new LevelManager(_updateManager, _objectStorage);
             //_levelManager.StartLevel();

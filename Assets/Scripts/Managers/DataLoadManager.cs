@@ -115,7 +115,6 @@ public class DataLoadManager : IDataLoadManager
 
         foreach (XElement subElement in element.Element("Units").Elements("Unit"))
         {
-
             IUnit template = _objectStorage.UnitTemplates[subElement.Attribute("type").Value];
             IUnit unit = new Unit
             {

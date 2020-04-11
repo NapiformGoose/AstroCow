@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Interfaces\IDiapasonSpawnPosition.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ILevel.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ILevelManager.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IObjectCreateManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IObjectStorage.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IObstacle.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IUnit.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\Scripts\Managers\ControlManager.cs" />
     <Compile Include="Assets\Scripts\Managers\DataLoadManager.cs" />
     <Compile Include="Assets\Scripts\Managers\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\ObjectCreateManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ObjectStorage.cs" />
     <Compile Include="Assets\Scripts\Managers\UpdateManager.cs" />
     <Compile Include="Assets\Scripts\Models\Cell.cs" />

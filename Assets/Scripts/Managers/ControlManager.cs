@@ -23,8 +23,7 @@ namespace Assets.Scripts.Managers
             _objectStorage = objectStorage;
 
             _updateManager.AddUpdatable(this);
-            IList<ICell> list = _objectStorage.CellSets[1];
-            _player = list[0].Units[0];
+            _player = _objectStorage.Units[Constants.playerPrefabName][0];
         }
         public void Initialization()
         {
@@ -58,7 +57,6 @@ namespace Assets.Scripts.Managers
                 {
                     firstClickPos = hit.point;
                     distToPlayer = new Vector3(_player.UnitGameObject.transform.position.x - firstClickPos.x, _player.UnitGameObject.transform.position.y - firstClickPos.y, 0);
-                    Debug.Log(distToPlayer);
                 }
             }
             if (Input.GetMouseButton(0))

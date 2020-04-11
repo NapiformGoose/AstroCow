@@ -7,91 +7,88 @@ namespace Assets.Scripts.Managers
 {
     public class ObjectStorage : IObjectStorage
     {
-        IDictionary<string, GameObject> _prefabs;
+        IObjectCreateManager _objectCreateManager;
+
+        public IDictionary<string, GameObject> Prefabs { get; set; }
         public IDictionary<string, IUnit> UnitTemplates { get; set; }
         public IDictionary<string, IObstacle> ObstacleTemplates { get; set; }
         public IDictionary<int, IList<IObstacle>> ObstacleSet { get; set; }
         public IDictionary<int, ICell> Cells { get; set; }
         public IDictionary<int, IList<ICell>> CellSets { get; set; }
         public IList<ILevel> Levels { get; set; }
+        public IDictionary<string, IList<IUnit>> Units { get; set; }
+        public IDictionary<string, IList<IObstacle>> Obstacles { get; set; }
         public Collider2D LowerTrigger { get; set; }
 
-        public ObjectStorage()
+        public ObjectStorage(IObjectCreateManager objectCreateManager)
         {
-            _prefabs = new Dictionary<string, GameObject>();
+            _objectCreateManager = objectCreateManager;
+            Prefabs = new Dictionary<string, GameObject>();
             UnitTemplates = new Dictionary<string, IUnit>();
             ObstacleTemplates = new Dictionary<string, IObstacle>();
             ObstacleSet = new Dictionary<int, IList<IObstacle>>();
             Cells = new Dictionary<int, ICell>();
             CellSets = new Dictionary<int, IList<ICell>>();
             Levels = new List<ILevel>();
+            Units = new Dictionary<string, IList<IUnit>>();
+            Obstacles = new Dictionary<string, IList<IObstacle>>();
         }
 
         public void Initialization(string playerName)
         {
             LoadPrefabs();
+            _objectCreateManager.AddPrefabs(Prefabs);
             LoadLevel();
         }
 
         #region LoadData
         void LoadPrefabs()
         {
-            _prefabs.Add(Constants.playerPrefabName, Resources.Load(Constants.prefabPath + Constants.playerPrefabName) as GameObject);
-            _prefabs.Add(Constants.EnemyType1PrefabName, Resources.Load(Constants.prefabPath + Constants.EnemyType1PrefabName) as GameObject);
-            _prefabs.Add(Constants.EnemyType2PrefabName, Resources.Load(Constants.prefabPath + Constants.EnemyType2PrefabName) as GameObject);
-            _prefabs.Add(Constants.EnemyType3PrefabName, Resources.Load(Constants.prefabPath + Constants.EnemyType3PrefabName) as GameObject);
-            _prefabs.Add(Constants.EnergyWallPrefabName, Resources.Load(Constants.prefabPath + Constants.EnergyWallPrefabName) as GameObject);
-            _prefabs.Add(Constants.SteelWallPrefabName, Resources.Load(Constants.prefabPath + Constants.SteelWallPrefabName) as GameObject);
+            Prefabs.Add(Constants.playerPrefabName, Resources.Load(Constants.prefabPath + Constants.playerPrefabName) as GameObject);
+            Prefabs.Add(Constants.EnemyType1PrefabName, Resources.Load(Constants.prefabPath + Constants.EnemyType1PrefabName) as GameObject);
+            Prefabs.Add(Constants.EnemyType2PrefabName, Resources.Load(Constants.prefabPath + Constants.EnemyType2PrefabName) as GameObject);
+            Prefabs.Add(Constants.EnemyType3PrefabName, Resources.Load(Constants.prefabPath + Constants.EnemyType3PrefabName) as GameObject);
+            Prefabs.Add(Constants.EnergyWallPrefabName, Resources.Load(Constants.prefabPath + Constants.EnergyWallPrefabName) as GameObject);
+            Prefabs.Add(Constants.SteelWallPrefabName, Resources.Load(Constants.prefabPath + Constants.SteelWallPrefabName) as GameObject);
 
-            _prefabs.Add(Constants.controllerPrefabName, Resources.Load(Constants.prefabPath + Constants.controllerPrefabName) as GameObject);
-            _prefabs.Add(Constants.cellPrefabName, Resources.Load(Constants.prefabPath + Constants.cellPrefabName) as GameObject);
-            _prefabs.Add(Constants.lowerTriggerName, Resources.Load(Constants.prefabPath + Constants.lowerTriggerName) as GameObject);
+            Prefabs.Add(Constants.controllerPrefabName, Resources.Load(Constants.prefabPath + Constants.controllerPrefabName) as GameObject);
+            Prefabs.Add(Constants.cellPrefabName, Resources.Load(Constants.prefabPath + Constants.cellPrefabName) as GameObject);
+            Prefabs.Add(Constants.lowerTriggerName, Resources.Load(Constants.prefabPath + Constants.lowerTriggerName) as GameObject);
         }
 
         void LoadLevel()
         {
             IList<ICell> currentCellSet = CellSets[Levels[0].CellSet];
-            Vector3 currentPos = Constants.startCellPosition;
+            Vector3 currentCellPos = Constants.startCellPosition;
             for (int i = 0; i < currentCellSet.Count; i++)
             {
-                currentCellSet[i].CellGameObject = GameObject.Instantiate(_prefabs[Constants.cellPrefabName]);
-                currentCellSet[i].CellCollider = currentCellSet[i].CellGameObject.GetComponent<Collider2D>();
-                currentCellSet[i].CellGameObject.transform.position = currentPos;
+                currentCellSet[i].CellGameObject = GameObject.Instantiate(Prefabs[Constants.cellPrefabName]);
+                currentCellSet[i].CellCollider = currentCellSet[i].CellGameObject.GetComponent<Collider2D>(); //?
+                currentCellSet[i].CellGameObject.transform.position = currentCellPos;
 
-                CreateUnits(currentCellSet[i].Units, currentPos);
-                CreateObstacles(currentCellSet[i].ObstacleSet, currentPos);
-                currentPos += Constants.distanceToNextCell;
-            }
-        }
-        void CreateObstacles(IList<IObstacle> obstacles, Vector3 currentPos)
-        {
-            foreach(IObstacle obstacle in obstacles)
-            {
-                obstacle.ObstacleGameObject = GameObject.Instantiate(_prefabs[obstacle.ObstacleType.ToString()]);
-                obstacle.ObstacleCollider2D = obstacle.ObstacleGameObject.GetComponent<Collider2D>() as Collider2D;
-                obstacle.ObstacleRigidBody2D = obstacle.ObstacleGameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
+                foreach (IUnit unit in currentCellSet[i].Units)
+                {
+                    Vector3 spawnPos = _objectCreateManager.CalculateUnitSpawnPosition(unit.DiapasonSpawnPosition, currentCellPos);
+                    if(Units.Keys.Contains(unit.UnitType.ToString()))
+                    {
+                        Units[unit.UnitType.ToString()].Add(_objectCreateManager.CreateUnit(unit, spawnPos));
+                    }
 
-                Vector3 spawnPos = new Vector3(currentPos.x + obstacle.SpawnPosition.x, currentPos.y + obstacle.SpawnPosition.y, obstacle.SpawnPosition.z);
-                obstacle.ObstacleGameObject.transform.position = spawnPos;
-            }
-        }
-        void CreateUnits(IList<IUnit> units, Vector3 currentPos)
-        {
-            foreach(IUnit unit in units)
-            {
-                unit.UnitGameObject = GameObject.Instantiate(_prefabs[unit.UnitType.ToString()]);
-                unit.UnitCollider2D = unit.UnitGameObject.GetComponent<Collider2D>() as Collider2D;
-                unit.UnitRigidBody2D = unit.UnitGameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
-                unit.UnitGameObject.transform.position = CalculateUnitSpawnPosition(unit.DiapasonSpawnPosition, currentPos);
-            }
-        }
-        Vector3 CalculateUnitSpawnPosition(IDiapasonSpawnPosition diapasonSpawnPosition, Vector3 currentPos)
-        {
-            int x = Random.Range(diapasonSpawnPosition.minXPos, diapasonSpawnPosition.maxXPos);
-            int y = Random.Range(diapasonSpawnPosition.minYPos, diapasonSpawnPosition.maxYPos);
+                    Units[unit.UnitType.ToString()] = new List<IUnit>();
+                    Units[unit.UnitType.ToString()].Add(_objectCreateManager.CreateUnit(unit, spawnPos));
+                }
+                foreach (IObstacle obstacle in currentCellSet[i].ObstacleSet)
+                {
+                    if(Obstacles.Keys.Contains(obstacle.ObstacleType.ToString()))
+                    {
+                        Obstacles[obstacle.ObstacleType.ToString()].Add(_objectCreateManager.CreateObstacle(obstacle, currentCellPos));
+                    }
 
-            Vector3 spawnPosition = new Vector3(currentPos.x + x, currentPos.y + y, diapasonSpawnPosition.ZPos);
-            return spawnPosition;
+                    Obstacles[obstacle.ObstacleType.ToString()] = new List<IObstacle>();
+                    Obstacles[obstacle.ObstacleType.ToString()].Add(_objectCreateManager.CreateObstacle(obstacle, currentCellPos));
+                }
+                currentCellPos += Constants.distanceToNextCell;
+            }
         }
         #endregion
     }
