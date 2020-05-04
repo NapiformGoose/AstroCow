@@ -1,26 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
+using UnityEngine.UI;
 
 public interface IUnit
 {
-    string Alias { get; set; } 
-    GameObject UnitGameObject { get; set; }
-    Collider2D UnitCollider2D { get; set; }
-    Rigidbody2D UnitRigidBody2D { get; set; }
+    string Alias { get; set; }
+    GameObject GameObject { get; set; }
+    Collider2D Collider2D { get; set; }
+    Rigidbody2D RigidBody2D { get; set; }
+    IBehaviour Behaviour { get; set; }
     UnitType UnitType { get; set; }
-    float BaseAttack { get; set; }
     int Health { get; set; }
-    float Armor { get; set; }
-    float Speed { get; set; }
+    float MoveSpeed { get; set; }
     bool Ghost { get; set; }
     IDiapasonSpawnPosition DiapasonSpawnPosition { get; set; }
+    WeaponType WeaponType { get; set; }
+    IWeapon Weapon { get; set; }
+    GameObject ShootPosition { get; set; }
+    Team Team { get; set; }
+
+    GameObject Text { get; set; }
 }
 
-public enum UnitType
-{
-    Player,
-    EnemyType1,
-    EnemyType2,
-    EnemyType3
-}
+

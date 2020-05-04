@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 using UnityEngine;
+using Assets.Scripts;
+using UnityEngine.UI;
 
 public class DataLoadManager : IDataLoadManager
 {
@@ -15,11 +17,40 @@ public class DataLoadManager : IDataLoadManager
     {
         _objectStorage = objectStorage;
     }
+    public void LoadPrefabs()
+    {
+        _objectStorage.ActivationTrigger = GameObject.Find("ActivationTrigger").GetComponent<Collider2D>() as Collider2D;
+        _objectStorage.TopDeactivationTrigger = GameObject.Find("TopDeactivationTrigger").GetComponent<Collider2D>() as Collider2D;
+        _objectStorage.DownDeactivationTrigger = GameObject.Find("DownDeactivationTrigger").GetComponent<Collider2D>() as Collider2D;
+        _objectStorage.Canvas = GameObject.Find("Canvas").GetComponent<Canvas>() as Canvas;
 
+        _objectStorage.Prefabs.Add(UnitType.Player.ToString(), Resources.Load(Constants.prefabPath + UnitType.Player.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(UnitType.EnemyType1.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType1.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(UnitType.EnemyType2.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType2.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(UnitType.EnemyType3.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType3.ToString()) as GameObject);
+
+        _objectStorage.Prefabs.Add(ObstacleType.EnergyWall.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.EnergyWall.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(ObstacleType.SteelWall.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.SteelWall.ToString()) as GameObject);
+
+        _objectStorage.Prefabs.Add(BulletType.BulletType1.ToString(), Resources.Load(Constants.prefabPath + BulletType.BulletType1.ToString()) as GameObject);
+
+        _objectStorage.Prefabs.Add(Constants.controllerPrefabName, Resources.Load(Constants.prefabPath + Constants.controllerPrefabName) as GameObject);
+        _objectStorage.Prefabs.Add(Constants.cellPrefabName, Resources.Load(Constants.prefabPath + Constants.cellPrefabName) as GameObject);
+        _objectStorage.Prefabs.Add(Constants.lowerTriggerName, Resources.Load(Constants.prefabPath + Constants.lowerTriggerName) as GameObject);
+    }
     public void Read()
     {
         _path = Application.dataPath + "/Config/Objects.xml";
         _xEGameObject = XDocument.Parse(File.ReadAllText(_path)).Element("Objects");
+
+        foreach (XElement element in _xEGameObject.Element("WeaponTemplates").Elements("WeaponTemplate"))
+        {
+            ReadWeaponTemplate(element);
+        }
+        foreach (XElement element in _xEGameObject.Element("BulletTemplates").Elements("BulletTemplate"))
+        {
+            ReadBulletTemplate(element);
+        }
 
         foreach (XElement element in _xEGameObject.Element("UnitTemplates").Elements("UnitTemplate"))
         {
@@ -29,6 +60,7 @@ public class DataLoadManager : IDataLoadManager
         {
             ReadObstacleTemplate(element);
         }
+       
         foreach (XElement element in _xEGameObject.Element("ObstacleSets").Elements("ObstacleSet"))
         {
             ReadObstacleSet(element);
@@ -44,7 +76,8 @@ public class DataLoadManager : IDataLoadManager
         foreach (XElement element in _xEGameObject.Element("Levels").Elements("Level"))
         {
             ReadLevel(element);
-        }   
+        }
+       
     }
     void ReadUnitTemplate(XElement element)
     {
@@ -52,11 +85,11 @@ public class DataLoadManager : IDataLoadManager
 
         unit.Alias = element.Attribute("alias").Value;
         unit.UnitType = (UnitType)Enum.Parse(typeof(UnitType), element.Attribute("type").Value);
-        unit.BaseAttack = float.Parse(element.Attribute("baseAttack").Value);
         unit.Health = int.Parse(element.Attribute("health").Value);
-        unit.Armor = float.Parse(element.Attribute("armor").Value);
-        unit.Speed = float.Parse(element.Attribute("speed").Value);
+        unit.MoveSpeed = float.Parse(element.Attribute("moveSpeed").Value);
         unit.Ghost = bool.Parse(element.Attribute("ghost").Value);
+        unit.WeaponType = (WeaponType)Enum.Parse(typeof(WeaponType), element.Attribute("weaponType").Value);
+        unit.Weapon = _objectStorage.WeaponTemplates[unit.WeaponType.ToString()];
 
         _objectStorage.UnitTemplates.Add(element.Attribute("type").Value, unit);
     }
@@ -69,6 +102,33 @@ public class DataLoadManager : IDataLoadManager
         obstacle.ObstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), element.Attribute("type").Value);
 
         _objectStorage.ObstacleTemplates.Add(element.Attribute("type").Value, obstacle);
+    }
+    void ReadWeaponTemplate(XElement element)
+    {
+        IWeapon weapon = new Weapon
+        {
+            Alias = element.Attribute("alias").Value,
+            WeaponType = (WeaponType)Enum.Parse(typeof(WeaponType), element.Attribute("type").Value),
+            FireSpeed = int.Parse(element.Attribute("fireSpeed").Value),
+            ReloadSpeed = int.Parse(element.Attribute("reloadSpeed").Value),
+            CritAttack = int.Parse(element.Attribute("critAttack").Value),
+            BaseAttack = int.Parse(element.Attribute("baseAttack").Value),
+            BulletType = (BulletType)Enum.Parse(typeof(BulletType), element.Attribute("bulletType").Value)
+        };
+
+        _objectStorage.WeaponTemplates.Add(weapon.WeaponType.ToString(), weapon);
+    }
+    void ReadBulletTemplate(XElement element)
+    {
+        IBullet bullet = new Bullet
+        {
+            Alias = element.Attribute("alias").Value,
+            BulletType = (BulletType)Enum.Parse(typeof(BulletType), element.Attribute("type").Value),
+            MoveSpeed = int.Parse(element.Attribute("moveSpeed").Value),
+            Damage = int.Parse(element.Attribute("damage").Value)
+        };
+
+        _objectStorage.BulletTemplates.Add(bullet.BulletType.ToString(), bullet);
     }
     void ReadObstacleSet(XElement element)
     {
@@ -120,12 +180,11 @@ public class DataLoadManager : IDataLoadManager
             {
                 Alias = template.UnitType.ToString(),
                 UnitType = template.UnitType,
-                BaseAttack = template.BaseAttack,
                 Health = template.Health,
-                Armor = template.Armor,
-                Speed = template.Speed,
+                MoveSpeed = template.MoveSpeed,
                 Ghost = template.Ghost,
-                DiapasonSpawnPosition = cell.DiapasonSpawnPositions[int.Parse(subElement.Attribute("diapasonSpawnPosition").Value)]
+                DiapasonSpawnPosition = cell.DiapasonSpawnPositions[int.Parse(subElement.Attribute("diapasonSpawnPosition").Value)],
+                Weapon = template.Weapon
             };
             cell.Units.Add(unit);
         }
@@ -163,4 +222,5 @@ public class DataLoadManager : IDataLoadManager
 
         _objectStorage.Levels.Add(level);
     }
+   
 }

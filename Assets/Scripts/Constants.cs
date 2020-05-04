@@ -4,16 +4,40 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
+    public enum UnitType
+    {
+        Player,
+        EnemyType1,
+        EnemyType2,
+        EnemyType3
+    }
+
+    public enum ObstacleType
+    {
+        SteelWall,
+        EnergyWall
+    }
+
+    public enum BulletType
+    {
+        BulletType1,
+        BulletType2,
+        BulletType3
+    }
+
+    public enum WeaponType
+    {
+        WeaponType1,
+        WeaponType2
+    }
+
+    public enum Team
+    {
+        Player,
+        Enemy
+    }
     public static class Constants
     {
-        public static string playerPrefabName = "Player";
-        public static string EnemyType1PrefabName = "EnemyType1";
-        public static string EnemyType2PrefabName = "EnemyType2";
-        public static string EnemyType3PrefabName = "EnemyType3";
-
-        public static string EnergyWallPrefabName = "EnergyWall";
-        public static string SteelWallPrefabName = "SteelWall";
-
         public static string controllerPrefabName = "Controller";
         public static string cellPrefabName = "Cell";
         public static string lowerTriggerName = "LowerTrigger";
@@ -26,7 +50,6 @@ namespace Assets.Scripts
         public static Vector3 startCellPosition = Vector3.zero;
         public static Vector3 distanceToNextCell = new Vector3(0, 70, 0);
 
-        public static float cameraSpeed = 20f;
-
+        public static float cameraSpeed = 10f;
     }
 }

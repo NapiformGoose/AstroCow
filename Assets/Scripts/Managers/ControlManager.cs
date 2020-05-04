@@ -23,7 +23,7 @@ namespace Assets.Scripts.Managers
             _objectStorage = objectStorage;
 
             _updateManager.AddUpdatable(this);
-            _player = _objectStorage.Units[Constants.playerPrefabName][0];
+            _player = _objectStorage.Units[UnitType.Player.ToString()][0];
         }
         public void Initialization()
         {
@@ -32,7 +32,8 @@ namespace Assets.Scripts.Managers
         public void CustomFixedUpdate()
         {
             MoveCamera();
-            if(isMoving)
+           
+            if (isMoving)
             {
                 Moving();
             }
@@ -56,7 +57,7 @@ namespace Assets.Scripts.Managers
                 if (Physics.Raycast(ray, out hit))
                 {
                     firstClickPos = hit.point;
-                    distToPlayer = new Vector3(_player.UnitGameObject.transform.position.x - firstClickPos.x, _player.UnitGameObject.transform.position.y - firstClickPos.y, 0);
+                    distToPlayer = new Vector3(_player.GameObject.transform.position.x - firstClickPos.x, _player.GameObject.transform.position.y - firstClickPos.y, 0);
                 }
             }
             if (Input.GetMouseButton(0))
@@ -76,12 +77,12 @@ namespace Assets.Scripts.Managers
         }
         void FollowCamera()
         {
-            _player.UnitGameObject.GetComponent<Rigidbody2D>().MovePosition(Vector2.MoveTowards(_player.UnitGameObject.transform.position, new Vector2(_player.UnitGameObject.transform.position.x, _player.UnitGameObject.transform.position.y) + new Vector2(0, 20) * Time.fixedDeltaTime, 5f));
+            _player.RigidBody2D.MovePosition(Vector2.MoveTowards(_player.GameObject.transform.position, new Vector2(_player.GameObject.transform.position.x, _player.GameObject.transform.position.y) + new Vector2(0, Constants.cameraSpeed) * Time.fixedDeltaTime, 5f));
         }
 
         void Moving()
         {
-            _player.UnitGameObject.GetComponent<Rigidbody2D>().MovePosition(Vector2.MoveTowards(_player.UnitGameObject.transform.position, newPlayerPosition, 1f));
+            _player.RigidBody2D.MovePosition(Vector2.MoveTowards(_player.GameObject.transform.position, newPlayerPosition, _player.MoveSpeed));
         }
         void MoveCamera()
         {

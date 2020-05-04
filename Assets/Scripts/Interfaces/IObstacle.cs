@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Assets.Scripts;
 public interface IObstacle
 {
     string Alias { get; set; }
@@ -10,10 +10,4 @@ public interface IObstacle
     Rigidbody2D ObstacleRigidBody2D { get; set; }
     ObstacleType ObstacleType { get; set; }
     Vector3 SpawnPosition { get; set; }
-}
-
-public enum ObstacleType
-{
-    SteelWall,
-    EnergyWall
 }

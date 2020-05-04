@@ -3,49 +3,107 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Interfaces;
 
-public class ObjectCreateManager : IObjectCreateManager
+namespace Assets.Scripts.Managers
 {
-    IDictionary<string, GameObject> _prefabs;
-    public ObjectCreateManager()
+    public class ObjectCreateManager : IObjectCreateManager
     {
-
-    }
-    public void AddPrefabs(IDictionary<string, GameObject> prefabs)
-    {
-        _prefabs = prefabs;
-    }
-    //описать другие свойства
-    public IObstacle CreateObstacle(IObstacle obstacle, Vector3 currentPos)
-    {
-        IObstacle newObstacle = new Obstacle
+        IDictionary<string, GameObject> _prefabs;
+        public ObjectCreateManager()
         {
-            ObstacleGameObject = GameObject.Instantiate(_prefabs[obstacle.ObstacleType.ToString()])
-        };
-        newObstacle.ObstacleCollider2D = newObstacle.ObstacleGameObject.GetComponent<Collider2D>() as Collider2D;
-        newObstacle.ObstacleRigidBody2D = newObstacle.ObstacleGameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
 
-        newObstacle.ObstacleGameObject.transform.position = currentPos + obstacle.SpawnPosition;
-        return newObstacle;
-    }
-
-    public IUnit CreateUnit(IUnit unit, Vector3 spawnPos)
-    {
-        IUnit newUnit = new Unit
+        }
+        public void AddPrefabs(IDictionary<string, GameObject> prefabs)
         {
-            UnitGameObject = GameObject.Instantiate(_prefabs[unit.UnitType.ToString()]),
-        };
-        newUnit.UnitCollider2D = newUnit.UnitGameObject.GetComponent<Collider2D>() as Collider2D;
-        newUnit.UnitRigidBody2D = newUnit.UnitGameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
-        newUnit.UnitGameObject.transform.position = spawnPos;
-        return newUnit;
-    }
-    public Vector3 CalculateUnitSpawnPosition(IDiapasonSpawnPosition diapasonSpawnPosition, Vector3 currentCellPos)
-    {
-        int x = Random.Range(diapasonSpawnPosition.minXPos, diapasonSpawnPosition.maxXPos);
-        int y = Random.Range(diapasonSpawnPosition.minYPos, diapasonSpawnPosition.maxYPos);
+            _prefabs = prefabs;
+        }
 
-        Vector3 spawnPosition = new Vector3(currentCellPos.x + x, currentCellPos.y + y, diapasonSpawnPosition.ZPos);
-        return spawnPosition;
+        public IObstacle CreateObstacle(IObstacle obstacle)
+        {
+            IObstacle newObstacle = new Obstacle
+            {
+                ObstacleGameObject = GameObject.Instantiate(_prefabs[obstacle.ObstacleType.ToString()])
+            };
+            newObstacle.ObstacleCollider2D = newObstacle.ObstacleGameObject.GetComponent<Collider2D>() as Collider2D;
+            newObstacle.ObstacleRigidBody2D = newObstacle.ObstacleGameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
+            newObstacle.ObstacleGameObject.transform.position = Vector3.zero;
+
+            //newObstacle.ObstacleGameObject.transform.position = currentPos + obstacle.SpawnPosition;
+            return newObstacle;
+        }
+
+        public IUnit CreateUnit(IUnit unit, Vector3 spawnPos)
+        {
+            IUnit newUnit = new Unit
+            {
+                GameObject = GameObject.Instantiate(_prefabs[unit.UnitType.ToString()]),
+            };
+
+            newUnit.UnitType = unit.UnitType;
+            newUnit.Team = unit.UnitType == UnitType.Player ? Team.Player : Team.Enemy;
+
+            newUnit.Collider2D = newUnit.GameObject.GetComponent<Collider2D>() as Collider2D;
+            newUnit.RigidBody2D = newUnit.GameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
+
+            newUnit.ShootPosition = (GameObject)newUnit.GameObject.transform.Find("ShootPosition").gameObject;
+            newUnit.Weapon = unit.Weapon;
+
+            newUnit.Health = unit.Health;
+            newUnit.MoveSpeed = unit.MoveSpeed;
+            return newUnit;
+        }
+        public Vector3 CalculateUnitSpawnPosition(IDiapasonSpawnPosition diapasonSpawnPosition, Vector3 currentCellPos)
+        {
+            int x = Random.Range(diapasonSpawnPosition.minXPos, diapasonSpawnPosition.maxXPos);
+            int y = Random.Range(diapasonSpawnPosition.minYPos, diapasonSpawnPosition.maxYPos);
+
+            Vector3 spawnPosition = new Vector3(currentCellPos.x + x, currentCellPos.y + y, diapasonSpawnPosition.ZPos);
+            return spawnPosition;
+        }
+
+        public void SetBehaviour(IUnit unit, Vector3 spawnPos)
+        {
+            switch (unit.UnitType)
+            {
+                case UnitType.Player:
+                    {
+                        unit.Behaviour = new Behaviour
+                        {
+                            StartPos = spawnPos,
+                        };
+                        break;
+                    }
+                case UnitType.EnemyType1:
+                    {
+                        unit.Behaviour = new Behaviour
+                        {
+                            StartPos = spawnPos,
+                        };
+                        break;
+                    }
+                case UnitType.EnemyType2:
+                    {
+                        unit.Behaviour = new Behaviour
+                        {
+                            StartPos = spawnPos,
+                            MaxLeftPos = new Vector3(-32, 0, 0),
+                            MaxRightPos = new Vector3(32, 0, 0),
+                            Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
+                        };
+                        break;
+                    }
+            }
+        }
+
+        public IBullet CreateBullet(GameObject bulletPrefab)
+        {
+            IBullet newBullet = new Bullet
+            {
+                BulletGameObject = GameObject.Instantiate(_prefabs[BulletType.BulletType1.ToString()])
+            };
+            newBullet.BulletCollider2D = newBullet.BulletGameObject.GetComponent<Collider2D>() as Collider2D;
+            newBullet.BulletRigidBody2D = newBullet.BulletGameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
+            return newBullet;
+        }
     }
 }
 

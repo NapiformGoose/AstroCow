@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDataLoadManager
+public interface ICoroutiner
 {
-    void Read();
-    void LoadPrefabs();
+    Coroutine StartCoroutine(IEnumerator routine);
 }
