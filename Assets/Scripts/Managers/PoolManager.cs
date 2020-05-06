@@ -54,17 +54,18 @@ public class PoolManager
             {
                 if (_objectStorage.Obstacles.Keys.Contains(obstacle.ObstacleType.ToString()))
                 {
-                    _objectStorage.Obstacles[obstacle.ObstacleType.ToString()].Add(_objectCreateManager.CreateObstacle(obstacle));
+                    _objectStorage.Obstacles[obstacle.ObstacleType.ToString()].Add(_objectCreateManager.CreateObstacle(obstacle, currentCellPos));
                 }
-
-                _objectStorage.Obstacles[obstacle.ObstacleType.ToString()] = new List<IObstacle>();
-                _objectStorage.Obstacles[obstacle.ObstacleType.ToString()].Add(_objectCreateManager.CreateObstacle(obstacle)); //не работает
+                else
+                {
+                    _objectStorage.Obstacles[obstacle.ObstacleType.ToString()] = new List<IObstacle>();
+                    _objectStorage.Obstacles[obstacle.ObstacleType.ToString()].Add(_objectCreateManager.CreateObstacle(obstacle, currentCellPos));
+                }
             }
             currentCellPos += Constants.distanceToNextCell;
         }
         CreateBullet();
     }
-
 
     void CreateBullet()
     {

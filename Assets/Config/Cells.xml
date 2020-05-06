@@ -17,7 +17,7 @@
 			<Unit type="EnemyType1" diapasonSpawnPosition="1"/> //конкретный экзепляр юнита, указываем его тип и позицию
 			<Unit type="EnemyType2" diapasonSpawnPosition="2"/>
 		</Units>
-		<ObstacleSet id="0"/>
+		<ObstacleSet id="1"/>
 	</Cell>
 	<Cell id="2" difficult="null">
 		<SpawnPositions>
@@ -28,6 +28,6 @@
 			<Unit type="EnemyType2" diapasonSpawnPosition="1"/> //конкретный экзепляр юнита, указываем его тип и позицию
 			<Unit type="EnemyType3" diapasonSpawnPosition="2"/>
 		</Units>
-		<ObstacleSet id="0"/>
+		<ObstacleSet id="2"/>
 	</Cell>
 </Cells>

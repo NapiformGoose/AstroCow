@@ -17,7 +17,7 @@ namespace Assets.Scripts.Managers
             _prefabs = prefabs;
         }
 
-        public IObstacle CreateObstacle(IObstacle obstacle)
+        public IObstacle CreateObstacle(IObstacle obstacle, Vector3 currentCellPos)
         {
             IObstacle newObstacle = new Obstacle
             {
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Managers
             newObstacle.ObstacleRigidBody2D = newObstacle.ObstacleGameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
             newObstacle.ObstacleGameObject.transform.position = Vector3.zero;
 
-            //newObstacle.ObstacleGameObject.transform.position = currentPos + obstacle.SpawnPosition;
+            newObstacle.ObstacleGameObject.transform.position = currentCellPos + obstacle.SpawnPosition;
             return newObstacle;
         }
 
