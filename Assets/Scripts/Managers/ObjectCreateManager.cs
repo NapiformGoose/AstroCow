@@ -45,7 +45,21 @@ namespace Assets.Scripts.Managers
             newUnit.RigidBody2D = newUnit.GameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
 
             newUnit.ShootPosition = (GameObject)newUnit.GameObject.transform.Find("ShootPosition").gameObject;
-            newUnit.Weapon = unit.Weapon;
+            newUnit.Weapon = new Weapon
+            {
+                BaseAttack = unit.Weapon.BaseAttack,
+                CritAttack = unit.Weapon.CritAttack,
+                FireSpeed = unit.Weapon.FireSpeed,
+                ReloadSpeed = unit.Weapon.ReloadSpeed,
+            };
+
+            if (newUnit.UnitType == UnitType.Player)
+            {
+                newUnit.Weapon.BaseAttack *= Constants.baseAttackModifier;
+                newUnit.Weapon.CritAttack *= Constants.critAttackModifier;
+                newUnit.Weapon.FireSpeed /= Constants.fireSpeedModifier;
+                newUnit.Weapon.ReloadSpeed /= Constants.reloadSpeedModifier;
+            }
 
             newUnit.Health = unit.Health;
             newUnit.MoveSpeed = unit.MoveSpeed;

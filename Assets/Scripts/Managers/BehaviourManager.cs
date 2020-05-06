@@ -70,7 +70,7 @@ public class BehaviourManager : IUpdatable
                 if (damage > 0)
                 {
                     unit.Health -= damage;
-                    if(unit.Health == 0)
+                    if(unit.Health <= 0)
                     {
                         unit.GameObject.SetActive(false);
                         unit.Text.SetActive(false);

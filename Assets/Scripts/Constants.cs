@@ -38,6 +38,7 @@ namespace Assets.Scripts
     }
     public static class Constants
     {
+        //Config files
         public static string ConfigFolderPath = Application.dataPath + "/Config/";
 
         public static string templatesConfigName = "Templates";
@@ -45,7 +46,6 @@ namespace Assets.Scripts
         public static string setsConfigName = "Sets";
         public static string obstacleSetsConfigName = "ObstacleSets";
         public static string objectsConfigName = "Objects";
-
         public static string xmlFormat = ".xml";
 
         public static string controllerPrefabName = "Controller";
@@ -53,13 +53,18 @@ namespace Assets.Scripts
         public static string lowerTriggerName = "LowerTrigger";
         public static string prefabPath = "Prefabs/"; 
 
-
-        //Game logic: player
+        //Positions
         public static Vector3 playerStartPosition = new Vector3(0, 0, 0);
-
         public static Vector3 startCellPosition = Vector3.zero;
         public static Vector3 distanceToNextCell = new Vector3(0, 12.8f, 0);
 
         public static float cameraSpeed = 1f;
+
+        //Player Property Modifiers
+        public static float baseAttackModifier = 2f;
+        public static float critAttackModifier = 2f; //пока не работает
+        public static float fireSpeedModifier = 3f;
+        public static float reloadSpeedModifier = 2f; //пока не работает
+
     }
 }

@@ -90,14 +90,14 @@ public static class BehaviourList
     }
     static IEnumerator WeaponType1Shoot(IUnit unit)
     {
-        yield return new WaitForSeconds(unit.Weapon.ReloadSpeed);
+        yield return new WaitForSeconds(unit.Weapon.FireSpeed);
         unit.Behaviour.IsAttack = true;
         Team aim = unit.Team == Team.Player ? Team.Enemy : Team.Player;
         CreateBullet(BulletType.BulletType1, unit.ShootPosition, aim, unit.Weapon.BaseAttack);
     }
     static IEnumerator WeaponType2Shoot(IUnit unit)
     {
-        yield return new WaitForSeconds(unit.Weapon.ReloadSpeed);
+        yield return new WaitForSeconds(unit.Weapon.FireSpeed);
         unit.Behaviour.IsAttack = true;
         Team aim = unit.Team == Team.Player ? Team.Enemy : Team.Player;
 
