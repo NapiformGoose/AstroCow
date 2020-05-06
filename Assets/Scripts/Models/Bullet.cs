@@ -11,7 +11,7 @@ public class Bullet : IBullet
     public Rigidbody2D BulletRigidBody2D { get; set; }
     public BulletType BulletType { get; set; }
     public Behaviour Behaviour { get; set; }
-    public int MoveSpeed { get; set; }
+    public float MoveSpeed { get; set; }
     public Team Aim { get; set; }
     public int Damage { get; set; }
 }

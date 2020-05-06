@@ -1,8 +1,8 @@
 <Objects>
 <UnitTemplates>
-	<UnitTemplate alias="Cow" type="Player" health="5" moveSpeed="1" ghost="false" weaponType="WeaponType2"/>
-	<UnitTemplate alias="Destroyer" type="EnemyType1" health="1" moveSpeed="5" ghost="false" weaponType="WeaponType1"/>
-	<UnitTemplate alias="Rogue" type="EnemyType2" health="2" moveSpeed="3" ghost="false" weaponType="WeaponType2"/>
+	<UnitTemplate alias="Cow" type="Player" health="5" moveSpeed="0,08" ghost="false" weaponType="WeaponType2"/>
+	<UnitTemplate alias="Destroyer" type="EnemyType1" health="1" moveSpeed="1" ghost="false" weaponType="WeaponType1"/>
+	<UnitTemplate alias="Rogue" type="EnemyType2" health="2" moveSpeed="1" ghost="false" weaponType="WeaponType2"/>
 	<UnitTemplate alias="Tank" type="EnemyType3" health="3" moveSpeed="1" ghost="true" weaponType="WeaponType1"/>
 </UnitTemplates>
 
@@ -17,7 +17,7 @@
 </WeaponTemplates>
 
 <BulletTemplates>
-	<BulletTemplate alias="Vertical" type="BulletType1" moveSpeed="100" damage="0"/>
+	<BulletTemplate alias="Vertical" type="BulletType1" moveSpeed="4"/>
 </BulletTemplates>
 
 <ObstacleSets>
@@ -51,8 +51,8 @@
 	</Cell>
 	<Cell id="1" difficult="null">
 		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-30" maxXPos="0" minYPos="15" maxYPos="25" ZPos="0"/> //координаты точек спавна для юнитов
-			<diapasonSpawnPosition id="2" minXPos="-30" maxXPos="30" minYPos="0" maxYPos="5" ZPos="0"/>
+			<diapasonSpawnPosition id="1" minXPos="-3" maxXPos="0" minYPos="1" maxYPos="2" ZPos="0"/> //координаты точек спавна для юнитов
+			<diapasonSpawnPosition id="2" minXPos="-3" maxXPos="3" minYPos="0" maxYPos="1" ZPos="0"/>
 		</SpawnPositions>
 		<Units>
 			<Unit type="EnemyType1" diapasonSpawnPosition="1"/> //конкретный экзепляр юнита, указываем его тип и позицию
@@ -62,12 +62,12 @@
 	</Cell>
 	<Cell id="2" difficult="null">
 		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="0" maxXPos="5" minYPos="10" maxYPos="25" ZPos="0"/> //координаты точек спавна для юнитов
-			<diapasonSpawnPosition id="2" minXPos="15" maxXPos="20" minYPos="0" maxYPos="5" ZPos="0"/>
+			<diapasonSpawnPosition id="1" minXPos="0" maxXPos="3" minYPos="1" maxYPos="3" ZPos="0"/> //координаты точек спавна для юнитов
+			<diapasonSpawnPosition id="2" minXPos="1" maxXPos="2" minYPos="0" maxYPos="3" ZPos="0"/>
 		</SpawnPositions>
 		<Units>
-			<Unit type="EnemyType2" diapasonSpawnPosition="2"/> //конкретный экзепляр юнита, указываем его тип и позицию
-			<Unit type="EnemyType3" diapasonSpawnPosition="1"/>
+			<Unit type="EnemyType2" diapasonSpawnPosition="1"/> //конкретный экзепляр юнита, указываем его тип и позицию
+			<Unit type="EnemyType3" diapasonSpawnPosition="2"/>
 		</Units>
 		<ObstacleSet id="0"/>
 	</Cell>

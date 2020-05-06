@@ -125,7 +125,7 @@ public static class BehaviourList
         }
 
         Vector2 newUnitPosition = unit.GameObject.transform.position + unit.Behaviour.Direction;
-        unit.RigidBody2D.MovePosition(Vector2.MoveTowards(unit.GameObject.transform.position, newUnitPosition, 1f));
+        unit.RigidBody2D.MovePosition(Vector2.MoveTowards(unit.GameObject.transform.position, newUnitPosition, 0.05f));
     }
     #endregion
 
@@ -153,14 +153,14 @@ public static class BehaviourList
     public static void VerticalBulletMoving(IBullet bullet)
     {
         Vector3 distanceUp = new Vector3(0, bullet.MoveSpeed * Time.fixedDeltaTime, 0);
-        Vector3 distanceDown = new Vector3(0, bullet.MoveSpeed * Time.fixedDeltaTime + Constants.cameraSpeed, 0);
-        Vector2 newBulletPosition = bullet.Aim == Team.Enemy ? bullet.BulletGameObject.transform.position + distanceUp : bullet.BulletGameObject.transform.position - distanceDown;
+        Vector3 distanceDown = new Vector3(0, bullet.MoveSpeed * Time.fixedDeltaTime, 0);
+        Vector2 newBulletPosition = bullet.Aim == Team.Enemy ? bullet.BulletGameObject.transform.position + distanceDown : bullet.BulletGameObject.transform.position - distanceUp;
         bullet.BulletRigidBody2D.MovePosition(Vector2.MoveTowards(bullet.BulletGameObject.transform.position, newBulletPosition, 1f));
     }
     public static void LeftDiagonalBulletMoving(IBullet bullet)
     {
         Vector3 distanceUp = new Vector3(-bullet.MoveSpeed * Time.fixedDeltaTime, bullet.MoveSpeed * Time.fixedDeltaTime, 0);
-        Vector3 distanceDown = new Vector3(bullet.MoveSpeed * Time.fixedDeltaTime + Constants.cameraSpeed, -bullet.MoveSpeed * Time.fixedDeltaTime - Constants.cameraSpeed, 0);
+        Vector3 distanceDown = new Vector3(bullet.MoveSpeed * Time.fixedDeltaTime, -bullet.MoveSpeed * Time.fixedDeltaTime, 0);
         Vector2 newBulletPosition = bullet.Aim == Team.Enemy ? bullet.BulletGameObject.transform.position + distanceUp : bullet.BulletGameObject.transform.position + distanceDown;
 
         bullet.BulletRigidBody2D.MovePosition(Vector2.MoveTowards(bullet.BulletGameObject.transform.position, newBulletPosition, 1f));
@@ -168,7 +168,7 @@ public static class BehaviourList
     public static void RightDiagonalBulletMoving(IBullet bullet)
     {
         Vector3 distanceUp = new Vector3(bullet.MoveSpeed * Time.fixedDeltaTime, bullet.MoveSpeed * Time.fixedDeltaTime, 0);
-        Vector3 distanceDown = new Vector3(-bullet.MoveSpeed * Time.fixedDeltaTime - Constants.cameraSpeed, -bullet.MoveSpeed * Time.fixedDeltaTime - Constants.cameraSpeed, 0);
+        Vector3 distanceDown = new Vector3(-bullet.MoveSpeed * Time.fixedDeltaTime, -bullet.MoveSpeed * Time.fixedDeltaTime, 0);
         Vector2 newBulletPosition = bullet.Aim == Team.Enemy ? bullet.BulletGameObject.transform.position + distanceUp : bullet.BulletGameObject.transform.position + distanceDown;
 
         bullet.BulletRigidBody2D.MovePosition(Vector2.MoveTowards(bullet.BulletGameObject.transform.position, newBulletPosition, 1f));

@@ -48,8 +48,8 @@ namespace Assets.Scripts
         public static Vector3 playerStartPosition = new Vector3(0, 0, 0);
 
         public static Vector3 startCellPosition = Vector3.zero;
-        public static Vector3 distanceToNextCell = new Vector3(0, 70, 0);
+        public static Vector3 distanceToNextCell = new Vector3(0, 12.8f, 0);
 
-        public static float cameraSpeed = 10f;
+        public static float cameraSpeed = 1f;
     }
 }

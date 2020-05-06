@@ -11,7 +11,7 @@ public interface IBullet
     Rigidbody2D BulletRigidBody2D { get; set; }
     BulletType BulletType { get; set; }
     Behaviour Behaviour { get; set; }
-    int MoveSpeed { get; set; }
+    float MoveSpeed { get; set; }
     Team Aim { get; set; }
     int Damage { get; set; }
 }

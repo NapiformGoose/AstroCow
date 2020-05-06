@@ -33,7 +33,7 @@ public class PoolManager
                 newUnit.GameObject.transform.position = spawnPos;
                 var text = Resources.Load(Constants.prefabPath + "Text") as GameObject;
                 newUnit.Text = GameObject.Instantiate<GameObject>(text);
-                newUnit.Text.transform.position = newUnit.GameObject.transform.position + new Vector3(7, 7, 0);
+                newUnit.Text.transform.position = newUnit.GameObject.transform.position + new Vector3(0.7f, 0.7f, 0);
                 newUnit.Text.GetComponent<Text>().text = newUnit.Health.ToString();
 
                 newUnit.Text.GetComponent<Text>().transform.SetParent(_objectStorage.Canvas.transform);
@@ -68,7 +68,7 @@ public class PoolManager
 
     void CreateBullet()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType1.ToString()]);
             bullet.BulletGameObject.SetActive(false);
@@ -85,7 +85,7 @@ public class PoolManager
                 _objectStorage.Bullets[BulletType.BulletType1.ToString()].Add(bullet);
             }
         }
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType1.ToString()]);
             bullet.BulletGameObject.SetActive(false);
@@ -102,7 +102,7 @@ public class PoolManager
                 _objectStorage.Bullets[BulletType.BulletType2.ToString()].Add(bullet);
             }
         }
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType1.ToString()]);
             bullet.BulletGameObject.SetActive(false);

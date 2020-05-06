@@ -83,7 +83,7 @@ public class BehaviourManager : IUpdatable
                 if (IsActive(unit.Collider2D))
                 {
                     BehaviourList.UnitAct(unit);
-                    unit.Text.transform.position = unit.GameObject.transform.position + new Vector3(7, 7, 0);
+                    unit.Text.transform.position = unit.GameObject.transform.position + new Vector3(0.7f, 0.7f, 0);
                     unit.Text.GetComponent<Text>().text = unit.Health.ToString();
                 }
                 if(IsDownDeactive(unit.Collider2D))

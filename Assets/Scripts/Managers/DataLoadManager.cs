@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using UnityEngine;
 using Assets.Scripts;
 using UnityEngine.UI;
+using System.Globalization;
 
 public class DataLoadManager : IDataLoadManager
 {
@@ -86,7 +87,7 @@ public class DataLoadManager : IDataLoadManager
         unit.Alias = element.Attribute("alias").Value;
         unit.UnitType = (UnitType)Enum.Parse(typeof(UnitType), element.Attribute("type").Value);
         unit.Health = int.Parse(element.Attribute("health").Value);
-        unit.MoveSpeed = float.Parse(element.Attribute("moveSpeed").Value);
+        unit.MoveSpeed = float.Parse(element.Attribute("moveSpeed").Value, CultureInfo.CurrentCulture);
         unit.Ghost = bool.Parse(element.Attribute("ghost").Value);
         unit.WeaponType = (WeaponType)Enum.Parse(typeof(WeaponType), element.Attribute("weaponType").Value);
         unit.Weapon = _objectStorage.WeaponTemplates[unit.WeaponType.ToString()];
@@ -124,8 +125,7 @@ public class DataLoadManager : IDataLoadManager
         {
             Alias = element.Attribute("alias").Value,
             BulletType = (BulletType)Enum.Parse(typeof(BulletType), element.Attribute("type").Value),
-            MoveSpeed = int.Parse(element.Attribute("moveSpeed").Value),
-            Damage = int.Parse(element.Attribute("damage").Value)
+            MoveSpeed = float.Parse(element.Attribute("moveSpeed").Value, CultureInfo.CurrentCulture),
         };
 
         _objectStorage.BulletTemplates.Add(bullet.BulletType.ToString(), bullet);
