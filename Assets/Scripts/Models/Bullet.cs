@@ -13,5 +13,5 @@ public class Bullet : IBullet
     public Behaviour Behaviour { get; set; }
     public float MoveSpeed { get; set; }
     public Team Aim { get; set; }
-    public int Damage { get; set; }
+    public float Damage { get; set; }
 }

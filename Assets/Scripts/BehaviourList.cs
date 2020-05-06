@@ -74,7 +74,7 @@ public static class BehaviourList
         }
     }
 
-    static void CreateBullet(BulletType bulletType, GameObject shootPosition, Team aim, int damage)
+    static void CreateBullet(BulletType bulletType, GameObject shootPosition, Team aim, float damage)
     {
         foreach (IBullet bullet in ObjectStorage.Bullets[bulletType.ToString()])
         {

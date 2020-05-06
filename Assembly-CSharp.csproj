@@ -99,7 +99,10 @@
     <Compile Include="Assets\Scripts\Models\Obstacle.cs" />
     <Compile Include="Assets\Scripts\Models\Unit.cs" />
     <Compile Include="Assets\Scripts\Models\Weapon.cs" />
+    <None Include="Assets\Config\Cells.xml" />
+    <None Include="Assets\Config\Templates.xml" />
     <None Include="Assets\Config\Objects.xml" />
+    <None Include="Assets\Config\ObstacleSets.xml" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Projects/AstroCow/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

@@ -1,0 +1,18 @@
+<ObstacleSets>
+	<ObstacleSet id="0">
+	</ObstacleSet>
+	<ObstacleSet id="1">
+		<Obstacle type="SteelWall" x="0" y="10" z="0"/>
+		<Obstacle type="SteelWall" x="-20" y="20" z="0"/>
+		<Obstacle type="SteelWall" x="0" y="10" z="0"/>
+		<Obstacle type="SteelWall" x="-20" y="20" z="0"/>
+	</ObstacleSet>
+	<ObstacleSet id="2">
+		<Obstacle type="EnergyWall" x="12" y="10" z="0"/>
+		<Obstacle type="SteelWall" x="-15" y="-20" z="0"/>
+	</ObstacleSet>
+	<ObstacleSet id="3">
+		<Obstacle type="EnergyWall" x="20" y="18" z="0"/>
+		<Obstacle type="EnergyWall" x="-12" y="0" z="0"/>
+	</ObstacleSet>
+</ObstacleSets>

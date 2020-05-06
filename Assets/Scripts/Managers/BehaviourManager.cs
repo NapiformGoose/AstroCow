@@ -44,7 +44,7 @@ public class BehaviourManager : IUpdatable
         return false;
     }
 
-    private int IsHit(IUnit unit)
+    private float IsHit(IUnit unit)
     {
         foreach (var key in _objectStorage.Bullets.Keys)
         {
@@ -66,7 +66,7 @@ public class BehaviourManager : IUpdatable
         {
             foreach(IUnit unit in _objectStorage.Units[key])
             {
-                int damage = IsHit(unit);
+                float damage = IsHit(unit);
                 if (damage > 0)
                 {
                     unit.Health -= damage;

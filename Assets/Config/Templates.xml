@@ -1,0 +1,22 @@
+<Templates>
+	<UnitTemplates>
+		<UnitTemplate alias="Cow" type="Player" health="51" moveSpeed="0.08" ghost="false" weaponType="WeaponType2"/>
+		<UnitTemplate alias="Destroyer" type="EnemyType1" health="1" moveSpeed="1" ghost="false" weaponType="WeaponType1"/>
+		<UnitTemplate alias="Rogue" type="EnemyType2" health="2" moveSpeed="1" ghost="false" weaponType="WeaponType2"/>
+		<UnitTemplate alias="Tank" type="EnemyType3" health="3" moveSpeed="1" ghost="true" weaponType="WeaponType1"/>
+	</UnitTemplates>
+
+	<ObstacleTemplates>
+		<ObstacleTemplate alias="SteelWall" type="SteelWall"/>
+		<ObstacleTemplate alias="EnergyWall" type="EnergyWall"/>
+	</ObstacleTemplates>
+
+	<WeaponTemplates>
+		<WeaponTemplate alias="Blaster" type="WeaponType1" fireSpeed="10" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>
+		<WeaponTemplate alias="Shotgun" type="WeaponType2" fireSpeed="10" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType2"/>
+	</WeaponTemplates>
+
+	<BulletTemplates>
+		<BulletTemplate alias="Vertical" type="BulletType1" moveSpeed="4"/>
+	</BulletTemplates>
+</Templates>

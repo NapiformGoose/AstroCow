@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IDataLoadManager
 {
-    void Read();
+    void ReadConfig();
     void LoadPrefabs();
 }

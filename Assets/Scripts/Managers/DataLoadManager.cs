@@ -12,12 +12,20 @@ using System.Globalization;
 public class DataLoadManager : IDataLoadManager
 {
     IObjectStorage _objectStorage;
-    string _path;
-    XElement _xEGameObject;
+
     public DataLoadManager(IObjectStorage objectStorage)
     {
         _objectStorage = objectStorage;
     }
+
+    public void ReadConfig()
+    {
+        ReadTemplatesConfig();
+        ReadObstacleSetsConfig();
+        ReadCellsConfig();
+        ReadObjectsConfig();
+    }
+
     public void LoadPrefabs()
     {
         _objectStorage.ActivationTrigger = GameObject.Find("ActivationTrigger").GetComponent<Collider2D>() as Collider2D;
@@ -39,55 +47,163 @@ public class DataLoadManager : IDataLoadManager
         _objectStorage.Prefabs.Add(Constants.cellPrefabName, Resources.Load(Constants.prefabPath + Constants.cellPrefabName) as GameObject);
         _objectStorage.Prefabs.Add(Constants.lowerTriggerName, Resources.Load(Constants.prefabPath + Constants.lowerTriggerName) as GameObject);
     }
-    public void Read()
+
+    #region Private read method
+    void ReadTemplatesConfig()
     {
-        _path = Application.dataPath + "/Config/Objects.xml";
-        _xEGameObject = XDocument.Parse(File.ReadAllText(_path)).Element("Objects");
+        string path = Constants.ConfigFolderPath + Constants.templatesConfigName + Constants.xmlFormat;
+        XElement xEGameObject = XDocument.Parse(File.ReadAllText(path)).Element(Constants.templatesConfigName);
 
-        foreach (XElement element in _xEGameObject.Element("WeaponTemplates").Elements("WeaponTemplate"))
+        try
         {
-            ReadWeaponTemplate(element);
+            foreach (XElement element in xEGameObject.Element("WeaponTemplates").Elements("WeaponTemplate"))
+            {
+                try
+                {
+                    ReadWeaponTemplate(element);
+                }
+                catch
+                {
+                    throw new Exception($"Error reading config file.\nFile: {path}.\nNode: {element.Name}.\nNode value: {element}");
+                }
+            }
+            foreach (XElement element in xEGameObject.Element("BulletTemplates").Elements("BulletTemplate"))
+            {
+                try
+                {
+                    ReadBulletTemplate(element);
+                }
+                catch
+                {
+                    throw new Exception($"Error reading config file.\nFile: {path}.\nNode: {element.Name}.\nNode value: {element}");
+                }
+            }
+
+            foreach (XElement element in xEGameObject.Element("UnitTemplates").Elements("UnitTemplate"))
+            {
+                try
+                {
+                    ReadUnitTemplate(element);
+                }
+                catch
+                {
+                    throw new Exception($"Error reading config file.\nFile: {path}.\nNode: {element.Name}.\nNode value: {element}");
+                }
+            }
+            foreach (XElement element in xEGameObject.Element("ObstacleTemplates").Elements("ObstacleTemplate"))
+            {
+                try
+                {
+                    ReadObstacleTemplate(element);
+                }
+                catch
+                {
+                    throw new Exception($"Error reading config file.\nFile: {path}.\nNode: {element.Name}.\nNode value: {element}");
+                }
+            }
         }
-        foreach (XElement element in _xEGameObject.Element("BulletTemplates").Elements("BulletTemplate"))
+        catch (Exception e)
         {
-            ReadBulletTemplate(element);
+            Debug.LogError(e);
         }
 
-        foreach (XElement element in _xEGameObject.Element("UnitTemplates").Elements("UnitTemplate"))
-        {
-            ReadUnitTemplate(element);
-        }
-        foreach (XElement element in _xEGameObject.Element("ObstacleTemplates").Elements("ObstacleTemplate"))
-        {
-            ReadObstacleTemplate(element);
-        }
-       
-        foreach (XElement element in _xEGameObject.Element("ObstacleSets").Elements("ObstacleSet"))
-        {
-            ReadObstacleSet(element);
-        }
-        foreach (XElement element in _xEGameObject.Element("Cells").Elements("Cell"))
-        {
-            ReadCell(element);
-        }
-        foreach (XElement element in _xEGameObject.Element("CellSets").Elements("CellSet"))
-        {
-            ReadCellSet(element);
-        }
-        foreach (XElement element in _xEGameObject.Element("Levels").Elements("Level"))
-        {
-            ReadLevel(element);
-        }
-       
     }
+
+    void ReadCellsConfig()
+    {
+        string path = Constants.ConfigFolderPath + Constants.cellsConfigName + Constants.xmlFormat;
+        XElement xEGameObject = XDocument.Parse(File.ReadAllText(path)).Element(Constants.cellsConfigName);
+        try
+        {
+            foreach (XElement element in xEGameObject.Elements("Cell"))
+            {
+                try
+                {
+                    ReadCell(element);
+                }
+                catch
+                {
+                    throw new Exception($"Error reading config file.\nFile: {path}.\nNode: {element.Name}.\nNode value: {element}");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
+    }
+
+    public void ReadObstacleSetsConfig()
+    {
+        string path = Constants.ConfigFolderPath + Constants.obstacleSetsConfigName + Constants.xmlFormat;
+        XElement xEGameObject = XDocument.Parse(File.ReadAllText(path)).Element(Constants.obstacleSetsConfigName);
+
+        try
+        {
+            foreach (XElement element in xEGameObject.Elements("ObstacleSet"))
+            {
+                try
+                {
+                    ReadObstacleSet(element);
+                }
+                catch
+                {
+                    throw new Exception($"Error reading config file.\nFile: {path}.\nNode: {element.Name}.\nNode value: {element}");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
+    }
+
+    public void ReadObjectsConfig()
+    {
+        string path = Constants.ConfigFolderPath + Constants.objectsConfigName + Constants.xmlFormat;
+        XElement xEGameObject = XDocument.Parse(File.ReadAllText(path)).Element(Constants.objectsConfigName);
+        try
+        {
+            foreach (XElement element in xEGameObject.Element("CellSets").Elements("CellSet"))
+            {
+                try
+                {
+                    ReadCellSet(element);
+                }
+                catch
+                {
+                    throw new Exception($"Error reading config file.\nFile: {path}.\nNode: {element.Name}.\nNode value: {element}");
+                }
+            }
+            foreach (XElement element in xEGameObject.Element("Levels").Elements("Level"))
+            {
+                try
+                {
+                    ReadLevel(element);
+                }
+                catch
+                {
+                    throw new Exception($"Error reading config file.\nFile: {path}.\nNode: {element.Name}.\nNode value: {element}");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
+    }
+    #endregion
+
+    #region Templates methods
+
     void ReadUnitTemplate(XElement element)
     {
         IUnit unit = new Unit();
 
         unit.Alias = element.Attribute("alias").Value;
         unit.UnitType = (UnitType)Enum.Parse(typeof(UnitType), element.Attribute("type").Value);
-        unit.Health = int.Parse(element.Attribute("health").Value);
-        unit.MoveSpeed = float.Parse(element.Attribute("moveSpeed").Value, CultureInfo.CurrentCulture);
+        unit.Health = float.Parse(element.Attribute("health").Value, CultureInfo.InvariantCulture);
+        unit.MoveSpeed = float.Parse(element.Attribute("moveSpeed").Value, CultureInfo.InvariantCulture);
         unit.Ghost = bool.Parse(element.Attribute("ghost").Value);
         unit.WeaponType = (WeaponType)Enum.Parse(typeof(WeaponType), element.Attribute("weaponType").Value);
         unit.Weapon = _objectStorage.WeaponTemplates[unit.WeaponType.ToString()];
@@ -104,53 +220,39 @@ public class DataLoadManager : IDataLoadManager
 
         _objectStorage.ObstacleTemplates.Add(element.Attribute("type").Value, obstacle);
     }
+
     void ReadWeaponTemplate(XElement element)
     {
         IWeapon weapon = new Weapon
         {
             Alias = element.Attribute("alias").Value,
             WeaponType = (WeaponType)Enum.Parse(typeof(WeaponType), element.Attribute("type").Value),
-            FireSpeed = int.Parse(element.Attribute("fireSpeed").Value),
-            ReloadSpeed = int.Parse(element.Attribute("reloadSpeed").Value),
-            CritAttack = int.Parse(element.Attribute("critAttack").Value),
-            BaseAttack = int.Parse(element.Attribute("baseAttack").Value),
+            FireSpeed = float.Parse(element.Attribute("fireSpeed").Value, CultureInfo.InvariantCulture),
+            ReloadSpeed = float.Parse(element.Attribute("reloadSpeed").Value, CultureInfo.InvariantCulture),
+            CritAttack = float.Parse(element.Attribute("critAttack").Value, CultureInfo.InvariantCulture),
+            BaseAttack = float.Parse(element.Attribute("baseAttack").Value, CultureInfo.InvariantCulture),
             BulletType = (BulletType)Enum.Parse(typeof(BulletType), element.Attribute("bulletType").Value)
         };
 
         _objectStorage.WeaponTemplates.Add(weapon.WeaponType.ToString(), weapon);
     }
+
     void ReadBulletTemplate(XElement element)
     {
         IBullet bullet = new Bullet
         {
             Alias = element.Attribute("alias").Value,
             BulletType = (BulletType)Enum.Parse(typeof(BulletType), element.Attribute("type").Value),
-            MoveSpeed = float.Parse(element.Attribute("moveSpeed").Value, CultureInfo.CurrentCulture),
+            MoveSpeed = float.Parse(element.Attribute("moveSpeed").Value, CultureInfo.InvariantCulture),
         };
 
         _objectStorage.BulletTemplates.Add(bullet.BulletType.ToString(), bullet);
     }
-    void ReadObstacleSet(XElement element)
-    {
-        IList<IObstacle> obstacles = new List<IObstacle>();
-        foreach (XElement subElement in element.Elements("Obstacle"))
-        {
-            IObstacle template = _objectStorage.ObstacleTemplates[subElement.Attribute("type").Value];
 
-            int x = int.Parse(subElement.Attribute("x").Value);
-            int y = int.Parse(subElement.Attribute("y").Value);
-            int z = int.Parse(subElement.Attribute("z").Value);
-            IObstacle obstacle = new Obstacle
-            {
-                Alias = template.ObstacleType.ToString(),
-                ObstacleType = template.ObstacleType,
-                SpawnPosition = new Vector3(x, y, z)
+    #endregion
 
-            };
-            obstacles.Add(obstacle);
-        }
-        _objectStorage.ObstacleSet.Add(int.Parse(element.Attribute("id").Value), obstacles);
-    }
+    #region Cells method
+
     void ReadCell(XElement element)
     {
         ICell cell = new Cell();
@@ -190,7 +292,7 @@ public class DataLoadManager : IDataLoadManager
         }
 
         IList<IObstacle> obstacles = new List<IObstacle>(); //исправить для пулл менеджера!
-        foreach(IObstacle obstacleTemplate in _objectStorage.ObstacleSet[int.Parse(element.Element("ObstacleSet").Attribute("id").Value)])
+        foreach (IObstacle obstacleTemplate in _objectStorage.ObstacleSet[int.Parse(element.Element("ObstacleSet").Attribute("id").Value)])
         {
             IObstacle obstacle = new Obstacle
             {
@@ -204,6 +306,32 @@ public class DataLoadManager : IDataLoadManager
 
         _objectStorage.Cells.Add(int.Parse(element.Attribute("id").Value), cell);
     }
+    #endregion
+
+    #region Sets methods
+
+    void ReadObstacleSet(XElement element)
+    {
+        IList<IObstacle> obstacles = new List<IObstacle>();
+        foreach (XElement subElement in element.Elements("Obstacle"))
+        {
+            IObstacle template = _objectStorage.ObstacleTemplates[subElement.Attribute("type").Value];
+
+            int x = int.Parse(subElement.Attribute("x").Value);
+            int y = int.Parse(subElement.Attribute("y").Value);
+            int z = int.Parse(subElement.Attribute("z").Value);
+            IObstacle obstacle = new Obstacle
+            {
+                Alias = template.ObstacleType.ToString(),
+                ObstacleType = template.ObstacleType,
+                SpawnPosition = new Vector3(x, y, z)
+
+            };
+            obstacles.Add(obstacle);
+        }
+        _objectStorage.ObstacleSet.Add(int.Parse(element.Attribute("id").Value), obstacles);
+    }
+
     void ReadCellSet(XElement element)
     {
         IList<ICell> cells = new List<ICell>();
@@ -212,7 +340,9 @@ public class DataLoadManager : IDataLoadManager
             cells.Add(_objectStorage.Cells[int.Parse(subElement.Attribute("cellId").Value)]);
         }
         _objectStorage.CellSets.Add(int.Parse(element.Attribute("id").Value), cells);
+
     }
+
     void ReadLevel(XElement element)
     {
         ILevel level = new Level();
@@ -222,5 +352,7 @@ public class DataLoadManager : IDataLoadManager
 
         _objectStorage.Levels.Add(level);
     }
-   
+
+    #endregion
+
 }

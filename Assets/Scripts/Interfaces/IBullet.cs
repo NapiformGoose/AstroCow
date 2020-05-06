@@ -13,6 +13,6 @@ public interface IBullet
     Behaviour Behaviour { get; set; }
     float MoveSpeed { get; set; }
     Team Aim { get; set; }
-    int Damage { get; set; }
+    float Damage { get; set; }
 }
 

@@ -1,99 +1,23 @@
 <Objects>
-<UnitTemplates>
-	<UnitTemplate alias="Cow" type="Player" health="5" moveSpeed="0,08" ghost="false" weaponType="WeaponType2"/>
-	<UnitTemplate alias="Destroyer" type="EnemyType1" health="1" moveSpeed="1" ghost="false" weaponType="WeaponType1"/>
-	<UnitTemplate alias="Rogue" type="EnemyType2" health="2" moveSpeed="1" ghost="false" weaponType="WeaponType2"/>
-	<UnitTemplate alias="Tank" type="EnemyType3" health="3" moveSpeed="1" ghost="true" weaponType="WeaponType1"/>
-</UnitTemplates>
-
-<ObstacleTemplates>
-	<ObstacleTemplate alias="SteelWall" type="SteelWall"/>
-	<ObstacleTemplate alias="EnergyWall" type="EnergyWall"/>
-</ObstacleTemplates>
-
-<WeaponTemplates>
-	<WeaponTemplate alias="Blaster" type="WeaponType1" fireSpeed="10" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>
-	<WeaponTemplate alias="Shotgun" type="WeaponType2" fireSpeed="10" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType2"/>
-</WeaponTemplates>
-
-<BulletTemplates>
-	<BulletTemplate alias="Vertical" type="BulletType1" moveSpeed="4"/>
-</BulletTemplates>
-
-<ObstacleSets>
-	<ObstacleSet id="0">
-	</ObstacleSet>
-	<ObstacleSet id="1">
-		<Obstacle type="SteelWall" x="0" y="10" z="0"/>
-		<Obstacle type="SteelWall" x="-20" y="20" z="0"/>
-		<Obstacle type="SteelWall" x="0" y="10" z="0"/>
-		<Obstacle type="SteelWall" x="-20" y="20" z="0"/>
-	</ObstacleSet>
-	<ObstacleSet id="2">
-		<Obstacle type="EnergyWall" x="12" y="10" z="0"/>
-		<Obstacle type="SteelWall" x="-15" y="-20" z="0"/>
-	</ObstacleSet>
-	<ObstacleSet id="3">
-		<Obstacle type="EnergyWall" x="20" y="18" z="0"/>
-		<Obstacle type="EnergyWall" x="-12" y="0" z="0"/>
-	</ObstacleSet>
-</ObstacleSets>
-
-<Cells>
-	<Cell id="0" difficult="null">
-		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="0" maxXPos="0" minYPos="0" maxYPos="0" ZPos="0"/>
-		</SpawnPositions>
-		<Units>
-			<Unit type="Player" diapasonSpawnPosition="1"/> 
-		</Units>
-		<ObstacleSet id="0"/>
-	</Cell>
-	<Cell id="1" difficult="null">
-		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-3" maxXPos="0" minYPos="1" maxYPos="2" ZPos="0"/> //координаты точек спавна для юнитов
-			<diapasonSpawnPosition id="2" minXPos="-3" maxXPos="3" minYPos="0" maxYPos="1" ZPos="0"/>
-		</SpawnPositions>
-		<Units>
-			<Unit type="EnemyType1" diapasonSpawnPosition="1"/> //конкретный экзепляр юнита, указываем его тип и позицию
-			<Unit type="EnemyType2" diapasonSpawnPosition="2"/>
-		</Units>
-		<ObstacleSet id="0"/>
-	</Cell>
-	<Cell id="2" difficult="null">
-		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="0" maxXPos="3" minYPos="1" maxYPos="3" ZPos="0"/> //координаты точек спавна для юнитов
-			<diapasonSpawnPosition id="2" minXPos="1" maxXPos="2" minYPos="0" maxYPos="3" ZPos="0"/>
-		</SpawnPositions>
-		<Units>
-			<Unit type="EnemyType2" diapasonSpawnPosition="1"/> //конкретный экзепляр юнита, указываем его тип и позицию
-			<Unit type="EnemyType3" diapasonSpawnPosition="2"/>
-		</Units>
-		<ObstacleSet id="0"/>
-	</Cell>
-</Cells>
-
-<CellSets>
-	<CellSet id="1" maxDifficult="null"> 
-		<Cell cellId="0"/>
-		<Cell cellId="1"/>
-		<Cell cellId="2"/>
-		<Cell cellId="1"/>
-		<Cell cellId="2"/>
-		<Cell cellId="1"/>
-		<Cell cellId="2"/>
-	</CellSet>
-	<CellSet id="2" maxDifficult="null">
-		<Cell cellId="1"/>
-		<Cell cellId="2"/>
-	</CellSet>
-</CellSets>
-
-<Levels>
-	<Level id="1" stage="1" cellSet="1"/>
-	<Level id="2" stage="1" cellSet="2"/>
-	<Level id="3" stage="1" cellSet="1"/>
-	<Level id="4" stage="1" cellSet="2"/>
-</Levels>
-
+	<CellSets>
+		<CellSet id="1" maxDifficult="null"> 
+			<Cell cellId="0"/>
+			<Cell cellId="1"/>
+			<Cell cellId="2"/>
+			<Cell cellId="1"/>
+			<Cell cellId="2"/>
+			<Cell cellId="1"/>
+			<Cell cellId="2"/>
+		</CellSet>
+		<CellSet id="2" maxDifficult="null">
+			<Cell cellId="1"/>
+			<Cell cellId="2"/>
+		</CellSet>
+	</CellSets>
+	<Levels>
+		<Level id="1" stage="1" cellSet="1"/>
+		<Level id="2" stage="1" cellSet="2"/>
+		<Level id="3" stage="1" cellSet="1"/>
+		<Level id="4" stage="1" cellSet="2"/>
+	</Levels>
 </Objects>

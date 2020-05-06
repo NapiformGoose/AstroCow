@@ -11,7 +11,7 @@ public class Unit : IUnit
     public Collider2D Collider2D { get; set; }
     public Rigidbody2D RigidBody2D { get; set; }
     public UnitType UnitType { get; set; }
-    public int Health { get; set; }
+    public float Health { get; set; }
     public float MoveSpeed { get; set; }
     public bool Ghost { get; set; }
     public IDiapasonSpawnPosition DiapasonSpawnPosition { get; set; }

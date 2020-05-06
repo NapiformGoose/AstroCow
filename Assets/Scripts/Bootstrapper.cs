@@ -17,24 +17,30 @@ namespace Assets.Scripts
         IDataLoadManager _dataLoadManager;
         IObjectCreateManager _objectCreateManager;
         BehaviourManager _behaviourManager;
+
         void Start()
         {
             var updateManagerObject = new GameObject("UpdateManager");
             _updateManager = updateManagerObject.AddComponent<UpdateManager>();
+
             var coroutiner = new GameObject("Coroutiner").AddComponent<Coroutiner>();
             BehaviourList.Coroutiner = coroutiner;
+
             _objectCreateManager = new ObjectCreateManager();
             _objectStorage = new ObjectStorage();
 
             BehaviourList.ObjectStorage = _objectStorage;
 
-            _poolManager = new PoolManager(_objectStorage, _objectCreateManager);
             _dataLoadManager = new DataLoadManager(_objectStorage);
-            _dataLoadManager.Read();
+            _dataLoadManager.ReadConfig();
             _dataLoadManager.LoadPrefabs();
+
+            _poolManager = new PoolManager(_objectStorage, _objectCreateManager);
             _poolManager.LoadLevel();
+
             _controlManager = new ControlManager(_updateManager, _objectStorage);
             _behaviourManager = new BehaviourManager(_updateManager, _objectStorage);
+
             _updateManager.CustomStart();
         }
 

@@ -12,7 +12,7 @@ public interface IUnit
     Rigidbody2D RigidBody2D { get; set; }
     IBehaviour Behaviour { get; set; }
     UnitType UnitType { get; set; }
-    int Health { get; set; }
+    float Health { get; set; }
     float MoveSpeed { get; set; }
     bool Ghost { get; set; }
     IDiapasonSpawnPosition DiapasonSpawnPosition { get; set; }

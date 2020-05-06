@@ -1,0 +1,33 @@
+<Cells>
+	<Cell id="0" difficult="null">
+		<SpawnPositions>
+			<diapasonSpawnPosition id="1" minXPos="0" maxXPos="0" minYPos="0" maxYPos="0" ZPos="0"/>
+		</SpawnPositions>
+		<Units>
+			<Unit type="Player" diapasonSpawnPosition="1"/> 
+		</Units>
+		<ObstacleSet id="0"/>
+	</Cell>
+	<Cell id="1" difficult="null">
+		<SpawnPositions>
+			<diapasonSpawnPosition id="1" minXPos="-3" maxXPos="0" minYPos="1" maxYPos="2" ZPos="0"/> //координаты точек спавна для юнитов
+			<diapasonSpawnPosition id="2" minXPos="-3" maxXPos="3" minYPos="0" maxYPos="1" ZPos="0"/>
+		</SpawnPositions>
+		<Units>
+			<Unit type="EnemyType1" diapasonSpawnPosition="1"/> //конкретный экзепляр юнита, указываем его тип и позицию
+			<Unit type="EnemyType2" diapasonSpawnPosition="2"/>
+		</Units>
+		<ObstacleSet id="0"/>
+	</Cell>
+	<Cell id="2" difficult="null">
+		<SpawnPositions>
+			<diapasonSpawnPosition id="1" minXPos="0" maxXPos="3" minYPos="1" maxYPos="3" ZPos="0"/> //координаты точек спавна для юнитов
+			<diapasonSpawnPosition id="2" minXPos="1" maxXPos="2" minYPos="0" maxYPos="3" ZPos="0"/>
+		</SpawnPositions>
+		<Units>
+			<Unit type="EnemyType2" diapasonSpawnPosition="1"/> //конкретный экзепляр юнита, указываем его тип и позицию
+			<Unit type="EnemyType3" diapasonSpawnPosition="2"/>
+		</Units>
+		<ObstacleSet id="0"/>
+	</Cell>
+</Cells>

@@ -38,6 +38,16 @@ namespace Assets.Scripts
     }
     public static class Constants
     {
+        public static string ConfigFolderPath = Application.dataPath + "/Config/";
+
+        public static string templatesConfigName = "Templates";
+        public static string cellsConfigName = "Cells";
+        public static string setsConfigName = "Sets";
+        public static string obstacleSetsConfigName = "ObstacleSets";
+        public static string objectsConfigName = "Objects";
+
+        public static string xmlFormat = ".xml";
+
         public static string controllerPrefabName = "Controller";
         public static string cellPrefabName = "Cell";
         public static string lowerTriggerName = "LowerTrigger";
