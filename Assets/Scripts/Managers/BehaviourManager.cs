@@ -1,22 +1,24 @@
 ﻿using Assets.Scripts;
 using Assets.Scripts.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BehaviourManager : IUpdatable
+public class BehaviourManager : IBehaviourManager, IUpdatable
 {
 	IUpdateManager _updateManager;
 	IObjectStorage _objectStorage;
+    UnitBehaviours _unitBehaviours;     //
+    BulletBehaviours _bulletBehaviours; // название классов
 
-	public BehaviourManager(IUpdateManager updateManager, IObjectStorage objectStorage)
+    public BehaviourManager(IUpdateManager updateManager, IObjectStorage objectStorage)
 	{
 		_updateManager = updateManager;
 		_objectStorage = objectStorage;
 
-		_updateManager.AddUpdatable(this);
+        _unitBehaviours = new UnitBehaviours(_objectStorage);
+        _bulletBehaviours = new BulletBehaviours();
 
+		_updateManager.AddUpdatable(this);
 	}
 
     private bool IsActive(Collider2D collider2D)
@@ -62,6 +64,8 @@ public class BehaviourManager : IUpdatable
 
     public void CustomFixedUpdate()
     {
+        Camera.main.transform.position += new Vector3(0, Constants.cameraSpeed * Time.deltaTime, 0);
+
         foreach (var key in _objectStorage.Units.Keys)
         {
             foreach(IUnit unit in _objectStorage.Units[key])
@@ -82,7 +86,7 @@ public class BehaviourManager : IUpdatable
                 }
                 if (IsActive(unit.Collider2D))
                 {
-                    BehaviourList.UnitAct(unit);
+                    _unitBehaviours.UnitAct(unit);
                     unit.Text.transform.position = unit.GameObject.transform.position + new Vector3(0.7f, 0.7f, 0);
                     unit.Text.GetComponent<Text>().text = unit.Health.ToString();
                 }
@@ -98,7 +102,7 @@ public class BehaviourManager : IUpdatable
             {
                 if (IsActive(bullet.BulletCollider2D))
                 {
-                    BehaviourList.BulletAct(bullet);
+                    _bulletBehaviours.BulletAct(bullet);
                 }
                 if (IsTopDeactive(bullet.BulletCollider2D) || IsDownDeactive(bullet.BulletCollider2D))
                 {

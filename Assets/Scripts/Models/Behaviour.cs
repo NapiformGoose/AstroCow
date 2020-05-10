@@ -11,6 +11,7 @@ public class Behaviour : IBehaviour
     public bool IsMoving { get; set; }
     public bool IsAttack { get; set; }
     public Vector3 Direction { get; set; }
+    public float TimeBeforeShot { get; set; }
 
     public Behaviour(Vector3 startPos = new Vector3(),
                      Vector3 nextPos = new Vector3(),
@@ -18,7 +19,8 @@ public class Behaviour : IBehaviour
                      Vector3 maxRightPos = new Vector3(),
                      bool isMoving = true,
                      bool isAttack = true,
-                     Vector3 direction = new Vector3())
+                     Vector3 direction = new Vector3(),
+                     float timeBeforeShot = 0)
     {
         StartPos = startPos;
         NextPos = nextPos;
@@ -27,6 +29,7 @@ public class Behaviour : IBehaviour
         IsMoving = isMoving;
         IsAttack = isAttack;
         Direction = direction;
+        TimeBeforeShot = timeBeforeShot;
     }
 
 }

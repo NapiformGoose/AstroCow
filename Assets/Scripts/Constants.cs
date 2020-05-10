@@ -61,9 +61,9 @@ namespace Assets.Scripts
         public static float cameraSpeed = 1f;
 
         //Player Property Modifiers
-        public static float baseAttackModifier = 2f;
+        public static float baseAttackModifier = 1f;
         public static float critAttackModifier = 2f; //пока не работает
-        public static float fireSpeedModifier = 3f;
+        public static float fireSpeedModifier = 1f;
         public static float reloadSpeedModifier = 2f; //пока не работает
 
     }

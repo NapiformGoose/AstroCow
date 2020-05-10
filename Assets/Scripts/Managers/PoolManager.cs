@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PoolManager
+public class PoolManager : IPoolManager
 {
 	IObjectStorage _objectStorage;
 	IObjectCreateManager _objectCreateManager;
@@ -28,7 +28,7 @@ public class PoolManager
 
             foreach (IUnit unit in currentCellSet[i].Units)
             {
-                Vector3 spawnPos = _objectCreateManager.CalculateUnitSpawnPosition(unit.DiapasonSpawnPosition, currentCellPos);
+                Vector3 spawnPos = _objectCreateManager.CalculateUnitSpawnPosition(unit.DiapasonSpawnPosition, currentCellPos); //использлвать в _objectCreateManager
                 IUnit newUnit = _objectCreateManager.CreateUnit(unit, spawnPos);
                 newUnit.GameObject.transform.position = spawnPos;
                 var text = Resources.Load(Constants.prefabPath + "Text") as GameObject;

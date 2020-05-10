@@ -16,7 +16,6 @@ public interface IUnit
     float MoveSpeed { get; set; }
     bool Ghost { get; set; }
     IDiapasonSpawnPosition DiapasonSpawnPosition { get; set; }
-    WeaponType WeaponType { get; set; }
     IWeapon Weapon { get; set; }
     GameObject ShootPosition { get; set; }
     Team Team { get; set; }

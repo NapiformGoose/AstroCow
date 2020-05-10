@@ -205,8 +205,7 @@ public class DataLoadManager : IDataLoadManager
         unit.Health = float.Parse(element.Attribute("health").Value, CultureInfo.InvariantCulture);
         unit.MoveSpeed = float.Parse(element.Attribute("moveSpeed").Value, CultureInfo.InvariantCulture);
         unit.Ghost = bool.Parse(element.Attribute("ghost").Value);
-        unit.WeaponType = (WeaponType)Enum.Parse(typeof(WeaponType), element.Attribute("weaponType").Value);
-        unit.Weapon = _objectStorage.WeaponTemplates[unit.WeaponType.ToString()];
+        unit.Weapon = _objectStorage.WeaponTemplates[element.Attribute("weaponType").Value];
 
         _objectStorage.UnitTemplates.Add(element.Attribute("type").Value, unit);
     }

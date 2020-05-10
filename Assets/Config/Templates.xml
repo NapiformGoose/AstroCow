@@ -1,7 +1,7 @@
 <Templates>
 	<UnitTemplates>
-		<UnitTemplate alias="Cow" type="Player" health="51" moveSpeed="0.08" ghost="false" weaponType="WeaponType1"/>
-		<UnitTemplate alias="Destroyer" type="EnemyType1" health="1" moveSpeed="1" ghost="false" weaponType="WeaponType1"/>
+		<UnitTemplate alias="Cow" type="Player" health="51" moveSpeed="0.08" ghost="false" weaponType="WeaponType2"/>
+		<UnitTemplate alias="Destroyer" type="EnemyType1" health="1" moveSpeed="1" ghost="false" weaponType="WeaponType2"/>
 		<UnitTemplate alias="Rogue" type="EnemyType2" health="2" moveSpeed="1" ghost="false" weaponType="WeaponType1"/>
 		<UnitTemplate alias="Tank" type="EnemyType3" health="3" moveSpeed="1" ghost="true" weaponType="WeaponType1"/>
 	</UnitTemplates>

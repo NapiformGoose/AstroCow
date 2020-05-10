@@ -51,6 +51,7 @@ namespace Assets.Scripts.Managers
                 CritAttack = unit.Weapon.CritAttack,
                 FireSpeed = unit.Weapon.FireSpeed,
                 ReloadSpeed = unit.Weapon.ReloadSpeed,
+                WeaponType = unit.Weapon.WeaponType
             };
 
             if (newUnit.UnitType == UnitType.Player)
@@ -99,8 +100,8 @@ namespace Assets.Scripts.Managers
                         unit.Behaviour = new Behaviour
                         {
                             StartPos = spawnPos,
-                            MaxLeftPos = new Vector3(-3.2f, 0, 0),
-                            MaxRightPos = new Vector3(3.2f, 0, 0),
+                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
+                            MaxRightPos = new Vector3(2.7f, 0, 0),
                             Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                         };
                         break;

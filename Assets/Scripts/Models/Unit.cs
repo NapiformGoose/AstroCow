@@ -15,7 +15,6 @@ public class Unit : IUnit
     public float MoveSpeed { get; set; }
     public bool Ghost { get; set; }
     public IDiapasonSpawnPosition DiapasonSpawnPosition { get; set; }
-    public WeaponType WeaponType { get; set; }
     public IWeapon Weapon { get; set; }
     public IBehaviour Behaviour { get; set; }
     public GameObject ShootPosition { get; set; }

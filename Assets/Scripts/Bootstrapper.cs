@@ -10,13 +10,12 @@ namespace Assets.Scripts
     public class Bootstrapper : MonoBehaviour
     {
         IUpdateManager _updateManager;
-        PoolManager _poolManager;
-        IControlManager _controlManager;
+        IPoolManager _poolManager;
         IObjectStorage _objectStorage;
         ILevelManager _levelManager;
         IDataLoadManager _dataLoadManager;
         IObjectCreateManager _objectCreateManager;
-        BehaviourManager _behaviourManager;
+        IBehaviourManager _behaviourManager;
 
         void Start()
         {
@@ -24,12 +23,9 @@ namespace Assets.Scripts
             _updateManager = updateManagerObject.AddComponent<UpdateManager>();
 
             var coroutiner = new GameObject("Coroutiner").AddComponent<Coroutiner>();
-            BehaviourList.Coroutiner = coroutiner;
 
             _objectCreateManager = new ObjectCreateManager();
             _objectStorage = new ObjectStorage();
-
-            BehaviourList.ObjectStorage = _objectStorage;
 
             _dataLoadManager = new DataLoadManager(_objectStorage);
             _dataLoadManager.ReadConfig();
@@ -38,7 +34,6 @@ namespace Assets.Scripts
             _poolManager = new PoolManager(_objectStorage, _objectCreateManager);
             _poolManager.LoadLevel();
 
-            _controlManager = new ControlManager(_updateManager, _objectStorage);
             _behaviourManager = new BehaviourManager(_updateManager, _objectStorage);
 
             _updateManager.CustomStart();
