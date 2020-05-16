@@ -66,5 +66,8 @@ namespace Assets.Scripts
         public static float fireSpeedModifier = 1f;
         public static float reloadSpeedModifier = 2f; //пока не работает
 
+        public static float unitCollisionDamage = 5f; //
+        public static float energyWallDamage = 5f;    //если урон от столкновения 100%, то сюда вписывается количество хп коровы из конфига
+        public static float steelWallDamage = 10f;    //
     }
 }

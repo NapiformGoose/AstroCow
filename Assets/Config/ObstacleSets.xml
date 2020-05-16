@@ -2,7 +2,7 @@
 	<ObstacleSet id="0">
 	</ObstacleSet>
 	<ObstacleSet id="1">
-		<Obstacle type="SteelWall" x="0" y="1" z="0"/>
+		<Obstacle type="EnergyWall" x="0" y="1" z="0"/>
 		<Obstacle type="SteelWall" x="-2" y="2" z="0"/>
 	</ObstacleSet>
 	<ObstacleSet id="2">

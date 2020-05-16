@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Interfaces\ICoroutiner.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDataLoadManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDiapasonSpawnPosition.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IEntity.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ILevel.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ILevelManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IObjectCreateManager.cs" />

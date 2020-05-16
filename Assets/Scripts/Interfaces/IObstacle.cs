@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts;
-public interface IObstacle
+
+public interface IObstacle : IEntity
 {
     string Alias { get; set; }
     GameObject ObstacleGameObject { get; set; }

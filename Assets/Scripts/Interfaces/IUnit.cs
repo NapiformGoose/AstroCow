@@ -4,7 +4,7 @@ using UnityEngine;
 using Assets.Scripts;
 using UnityEngine.UI;
 
-public interface IUnit
+public interface IUnit : IEntity
 {
     string Alias { get; set; }
     GameObject GameObject { get; set; }
