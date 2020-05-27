@@ -88,7 +88,6 @@ namespace Assets.Scripts.Managers
                             MaxLeftPos = new Vector3(-2.7f, 0, 0),
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             IsMoving = false,
-                            //StartPos = spawnPos,
                             Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             InactiveTime = 0
                         };
@@ -100,7 +99,6 @@ namespace Assets.Scripts.Managers
                         {
                             StartPos = spawnPos,
                             InactiveTime = 0
-
                         };
                         break;
                     }
@@ -114,7 +112,6 @@ namespace Assets.Scripts.Managers
                             Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
                             InactiveTime = 0
-
                         };
                         break;
                     }
@@ -128,7 +125,6 @@ namespace Assets.Scripts.Managers
                             Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
                             InactiveTime = 0
-
                         };
                         break;
                     }
@@ -139,10 +135,8 @@ namespace Assets.Scripts.Managers
                             StartPos = spawnPos,
                             MaxLeftPos = new Vector3(-2.7f, 0, 0),
                             MaxRightPos = new Vector3(2.7f, 0, 0),
-                            //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
                             InactiveTime = 0
-
                         };
                         break;
                     }
@@ -153,7 +147,6 @@ namespace Assets.Scripts.Managers
                             StartPos = spawnPos,
                             MaxLeftPos = new Vector3(-2.7f, 0, 0),
                             MaxRightPos = new Vector3(2.7f, 0, 0),
-                            //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
                             InactiveTime = 0
                         };
@@ -166,7 +159,6 @@ namespace Assets.Scripts.Managers
                             StartPos = spawnPos,
                             MaxLeftPos = new Vector3(-2.7f, 0, 0),
                             MaxRightPos = new Vector3(2.7f, 0, 0),
-                            //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
                             InactiveTime = 0
                         };
@@ -179,10 +171,8 @@ namespace Assets.Scripts.Managers
                             StartPos = spawnPos,
                             MaxLeftPos = new Vector3(-2.7f, 0, 0),
                             MaxRightPos = new Vector3(2.7f, 0, 0),
-                            //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
                             InactiveTime = -1
-
                         };
                         break;
                     }
@@ -193,10 +183,8 @@ namespace Assets.Scripts.Managers
                             StartPos = spawnPos,
                             MaxLeftPos = new Vector3(-2.7f, 0, 0),
                             MaxRightPos = new Vector3(2.7f, 0, 0),
-                            //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
                             InactiveTime = -1
-
                         };
                         break;
                     }

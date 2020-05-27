@@ -65,7 +65,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
 
     private float IsCollision(IEntity entity)
     {
-        IUnit player = _objectStorage.Units["Player"].First();
+        IUnit player = _objectStorage.Units[UnitType.Player.ToString()].First();
 
         IUnit unit = entity as IUnit;
         if (unit != null)
