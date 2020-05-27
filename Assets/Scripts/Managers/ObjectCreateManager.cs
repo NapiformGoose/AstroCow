@@ -64,6 +64,8 @@ namespace Assets.Scripts.Managers
 
             newUnit.Health = unit.Health;
             newUnit.MoveSpeed = unit.MoveSpeed;
+            newUnit.InactiveTime = unit.InactiveTime;
+
             return newUnit;
         }
         public Vector3 CalculateUnitSpawnPosition(IDiapasonSpawnPosition diapasonSpawnPosition, Vector3 currentCellPos)
@@ -88,7 +90,7 @@ namespace Assets.Scripts.Managers
                             IsMoving = false,
                             //StartPos = spawnPos,
                             Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
-
+                            InactiveTime = 0
                         };
                         break;
                     }
@@ -97,6 +99,8 @@ namespace Assets.Scripts.Managers
                         unit.Behaviour = new Behaviour
                         {
                             StartPos = spawnPos,
+                            InactiveTime = 0
+
                         };
                         break;
                     }
@@ -109,6 +113,7 @@ namespace Assets.Scripts.Managers
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
+                            InactiveTime = 0
 
                         };
                         break;
@@ -122,7 +127,8 @@ namespace Assets.Scripts.Managers
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
-                            //TimeBeforeStop = 0.5f
+                            InactiveTime = 0
+
                         };
                         break;
                     }
@@ -135,7 +141,8 @@ namespace Assets.Scripts.Managers
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
-                            //TimeBeforeStop = 0.5f
+                            InactiveTime = 0
+
                         };
                         break;
                     }
@@ -148,7 +155,7 @@ namespace Assets.Scripts.Managers
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
-                            TimeBeforeStop = -1f
+                            InactiveTime = 0
                         };
                         break;
                     }
@@ -161,7 +168,7 @@ namespace Assets.Scripts.Managers
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
-                            TimeBeforeStop = -1f
+                            InactiveTime = 0
                         };
                         break;
                     }
@@ -174,7 +181,8 @@ namespace Assets.Scripts.Managers
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
-                            TimeBeforeStop = -1f
+                            InactiveTime = -1
+
                         };
                         break;
                     }
@@ -187,7 +195,8 @@ namespace Assets.Scripts.Managers
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
-                            TimeBeforeStop = -1f
+                            InactiveTime = -1
+
                         };
                         break;
                     }

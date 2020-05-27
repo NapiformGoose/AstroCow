@@ -11,6 +11,7 @@ public class UnitBehaviours
     IObjectStorage _objectStorage;
     WeaponBehaviours _weaponBehaviour;
 
+    IUnit _player;
     Vector3 firstClickPos = Vector3.zero;
     Vector3 newPlayerPosition = Vector3.zero;
     Vector3 distToPlayer = Vector3.zero;
@@ -19,6 +20,7 @@ public class UnitBehaviours
     {
         _objectStorage = objectStorage;
         _weaponBehaviour = new WeaponBehaviours(_objectStorage);
+        _player = _objectStorage.Units[UnitType.Player.ToString()].First();
     }
 
     public void UnitAct(IUnit unit)
@@ -105,10 +107,6 @@ public class UnitBehaviours
         }
         else
         {
-            //if (System.Math.Abs(unit.GameObject.transform.position.y - newPlayerPosition.y) < 0)
-            //{
-            //    unit.RigidBody2D.MovePosition(Vector2.MoveTowards(unit.GameObject.transform.position, newPlayerPosition, unit.MoveSpeed * Time.fixedDeltaTime - Constants.cameraSpeed * Time.fixedDeltaTime));
-            //}
             unit.RigidBody2D.MovePosition(Vector2.MoveTowards(unit.GameObject.transform.position, newPlayerPosition, unit.MoveSpeed * Time.fixedDeltaTime));
         }
     }
@@ -177,31 +175,27 @@ public class UnitBehaviours
 
     void RandomDirectionMoving(IUnit unit)
     {
-        if (!unit.Behaviour.IsMoving && unit.Behaviour.TimeBeforeStop <= 0)
+        if (!unit.Behaviour.IsMoving && unit.Behaviour.InactiveTime <= 0)
         {
             float newXPos = UnityEngine.Random.Range(unit.Behaviour.MaxLeftPos.x, unit.Behaviour.MaxRightPos.x);
             float newYPos = UnityEngine.Random.Range(Camera.main.transform.localPosition.y, _objectStorage.TopDeactivationTrigger.transform.position.y - 4.5f);
             unit.Behaviour.NextPos = new Vector3(newXPos, newYPos, 0);
 
-            Vector3 distance = (unit.Behaviour.NextPos - unit.GameObject.transform.position).normalized; //?
+            Vector3 distance = (unit.Behaviour.NextPos - unit.GameObject.transform.position).normalized;
             float newXDirection = distance.x * unit.MoveSpeed * Time.fixedDeltaTime;
             float newYDirection = distance.y * unit.MoveSpeed * Time.fixedDeltaTime;
             unit.Behaviour.Direction = new Vector3(newXDirection, newYDirection, 0).normalized;
 
             unit.Behaviour.IsMoving = true;
-            unit.Behaviour.TimeBeforeStop = 1f; //constants!!
+            unit.Behaviour.InactiveTime = unit.InactiveTime;
         }
 
-        //Vector2 newUnitPosition = unit.GameObject.transform.position + unit.Behaviour.Direction;
-        //unit.RigidBody2D.MovePosition(Vector2.MoveTowards(unit.GameObject.transform.position, newUnitPosition, Constants.cameraSpeed));
-
-        //unit.RigidBody2D.AddForce(new Vector2(unit.Behaviour.Direction.x * unit.MoveSpeed, unit.Behaviour.Direction.y * unit.MoveSpeed), ForceMode2D.Impulse);
         if (System.Math.Abs(unit.GameObject.transform.position.x - unit.Behaviour.NextPos.x) < 0.3f)
         {
             unit.Behaviour.Direction = new Vector3(0, Constants.cameraSpeed * Time.fixedDeltaTime, 0).normalized;
             unit.RigidBody2D.velocity = new Vector2(0, unit.Behaviour.Direction.y * Constants.cameraSpeed);
 
-            unit.Behaviour.TimeBeforeStop -= Time.fixedDeltaTime;
+            unit.Behaviour.InactiveTime -= Time.fixedDeltaTime;
             unit.Behaviour.IsMoving = false;
         }
         else
@@ -221,26 +215,15 @@ public class UnitBehaviours
             newXPos = UnityEngine.Random.Range(unit.Behaviour.MaxLeftPos.x, unit.Behaviour.MaxRightPos.x);
             newYPos = UnityEngine.Random.Range(Camera.main.transform.localPosition.y, _objectStorage.TopDeactivationTrigger.transform.position.y - 4.5f);
 
-            //if (newYPos < unit.GameObject.transform.position.y)
-            //{
-            //    newXPos += Constants.cameraSpeed * Time.fixedDeltaTime;
-            //    newYPos += Constants.cameraSpeed * Time.fixedDeltaTime;
-            //}
-
             unit.Behaviour.NextPos = new Vector3(newXPos, newYPos, 0);
 
-            Vector3 distance = (unit.Behaviour.NextPos - unit.GameObject.transform.position).normalized; //попробовать нормализовать distance
-
-            float newXDirection = distance.x * unit.MoveSpeed * Time.fixedDeltaTime; //
-            float newYDirection = distance.y * unit.MoveSpeed * Time.fixedDeltaTime; //исправить скорость в зависимости от расстояния
+            Vector3 distance = (unit.Behaviour.NextPos - unit.GameObject.transform.position).normalized;
+            float newXDirection = distance.x * unit.MoveSpeed * Time.fixedDeltaTime;
+            float newYDirection = distance.y * unit.MoveSpeed * Time.fixedDeltaTime; 
             unit.Behaviour.Direction = new Vector3(newXDirection, newYDirection, 0).normalized;
 
             unit.Behaviour.IsMoving = true;
-            unit.Behaviour.TimeBeforeStop = 1f;
         }
-
-        //Vector2 newUnitPosition = unit.GameObject.transform.position + unit.Behaviour.Direction;
-        //unit.RigidBody2D.MovePosition(Vector2.MoveTowards(unit.GameObject.transform.position, newUnitPosition, Constants.cameraSpeed));
 
         unit.RigidBody2D.velocity = new Vector2(unit.Behaviour.Direction.x * unit.MoveSpeed, unit.Behaviour.Direction.y * unit.MoveSpeed);
 
@@ -259,14 +242,14 @@ public class UnitBehaviours
             unit.GameObject.transform.position = new Vector3(newXPos, newYPos);
 
             unit.Behaviour.IsMoving = true;
-            unit.Behaviour.TimeBeforeStop = 1f;
+            unit.Behaviour.InactiveTime = unit.InactiveTime;
         }
 
-        unit.Behaviour.TimeBeforeStop -= Time.fixedDeltaTime;
+        unit.Behaviour.InactiveTime -= Time.fixedDeltaTime;
         unit.Behaviour.Direction = new Vector3(0, Constants.cameraSpeed * Time.fixedDeltaTime, 0).normalized;
         unit.RigidBody2D.velocity = new Vector2(0, unit.Behaviour.Direction.y * Constants.cameraSpeed);
 
-        if (unit.Behaviour.TimeBeforeStop <= 0)
+        if (unit.Behaviour.InactiveTime <= 0)
         {
             unit.Behaviour.IsMoving = false;
         }
@@ -274,30 +257,26 @@ public class UnitBehaviours
 
     void RamAttackAndUpMiving(IUnit unit)
     {
-        IUnit player = _objectStorage.Units["Player"].First();
-        Vector2 newUnitPosition = Vector2.zero;
-
-        void CalcPos()
+        void CalcNewPos()
         {
-            unit.Behaviour.NextPos = new Vector3(player.GameObject.transform.position.x, player.GameObject.transform.position.y + 0.7f, 0);
-            Vector3 distance = unit.Behaviour.NextPos - unit.GameObject.transform.position;
+            unit.Behaviour.NextPos = new Vector3(_player.GameObject.transform.position.x, _player.GameObject.transform.position.y + 0.7f, 0);
 
-            float newXDirection = distance.x * unit.MoveSpeed * Time.fixedDeltaTime; //?
+            Vector3 distance = (unit.Behaviour.NextPos - unit.GameObject.transform.position).normalized;
+            float newXDirection = distance.x * unit.MoveSpeed * Time.fixedDeltaTime;
             float newYDirection = distance.y * unit.MoveSpeed * Time.fixedDeltaTime;
-            
             unit.Behaviour.Direction = new Vector3(newXDirection, newYDirection, 0).normalized;
         }
 
         if (!unit.Behaviour.IsMoving)
         {
-            if (unit.Behaviour.TimeBeforeStop >= 0)
+            if (unit.Behaviour.InactiveTime >= 0)
             {
-                unit.Behaviour.TimeBeforeStop -= Time.fixedDeltaTime;
+                unit.Behaviour.InactiveTime -= Time.fixedDeltaTime;
                 unit.Behaviour.Direction = new Vector3(0, Constants.cameraSpeed * Time.fixedDeltaTime, 0).normalized;
             }
             else
             {
-                CalcPos();
+                CalcNewPos();
                 unit.Behaviour.IsMoving = true;
             }
         }
@@ -305,9 +284,6 @@ public class UnitBehaviours
         {
             unit.Behaviour.NextPos = new Vector3(unit.Behaviour.NextPos.x, unit.Behaviour.NextPos.y + (Constants.cameraSpeed * Time.fixedDeltaTime), 0);
             Vector3 distance = unit.Behaviour.NextPos - unit.GameObject.transform.position;
-
-            //float newXDirection = distance.x * unit.MoveSpeed * Time.fixedDeltaTime;
-            //float newYDirection = distance.y * unit.MoveSpeed * Time.fixedDeltaTime;
             unit.Behaviour.Direction = new Vector3(distance.x, distance.y, 0).normalized;
         }
 
@@ -327,32 +303,28 @@ public class UnitBehaviours
         if (unit.Behaviour.IsMoving && (System.Math.Abs(unit.GameObject.transform.position.y - unit.Behaviour.NextPos.y) < 0.1f || System.Math.Abs(unit.GameObject.transform.position.x - unit.Behaviour.NextPos.x) < 0.1f))
         {
             unit.Behaviour.IsMoving = false;
-            unit.Behaviour.TimeBeforeStop = 3f;
+            unit.Behaviour.InactiveTime = unit.InactiveTime;
             unit.Behaviour.NextPos = Vector3.zero;
         }
     }
 
     void RamAttackAndStopMiving(IUnit unit)
     {
-        IUnit player = _objectStorage.Units["Player"].First();
-        Vector2 newUnitPosition = Vector2.zero;
-
         void CalcPos()
         {
-            unit.Behaviour.NextPos = new Vector3(player.GameObject.transform.position.x, player.GameObject.transform.position.y + 0.7f, 0);
-            Vector3 distance = unit.Behaviour.NextPos - unit.GameObject.transform.position;
+            unit.Behaviour.NextPos = new Vector3(_player.GameObject.transform.position.x, _player.GameObject.transform.position.y + 0.7f, 0);
 
-            float newXDirection = distance.x * unit.MoveSpeed * Time.fixedDeltaTime; //?
+            Vector3 distance = (unit.Behaviour.NextPos - unit.GameObject.transform.position).normalized;
+            float newXDirection = distance.x * unit.MoveSpeed * Time.fixedDeltaTime;
             float newYDirection = distance.y * unit.MoveSpeed * Time.fixedDeltaTime;
-
             unit.Behaviour.Direction = new Vector3(newXDirection, newYDirection, 0).normalized;
         }
 
         if (!unit.Behaviour.IsMoving)
         {
-            if (unit.Behaviour.TimeBeforeStop >= 0)
+            if (unit.Behaviour.InactiveTime >= 0)
             {
-                unit.Behaviour.TimeBeforeStop -= Time.fixedDeltaTime;
+                unit.Behaviour.InactiveTime -= Time.fixedDeltaTime;
                 unit.Behaviour.Direction = new Vector3(0, Constants.cameraSpeed * Time.fixedDeltaTime, 0).normalized;
             }
             else
@@ -366,8 +338,6 @@ public class UnitBehaviours
             unit.Behaviour.NextPos = new Vector3(unit.Behaviour.NextPos.x, unit.Behaviour.NextPos.y + (Constants.cameraSpeed * Time.fixedDeltaTime), 0);
             Vector3 distance = unit.Behaviour.NextPos - unit.GameObject.transform.position;
 
-            //float newXDirection = distance.x * unit.MoveSpeed * Time.fixedDeltaTime;
-            //float newYDirection = distance.y * unit.MoveSpeed * Time.fixedDeltaTime;
             unit.Behaviour.Direction = new Vector3(distance.x, distance.y, 0).normalized;
         }
 
@@ -383,7 +353,7 @@ public class UnitBehaviours
         if (unit.Behaviour.IsMoving && (System.Math.Abs(unit.GameObject.transform.position.y - unit.Behaviour.NextPos.y) < 0.1f || System.Math.Abs(unit.GameObject.transform.position.x - unit.Behaviour.NextPos.x) < 0.1f))
         {
             unit.Behaviour.IsMoving = false;
-            unit.Behaviour.TimeBeforeStop = 1f;
+            unit.Behaviour.InactiveTime = unit.InactiveTime;
             unit.Behaviour.NextPos = Vector3.zero;
         }
     }

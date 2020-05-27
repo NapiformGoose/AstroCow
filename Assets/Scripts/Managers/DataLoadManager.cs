@@ -212,6 +212,7 @@ public class DataLoadManager : IDataLoadManager
         unit.Health = float.Parse(element.Attribute("health").Value, CultureInfo.InvariantCulture);
         unit.MoveSpeed = float.Parse(element.Attribute("moveSpeed").Value, CultureInfo.InvariantCulture);
         unit.Ghost = bool.Parse(element.Attribute("ghost").Value);
+        unit.InactiveTime = float.Parse(element.Attribute("inactiveTime").Value, CultureInfo.InvariantCulture);
         unit.Weapon = _objectStorage.WeaponTemplates[element.Attribute("weaponType").Value];
 
         _objectStorage.UnitTemplates.Add(element.Attribute("type").Value, unit);
@@ -292,7 +293,8 @@ public class DataLoadManager : IDataLoadManager
                 MoveSpeed = template.MoveSpeed,
                 Ghost = template.Ghost,
                 DiapasonSpawnPosition = cell.DiapasonSpawnPositions[int.Parse(subElement.Attribute("diapasonSpawnPosition").Value)],
-                Weapon = template.Weapon
+                Weapon = template.Weapon,
+                InactiveTime = template.InactiveTime
             };
             cell.Units.Add(unit);
         }

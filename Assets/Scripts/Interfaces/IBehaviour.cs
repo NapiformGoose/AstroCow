@@ -15,5 +15,5 @@ public interface IBehaviour
     Vector3 Direction { get; set; }
 
     float TimeBeforeShot { get; set; }
-    float TimeBeforeStop { get; set; }
+    float InactiveTime { get; set; }
 }
