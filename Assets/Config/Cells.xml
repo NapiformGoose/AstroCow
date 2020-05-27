@@ -10,24 +10,74 @@
 	</Cell>
 	<Cell id="1" difficult="null">
 		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-3" maxXPos="0" minYPos="1" maxYPos="2" ZPos="0"/> //координаты точек спавна для юнитов
-			<diapasonSpawnPosition id="2" minXPos="-3" maxXPos="3" minYPos="0" maxYPos="1" ZPos="0"/>
+			<diapasonSpawnPosition id="1" minXPos="-3" maxXPos="0" minYPos="1" maxYPos="2" ZPos="0"/> 
 		</SpawnPositions>
 		<Units>
-			<Unit type="EnemyType1" diapasonSpawnPosition="1"/> //конкретный экзепляр юнита, указываем его тип и позицию
-			<Unit type="EnemyType2" diapasonSpawnPosition="2"/>
+			<Unit type="EnemyType1" diapasonSpawnPosition="1"/>
 		</Units>
-		<ObstacleSet id="1"/>
+		<ObstacleSet id="0"/>
 	</Cell>
 	<Cell id="2" difficult="null">
 		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="0" maxXPos="3" minYPos="1" maxYPos="3" ZPos="0"/> //координаты точек спавна для юнитов
-			<diapasonSpawnPosition id="2" minXPos="1" maxXPos="2" minYPos="0" maxYPos="3" ZPos="0"/>
+			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 			
 		</SpawnPositions>
 		<Units>
-			<Unit type="EnemyType2" diapasonSpawnPosition="1"/> //конкретный экзепляр юнита, указываем его тип и позицию
-			<Unit type="EnemyType3" diapasonSpawnPosition="2"/>
+			<Unit type="EnemyType2" diapasonSpawnPosition="1"/>
 		</Units>
-		<ObstacleSet id="2"/>
+		<ObstacleSet id="0"/>
+	</Cell>
+	<Cell id="3" difficult="null">
+		<SpawnPositions>
+			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
+		</SpawnPositions>
+		<Units>
+			<Unit type="EnemyType3" diapasonSpawnPosition="1"/> 
+		</Units>
+		<ObstacleSet id="0"/>
+	</Cell>
+	<Cell id="4" difficult="null">
+		<SpawnPositions>
+			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
+		</SpawnPositions>
+		<Units>
+			<Unit type="EnemyType4" diapasonSpawnPosition="1"/> 
+		</Units>
+		<ObstacleSet id="0"/>
+	</Cell>
+	<Cell id="5" difficult="null">
+		<SpawnPositions>
+			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
+		</SpawnPositions>
+		<Units>
+			<Unit type="EnemyType5" diapasonSpawnPosition="1"/> 
+		</Units>
+		<ObstacleSet id="0"/>
+	</Cell>
+	<Cell id="6" difficult="null">
+		<SpawnPositions>
+			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
+		</SpawnPositions>
+		<Units>
+			<Unit type="EnemyType6" diapasonSpawnPosition="1"/> 
+		</Units>
+		<ObstacleSet id="0"/>
+	</Cell>
+	<Cell id="7" difficult="null">
+		<SpawnPositions>
+			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
+		</SpawnPositions>
+		<Units>
+			<Unit type="EnemyType7" diapasonSpawnPosition="1"/> 
+		</Units>
+		<ObstacleSet id="0"/>
+	</Cell>
+	<Cell id="8" difficult="null">
+		<SpawnPositions>
+			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
+		</SpawnPositions>
+		<Units>
+			<Unit type="EnemyType8" diapasonSpawnPosition="1"/> 
+		</Units>
+		<ObstacleSet id="0"/>
 	</Cell>
 </Cells>

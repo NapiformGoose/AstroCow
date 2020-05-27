@@ -9,7 +9,12 @@ namespace Assets.Scripts
         Player,
         EnemyType1,
         EnemyType2,
-        EnemyType3
+        EnemyType3,
+        EnemyType4,
+        EnemyType5,
+        EnemyType6,
+        EnemyType7,
+        EnemyType8,
     }
 
     public enum ObstacleType
@@ -58,7 +63,7 @@ namespace Assets.Scripts
         public static Vector3 startCellPosition = Vector3.zero;
         public static Vector3 distanceToNextCell = new Vector3(0, 12.8f, 0);
 
-        public static float cameraSpeed = 1f;
+        public static float cameraSpeed = 2f;
 
         //Player Property Modifiers
         public static float baseAttackModifier = 1f;

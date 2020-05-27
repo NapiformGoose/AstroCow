@@ -23,6 +23,8 @@ namespace Assets.Scripts.Managers
         public Collider2D ActivationTrigger { get; set; }
         public Collider2D TopDeactivationTrigger { get; set; }
         public Collider2D DownDeactivationTrigger { get; set; }
+        public Collider2D LeftDeactivationTrigger { get; set; }
+        public Collider2D RightDeactivationTrigger { get; set; }
         public Canvas Canvas { get; set; }
 
         public ObjectStorage()

@@ -83,7 +83,12 @@ namespace Assets.Scripts.Managers
                     {
                         unit.Behaviour = new Behaviour
                         {
-                            StartPos = spawnPos,
+                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
+                            MaxRightPos = new Vector3(2.7f, 0, 0),
+                            IsMoving = false,
+                            //StartPos = spawnPos,
+                            Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
+
                         };
                         break;
                     }
@@ -103,6 +108,86 @@ namespace Assets.Scripts.Managers
                             MaxLeftPos = new Vector3(-2.7f, 0, 0),
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
+                            IsMoving = false,
+
+                        };
+                        break;
+                    }
+                case UnitType.EnemyType3:
+                    {
+                        unit.Behaviour = new Behaviour
+                        {
+                            StartPos = spawnPos,
+                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
+                            MaxRightPos = new Vector3(2.7f, 0, 0),
+                            Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
+                            IsMoving = false,
+                            //TimeBeforeStop = 0.5f
+                        };
+                        break;
+                    }
+                case UnitType.EnemyType4:
+                    {
+                        unit.Behaviour = new Behaviour
+                        {
+                            StartPos = spawnPos,
+                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
+                            MaxRightPos = new Vector3(2.7f, 0, 0),
+                            //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
+                            IsMoving = false,
+                            //TimeBeforeStop = 0.5f
+                        };
+                        break;
+                    }
+                case UnitType.EnemyType5:
+                    {
+                        unit.Behaviour = new Behaviour
+                        {
+                            StartPos = spawnPos,
+                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
+                            MaxRightPos = new Vector3(2.7f, 0, 0),
+                            //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
+                            IsMoving = false,
+                            TimeBeforeStop = -1f
+                        };
+                        break;
+                    }
+                case UnitType.EnemyType6:
+                    {
+                        unit.Behaviour = new Behaviour
+                        {
+                            StartPos = spawnPos,
+                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
+                            MaxRightPos = new Vector3(2.7f, 0, 0),
+                            //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
+                            IsMoving = false,
+                            TimeBeforeStop = -1f
+                        };
+                        break;
+                    }
+                case UnitType.EnemyType7:
+                    {
+                        unit.Behaviour = new Behaviour
+                        {
+                            StartPos = spawnPos,
+                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
+                            MaxRightPos = new Vector3(2.7f, 0, 0),
+                            //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
+                            IsMoving = false,
+                            TimeBeforeStop = -1f
+                        };
+                        break;
+                    }
+                case UnitType.EnemyType8:
+                    {
+                        unit.Behaviour = new Behaviour
+                        {
+                            StartPos = spawnPos,
+                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
+                            MaxRightPos = new Vector3(2.7f, 0, 0),
+                            //Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
+                            IsMoving = false,
+                            TimeBeforeStop = -1f
                         };
                         break;
                     }

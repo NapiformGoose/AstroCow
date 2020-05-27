@@ -21,6 +21,8 @@ namespace Assets.Scripts.Interfaces
         Collider2D ActivationTrigger { get; set; }
         Collider2D TopDeactivationTrigger { get; set; }
         Collider2D DownDeactivationTrigger { get; set; }
+        Collider2D LeftDeactivationTrigger { get; set; }
+        Collider2D RightDeactivationTrigger { get; set; }
         Canvas Canvas { get; set; }
     }
 }

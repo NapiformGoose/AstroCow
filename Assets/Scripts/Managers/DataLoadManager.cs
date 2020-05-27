@@ -31,12 +31,19 @@ public class DataLoadManager : IDataLoadManager
         _objectStorage.ActivationTrigger = GameObject.Find("ActivationTrigger").GetComponent<Collider2D>() as Collider2D;
         _objectStorage.TopDeactivationTrigger = GameObject.Find("TopDeactivationTrigger").GetComponent<Collider2D>() as Collider2D;
         _objectStorage.DownDeactivationTrigger = GameObject.Find("DownDeactivationTrigger").GetComponent<Collider2D>() as Collider2D;
+        _objectStorage.LeftDeactivationTrigger = GameObject.Find("LeftDeactivationTrigger").GetComponent<Collider2D>() as Collider2D;
+        _objectStorage.RightDeactivationTrigger = GameObject.Find("RightDeactivationTrigger").GetComponent<Collider2D>() as Collider2D;
         _objectStorage.Canvas = GameObject.Find("Canvas").GetComponent<Canvas>() as Canvas;
 
         _objectStorage.Prefabs.Add(UnitType.Player.ToString(), Resources.Load(Constants.prefabPath + UnitType.Player.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(UnitType.EnemyType1.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType1.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(UnitType.EnemyType2.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType2.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(UnitType.EnemyType3.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType3.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(UnitType.EnemyType4.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType4.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(UnitType.EnemyType5.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType5.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(UnitType.EnemyType6.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType6.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(UnitType.EnemyType7.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType7.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(UnitType.EnemyType8.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType8.ToString()) as GameObject);
 
         _objectStorage.Prefabs.Add(ObstacleType.EnergyWall.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.EnergyWall.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(ObstacleType.SteelWall.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.SteelWall.ToString()) as GameObject);
