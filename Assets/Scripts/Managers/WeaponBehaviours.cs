@@ -152,15 +152,23 @@ public class WeaponBehaviours
     {
         unit.Behaviour.IsAttack = true;
         Team aim = Team.Player;
+        IList<Vector3> directions = new List<Vector3>()
+        {
+            new Vector3(0, 1, 0),
+            new Vector3(1, 0, 0),
+            new Vector3(1, 0, 0),
+            new Vector3(0, -1, 0),
+            new Vector3(-1, 0, 0),
+            new Vector3(0.5f, 0.5f, 0),
+            new Vector3(0.5f, -0.5f, 0),
+            new Vector3(-0.5f, -0.5f, 0),
+            new Vector3(-0.5f, 0.5f, 0)
+        };
 
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(0, 1, 0));
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(1, 0, 0));
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(0, -1, 0));
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(-1, 0, 0));
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(0.5f, 0.5f, 0));
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(0.5f, -0.5f, 0));
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(-0.5f, -0.5f, 0));
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(-0.5f, 0.5f, 0));
+        for(int i = 0; i < directions.Count; i++)
+        {
+            CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, directions[i]);
+        }
 
         unit.Behaviour.TimeBeforeShot = unit.Weapon.FireSpeed;
     }
