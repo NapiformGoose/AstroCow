@@ -30,49 +30,55 @@ public class UnitBehaviours
             case UnitType.Player:
                 {
                     PlayerMoving(unit);
-                    //_weaponBehaviour.WeaponAct(unit);
+                    _weaponBehaviour.WeaponAct(unit);
                     break;
                 }
             case UnitType.EnemyType1:
                 {
                     VerticalMoving(unit);
-                    //_weaponBehaviour.WeaponAct(unit);
+                    _weaponBehaviour.WeaponAct(unit);
                     break;
                 }
             case UnitType.EnemyType2:
                 {
                     HorizontalMoving(unit);
-                    //_weaponBehaviour.WeaponAct(unit);
+                    _weaponBehaviour.WeaponAct(unit);
                     break;
                 }
             case UnitType.EnemyType3:
                 {
                     RandomHorizontalMoving(unit);
+                    _weaponBehaviour.WeaponAct(unit);
                     break;
                 }
             case UnitType.EnemyType4:
                 {
                     RandomDirectionMoving(unit);
+                    _weaponBehaviour.WeaponAct(unit);
                     break;
                 }
             case UnitType.EnemyType5:
                 {
                     RandomDirectionAndTeleportMoving(unit);
+                    _weaponBehaviour.WeaponAct(unit);
                     break;
                 }
             case UnitType.EnemyType6:
                 {
                     RandomTeleportAndStopMoving(unit);
+                    _weaponBehaviour.WeaponAct(unit);
                     break;
                 }
             case UnitType.EnemyType7:
                 {
                     RamAttackAndUpMiving(unit);
+                    _weaponBehaviour.WeaponAct(unit);
                     break;
                 }
             case UnitType.EnemyType8:
                 {
                     RamAttackAndStopMiving(unit);
+                    _weaponBehaviour.WeaponAct(unit);
                     break;
                 }
         }

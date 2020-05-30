@@ -4,9 +4,9 @@ using UnityEngine;
 
 public interface IDiapasonSpawnPosition
 {
-    int minXPos { get; set; }
-    int maxXPos { get; set; }
-    int minYPos { get; set; }
-    int maxYPos { get; set; }
-    int ZPos { get; set; }
+    float minXPos { get; set; }
+    float maxXPos { get; set; }
+    float minYPos { get; set; }
+    float maxYPos { get; set; }
+    float ZPos { get; set; }
 }

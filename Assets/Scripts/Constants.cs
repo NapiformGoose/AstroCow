@@ -30,10 +30,25 @@ namespace Assets.Scripts
         BulletType3
     }
 
+    public enum BulletBehaviourType
+    {
+        Vertical,
+        LeftDiagonal,
+        RightDiagonal,
+        Directional,
+        Homing,
+        LeftDirectional,
+        RightDirectional
+    }
     public enum WeaponType
     {
         WeaponType1,
-        WeaponType2
+        WeaponType2,
+        WeaponType3,
+        WeaponType4,
+        WeaponType5,
+        PlayerWeaponType1,
+        PlayerWeaponType2
     }
 
     public enum Team

@@ -17,7 +17,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         _objectStorage = objectStorage;
 
         _unitBehaviours = new UnitBehaviours(_objectStorage);
-        _bulletBehaviours = new BulletBehaviours();
+        _bulletBehaviours = new BulletBehaviours(_objectStorage);
 
         _updateManager.AddUpdatable(this);
     }

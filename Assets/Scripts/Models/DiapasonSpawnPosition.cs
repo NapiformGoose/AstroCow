@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DiapasonSpawnPosition : IDiapasonSpawnPosition
 {
-    public int minXPos { get; set; }
-    public int maxXPos { get; set; }
-    public int minYPos { get; set; }
-    public int maxYPos { get; set; }
-    public int ZPos { get; set; }
+    public float minXPos { get; set; }
+    public float maxXPos { get; set; }
+    public float minYPos { get; set; }
+    public float maxYPos { get; set; }
+    public float ZPos { get; set; }
 }

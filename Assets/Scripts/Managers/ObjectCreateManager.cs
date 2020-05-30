@@ -51,7 +51,8 @@ namespace Assets.Scripts.Managers
                 CritAttack = unit.Weapon.CritAttack,
                 FireSpeed = unit.Weapon.FireSpeed,
                 ReloadSpeed = unit.Weapon.ReloadSpeed,
-                WeaponType = unit.Weapon.WeaponType
+                WeaponType = unit.Weapon.WeaponType,
+                BulletType = unit.Weapon.BulletType
             };
 
             if (newUnit.UnitType == UnitType.Player)
@@ -70,8 +71,8 @@ namespace Assets.Scripts.Managers
         }
         public Vector3 CalculateUnitSpawnPosition(IDiapasonSpawnPosition diapasonSpawnPosition, Vector3 currentCellPos)
         {
-            int x = Random.Range(diapasonSpawnPosition.minXPos, diapasonSpawnPosition.maxXPos);
-            int y = Random.Range(diapasonSpawnPosition.minYPos, diapasonSpawnPosition.maxYPos);
+            float x = Random.Range(diapasonSpawnPosition.minXPos, diapasonSpawnPosition.maxXPos);
+            float y = Random.Range(diapasonSpawnPosition.minYPos, diapasonSpawnPosition.maxYPos);
 
             Vector3 spawnPosition = new Vector3(currentCellPos.x + x, currentCellPos.y + y, diapasonSpawnPosition.ZPos);
             return spawnPosition;

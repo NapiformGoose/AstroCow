@@ -69,12 +69,13 @@ public class PoolManager : IPoolManager
 
     void CreateBullet()
     {
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 30; i++)
         {
             IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType1.ToString()]);
             bullet.BulletGameObject.SetActive(false);
             bullet.BulletType = BulletType.BulletType1;
             bullet.MoveSpeed = _objectStorage.BulletTemplates[bullet.BulletType.ToString()].MoveSpeed;
+            bullet.Behaviour = new Behaviour();
             if (_objectStorage.Bullets.Keys.Contains(BulletType.BulletType1.ToString()))
             {
                 _objectStorage.Bullets[BulletType.BulletType1.ToString()].Add(bullet);
@@ -91,7 +92,9 @@ public class PoolManager : IPoolManager
             IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType1.ToString()]);
             bullet.BulletGameObject.SetActive(false);
             bullet.BulletType = BulletType.BulletType2;
-            bullet.MoveSpeed = _objectStorage.BulletTemplates[BulletType.BulletType1.ToString()].MoveSpeed;
+            bullet.MoveSpeed = _objectStorage.BulletTemplates[BulletType.BulletType2.ToString()].MoveSpeed;
+            bullet.Behaviour = new Behaviour();
+
             if (_objectStorage.Bullets.Keys.Contains(BulletType.BulletType2.ToString()))
             {
                 _objectStorage.Bullets[BulletType.BulletType2.ToString()].Add(bullet);
@@ -101,24 +104,6 @@ public class PoolManager : IPoolManager
             {
                 _objectStorage.Bullets[BulletType.BulletType2.ToString()] = new List<IBullet>();
                 _objectStorage.Bullets[BulletType.BulletType2.ToString()].Add(bullet);
-            }
-        }
-        for (int i = 0; i < 20; i++)
-        {
-            IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType1.ToString()]);
-            bullet.BulletGameObject.SetActive(false);
-            bullet.BulletType = BulletType.BulletType3;
-            bullet.MoveSpeed = _objectStorage.BulletTemplates[BulletType.BulletType1.ToString()].MoveSpeed;
-
-            if (_objectStorage.Bullets.Keys.Contains(BulletType.BulletType3.ToString()))
-            {
-                _objectStorage.Bullets[BulletType.BulletType3.ToString()].Add(bullet);
-
-            }
-            else
-            {
-                _objectStorage.Bullets[BulletType.BulletType3.ToString()] = new List<IBullet>();
-                _objectStorage.Bullets[BulletType.BulletType3.ToString()].Add(bullet);
             }
         }
     }

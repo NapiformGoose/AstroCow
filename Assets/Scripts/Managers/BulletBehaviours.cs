@@ -1,45 +1,71 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Assets.Scripts;
+using Assets.Scripts.Interfaces;
 
 public class BulletBehaviours
 {
-    public BulletBehaviours()
-    {
+    IObjectStorage _objectStorage;
+    IUnit _player;
 
+    public BulletBehaviours(IObjectStorage objectStorage)
+    {
+        _objectStorage = objectStorage;
+        _player = _objectStorage.Units[UnitType.Player.ToString()].First();
     }
 
     public void BulletAct(IBullet bullet)
     {
-        switch (bullet.BulletType)
+        switch (bullet.BulletBehaviourType)
         {
-            case BulletType.BulletType1:
+            case BulletBehaviourType.Vertical:
                 {
-                    VerticalBulletMoving(bullet);
+                    VerticalMoving(bullet);
                     break;
                 }
-            case BulletType.BulletType2:
+            case BulletBehaviourType.LeftDiagonal:
                 {
-                    LeftDiagonalBulletMoving(bullet);
+                    LeftDiagonalMoving(bullet);
                     break;
                 }
-            case BulletType.BulletType3:
+            case BulletBehaviourType.RightDiagonal:
                 {
-                    RightDiagonalBulletMoving(bullet);
+                    RightDiagonalMoving(bullet);
+                    break;
+                }
+            case BulletBehaviourType.Directional:
+                {
+                    DirectionMoving(bullet);
+                    break;
+                }
+            case BulletBehaviourType.Homing:
+                {
+                    HomingMoving(bullet);
+                    break;
+                }
+            case BulletBehaviourType.LeftDirectional:
+                {
+                    LeftDirectionalMoving(bullet);
+                    break;
+                }
+            case BulletBehaviourType.RightDirectional:
+                {
+                    RightDirectionalMoving(bullet);
                     break;
                 }
         }
     }
 
-    void VerticalBulletMoving(IBullet bullet)
+    void VerticalMoving(IBullet bullet)
     {
         Vector3 distanceUp = new Vector3(0, bullet.MoveSpeed * Time.fixedDeltaTime, 0);
         Vector3 distanceDown = new Vector3(0, bullet.MoveSpeed * Time.fixedDeltaTime, 0);
         Vector2 newBulletPosition = bullet.Aim == Team.Enemy ? bullet.BulletGameObject.transform.position + distanceDown : bullet.BulletGameObject.transform.position - distanceUp;
         bullet.BulletRigidBody2D.MovePosition(Vector2.MoveTowards(bullet.BulletGameObject.transform.position, newBulletPosition, 1f));
     }
-    void LeftDiagonalBulletMoving(IBullet bullet)
+    void LeftDiagonalMoving(IBullet bullet)
     {
         Vector3 distanceUp = new Vector3(-bullet.MoveSpeed * Time.fixedDeltaTime, bullet.MoveSpeed * Time.fixedDeltaTime, 0);
         Vector3 distanceDown = new Vector3(bullet.MoveSpeed * Time.fixedDeltaTime, -bullet.MoveSpeed * Time.fixedDeltaTime, 0);
@@ -47,12 +73,51 @@ public class BulletBehaviours
 
         bullet.BulletRigidBody2D.MovePosition(Vector2.MoveTowards(bullet.BulletGameObject.transform.position, newBulletPosition, 1f));
     }
-    void RightDiagonalBulletMoving(IBullet bullet)
+    void RightDiagonalMoving(IBullet bullet)
     {
         Vector3 distanceUp = new Vector3(bullet.MoveSpeed * Time.fixedDeltaTime, bullet.MoveSpeed * Time.fixedDeltaTime, 0);
         Vector3 distanceDown = new Vector3(-bullet.MoveSpeed * Time.fixedDeltaTime, -bullet.MoveSpeed * Time.fixedDeltaTime, 0);
         Vector2 newBulletPosition = bullet.Aim == Team.Enemy ? bullet.BulletGameObject.transform.position + distanceUp : bullet.BulletGameObject.transform.position + distanceDown;
 
         bullet.BulletRigidBody2D.MovePosition(Vector2.MoveTowards(bullet.BulletGameObject.transform.position, newBulletPosition, 1f));
+    }
+    void DirectionMoving(IBullet bullet)
+    {
+        Vector3 distance = (bullet.Behaviour.NextPos - bullet.Behaviour.StartPos).normalized;
+        float newXDirection = distance.x * bullet.MoveSpeed * Time.fixedDeltaTime;
+        float newYDirection = distance.y * bullet.MoveSpeed * Time.fixedDeltaTime;
+        bullet.Behaviour.Direction = new Vector3(newXDirection, newYDirection, 0).normalized;
+
+        bullet.BulletRigidBody2D.velocity = new Vector2(bullet.Behaviour.Direction.x * bullet.MoveSpeed, bullet.Behaviour.Direction.y * bullet.MoveSpeed);
+    }
+
+    void HomingMoving(IBullet bullet)
+    {
+        Vector3 distance = (_player.GameObject.transform.position - bullet.BulletGameObject.transform.position).normalized;
+        //float newXDirection = distance.x * bullet.MoveSpeed * Time.fixedDeltaTime;
+        //float newYDirection = distance.y * bullet.MoveSpeed * Time.fixedDeltaTime;
+        bullet.Behaviour.Direction = new Vector3(distance.x, distance.y, 0).normalized;
+
+        bullet.BulletRigidBody2D.velocity = new Vector2(bullet.Behaviour.Direction.x * bullet.MoveSpeed, bullet.Behaviour.Direction.y * bullet.MoveSpeed);
+    }
+
+    void LeftDirectionalMoving(IBullet bullet)
+    {
+        Vector3 distance = (bullet.Behaviour.NextPos - bullet.Behaviour.StartPos).normalized;
+
+        float angle = (float)10/(float)90;
+        bullet.Behaviour.Direction = Vector3.Lerp(distance, new Vector3(-1, 0, 0), angle).normalized;
+
+        bullet.BulletRigidBody2D.velocity = new Vector2(bullet.Behaviour.Direction.x * bullet.MoveSpeed, bullet.Behaviour.Direction.y * bullet.MoveSpeed);
+    }
+
+    void RightDirectionalMoving(IBullet bullet)
+    {
+        Vector3 distance = (bullet.Behaviour.NextPos - bullet.Behaviour.StartPos).normalized;
+
+        float angle = (float)10 / (float)90;
+        bullet.Behaviour.Direction = Vector3.Lerp(distance, new Vector3(1, 0, 0), angle).normalized;
+
+        bullet.BulletRigidBody2D.velocity = new Vector2(bullet.Behaviour.Direction.x * bullet.MoveSpeed, bullet.Behaviour.Direction.y * bullet.MoveSpeed);
     }
 }

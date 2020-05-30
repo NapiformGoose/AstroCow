@@ -271,13 +271,13 @@ public class DataLoadManager : IDataLoadManager
         {
             IDiapasonSpawnPosition diapasonSpawnPosition = new DiapasonSpawnPosition();
 
-            diapasonSpawnPosition.minXPos = int.Parse(subElement.Attribute("minXPos").Value);
-            diapasonSpawnPosition.maxXPos = int.Parse(subElement.Attribute("maxXPos").Value);
+            diapasonSpawnPosition.minXPos = float.Parse(subElement.Attribute("minXPos").Value, CultureInfo.InvariantCulture);
+            diapasonSpawnPosition.maxXPos = float.Parse(subElement.Attribute("maxXPos").Value, CultureInfo.InvariantCulture);
 
-            diapasonSpawnPosition.minYPos = int.Parse(subElement.Attribute("minYPos").Value);
-            diapasonSpawnPosition.maxYPos = int.Parse(subElement.Attribute("maxYPos").Value);
+            diapasonSpawnPosition.minYPos = float.Parse(subElement.Attribute("minYPos").Value, CultureInfo.InvariantCulture);
+            diapasonSpawnPosition.maxYPos = float.Parse(subElement.Attribute("maxYPos").Value, CultureInfo.InvariantCulture);
 
-            diapasonSpawnPosition.ZPos = int.Parse(subElement.Attribute("ZPos").Value);
+            diapasonSpawnPosition.ZPos = float.Parse(subElement.Attribute("ZPos").Value);
 
             cell.DiapasonSpawnPositions.Add(int.Parse(subElement.Attribute("id").Value), diapasonSpawnPosition);
         }
@@ -325,9 +325,9 @@ public class DataLoadManager : IDataLoadManager
         {
             IObstacle template = _objectStorage.ObstacleTemplates[subElement.Attribute("type").Value];
 
-            int x = int.Parse(subElement.Attribute("x").Value);
-            int y = int.Parse(subElement.Attribute("y").Value);
-            int z = int.Parse(subElement.Attribute("z").Value);
+            float x = float.Parse(subElement.Attribute("x").Value);
+            float y = float.Parse(subElement.Attribute("y").Value);
+            float z = float.Parse(subElement.Attribute("z").Value);
             IObstacle obstacle = new Obstacle
             {
                 Alias = template.ObstacleType.ToString(),
