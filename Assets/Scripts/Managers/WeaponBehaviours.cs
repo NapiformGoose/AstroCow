@@ -67,6 +67,15 @@ public class WeaponBehaviours
                     }
                     break;
                 }
+            case WeaponType.WeaponType7:
+                {
+                    unit.Behaviour.TimeBeforeShot -= Time.fixedDeltaTime;
+                    if (unit.Behaviour.TimeBeforeShot <= 0)
+                    {
+                        WeaponType7Shoot(unit);
+                    }
+                    break;
+                }
             case WeaponType.PlayerWeaponType1:
                 {
                     unit.Behaviour.TimeBeforeShot -= Time.fixedDeltaTime;
@@ -113,7 +122,7 @@ public class WeaponBehaviours
         unit.Behaviour.IsAttack = true;
         Team aim = Team.Player;
 
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.Directional, unit.ShootPosition, aim, unit.Weapon.BaseAttack);
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.Directional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, _player.GameObject.transform.position);
 
         unit.Behaviour.TimeBeforeShot = unit.Weapon.FireSpeed;
     }
@@ -123,7 +132,7 @@ public class WeaponBehaviours
         unit.Behaviour.IsAttack = true;
         Team aim = Team.Player;
 
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.Homing, unit.ShootPosition, aim, unit.Weapon.BaseAttack);
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.Homing, unit.ShootPosition, aim, unit.Weapon.BaseAttack, _player.GameObject.transform.position);
 
         unit.Behaviour.TimeBeforeShot = unit.Weapon.FireSpeed;
     }
@@ -133,15 +142,30 @@ public class WeaponBehaviours
         unit.Behaviour.IsAttack = true;
         Team aim = Team.Player;
 
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.Directional, unit.ShootPosition, aim, unit.Weapon.BaseAttack);
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.LeftDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack);
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.RightDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack);
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.Directional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, _player.GameObject.transform.position);
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.LeftDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, _player.GameObject.transform.position);
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.RightDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, _player.GameObject.transform.position);
 
+        unit.Behaviour.TimeBeforeShot = unit.Weapon.FireSpeed;
+    }
+    void WeaponType7Shoot(IUnit unit)
+    {
+        unit.Behaviour.IsAttack = true;
+        Team aim = Team.Player;
+
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(0, 1, 0));
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(1, 0, 0));
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(0, -1, 0));
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(-1, 0, 0));
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(0.5f, 0.5f, 0));
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(0.5f, -0.5f, 0));
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(-0.5f, -0.5f, 0));
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.AroundDirectional, unit.ShootPosition, aim, unit.Weapon.BaseAttack, new Vector3(-0.5f, 0.5f, 0));
 
         unit.Behaviour.TimeBeforeShot = unit.Weapon.FireSpeed;
     }
 
-    void CreateBullet(BulletType bulletType, BulletBehaviourType bulletBehaviourType, GameObject shootPosition, Team aim, float damage)
+    void CreateBullet(BulletType bulletType, BulletBehaviourType bulletBehaviourType, GameObject shootPosition, Team aim, float damage, Vector3 nextPos = new Vector3())
     {
         foreach (IBullet bullet in _objectStorage.Bullets[bulletType.ToString()])
         {
@@ -152,7 +176,7 @@ public class WeaponBehaviours
                 bullet.Aim = aim;
                 bullet.Damage = damage;
                 bullet.BulletBehaviourType = bulletBehaviourType;
-                bullet.Behaviour.NextPos = _player.GameObject.transform.position;
+                bullet.Behaviour.NextPos = nextPos;
                 bullet.Behaviour.StartPos = shootPosition.transform.position;
 
                 return;

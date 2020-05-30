@@ -22,6 +22,7 @@
 		<WeaponTemplate alias="WeaponType3" type="WeaponType3" fireSpeed="1" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>
 		<WeaponTemplate alias="WeaponType4" type="WeaponType4" fireSpeed="1" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>	
 		<WeaponTemplate alias="WeaponType5" type="WeaponType5" fireSpeed="3" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>
+		<WeaponTemplate alias="WeaponType7" type="WeaponType7" fireSpeed="1" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>
 		<WeaponTemplate alias="PlayerWeaponType1" type="PlayerWeaponType1" fireSpeed="1" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType2"/>	
 		<WeaponTemplate alias="PlayerWeaponType2" type="PlayerWeaponType2" fireSpeed="1" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType2"/>		
 	</WeaponTemplates>

@@ -38,7 +38,8 @@ namespace Assets.Scripts
         Directional,
         Homing,
         LeftDirectional,
-        RightDirectional
+        RightDirectional,
+        AroundDirectional
     }
     public enum WeaponType
     {
@@ -47,6 +48,7 @@ namespace Assets.Scripts
         WeaponType3,
         WeaponType4,
         WeaponType5,
+        WeaponType7,
         PlayerWeaponType1,
         PlayerWeaponType2
     }

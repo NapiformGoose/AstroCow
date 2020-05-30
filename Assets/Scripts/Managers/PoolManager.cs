@@ -69,7 +69,7 @@ public class PoolManager : IPoolManager
 
     void CreateBullet()
     {
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 50; i++)
         {
             IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType1.ToString()]);
             bullet.BulletGameObject.SetActive(false);

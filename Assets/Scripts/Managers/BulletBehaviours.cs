@@ -55,6 +55,11 @@ public class BulletBehaviours
                     RightDirectionalMoving(bullet);
                     break;
                 }
+            case BulletBehaviourType.AroundDirectional:
+                {
+                    AroundDirectionalMoving(bullet);
+                    break;
+                }
         }
     }
 
@@ -84,9 +89,7 @@ public class BulletBehaviours
     void DirectionMoving(IBullet bullet)
     {
         Vector3 distance = (bullet.Behaviour.NextPos - bullet.Behaviour.StartPos).normalized;
-        float newXDirection = distance.x * bullet.MoveSpeed * Time.fixedDeltaTime;
-        float newYDirection = distance.y * bullet.MoveSpeed * Time.fixedDeltaTime;
-        bullet.Behaviour.Direction = new Vector3(newXDirection, newYDirection, 0).normalized;
+        bullet.Behaviour.Direction = new Vector3(distance.x, distance.y, 0).normalized;
 
         bullet.BulletRigidBody2D.velocity = new Vector2(bullet.Behaviour.Direction.x * bullet.MoveSpeed, bullet.Behaviour.Direction.y * bullet.MoveSpeed);
     }
@@ -94,8 +97,6 @@ public class BulletBehaviours
     void HomingMoving(IBullet bullet)
     {
         Vector3 distance = (_player.GameObject.transform.position - bullet.BulletGameObject.transform.position).normalized;
-        //float newXDirection = distance.x * bullet.MoveSpeed * Time.fixedDeltaTime;
-        //float newYDirection = distance.y * bullet.MoveSpeed * Time.fixedDeltaTime;
         bullet.Behaviour.Direction = new Vector3(distance.x, distance.y, 0).normalized;
 
         bullet.BulletRigidBody2D.velocity = new Vector2(bullet.Behaviour.Direction.x * bullet.MoveSpeed, bullet.Behaviour.Direction.y * bullet.MoveSpeed);
@@ -117,6 +118,13 @@ public class BulletBehaviours
 
         float angle = (float)10 / (float)90;
         bullet.Behaviour.Direction = Vector3.Lerp(distance, new Vector3(1, 0, 0), angle).normalized;
+
+        bullet.BulletRigidBody2D.velocity = new Vector2(bullet.Behaviour.Direction.x * bullet.MoveSpeed, bullet.Behaviour.Direction.y * bullet.MoveSpeed);
+    }
+
+    void AroundDirectionalMoving(IBullet bullet)
+    {
+        bullet.Behaviour.Direction = bullet.Behaviour.NextPos;
 
         bullet.BulletRigidBody2D.velocity = new Vector2(bullet.Behaviour.Direction.x * bullet.MoveSpeed, bullet.Behaviour.Direction.y * bullet.MoveSpeed);
     }
