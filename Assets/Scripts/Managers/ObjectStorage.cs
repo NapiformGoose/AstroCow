@@ -12,6 +12,8 @@ namespace Assets.Scripts.Managers
         public IDictionary<string, IObstacle> ObstacleTemplates { get; set; }
         public IDictionary<string, IWeapon> WeaponTemplates { get; set; }
         public IDictionary<string, IBullet> BulletTemplates { get; set; }
+        public IDictionary<string, IBonus> BonusesTemplates { get; set; }
+
         public IDictionary<int, IList<IObstacle>> ObstacleSet { get; set; }
         public IDictionary<int, ICell> Cells { get; set; }
         public IDictionary<int, IList<ICell>> CellSets { get; set; }
@@ -41,6 +43,7 @@ namespace Assets.Scripts.Managers
             Units = new Dictionary<string, IList<IUnit>>();
             Obstacles = new Dictionary<string, IList<IObstacle>>();
             Bullets = new Dictionary<string, IList<IBullet>>();
+            BonusesTemplates = new Dictionary<string, IBonus>();
         }
     }
 }

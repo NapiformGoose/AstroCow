@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Constants.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IBehaviour.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IBehaviourManager.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IBonus.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IBullet.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICell.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICoroutiner.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Assets\Scripts\Interfaces\IUpdatable.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IUpdateManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IWeapon.cs" />
+    <Compile Include="Assets\Scripts\Managers\BackgroundManager.cs" />
     <Compile Include="Assets\Scripts\Managers\BehaviourManager.cs" />
     <Compile Include="Assets\Scripts\Managers\BulletBehaviours.cs" />
     <Compile Include="Assets\Scripts\Managers\DataLoadManager.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Assets\Scripts\Managers\UpdateManager.cs" />
     <Compile Include="Assets\Scripts\Managers\WeaponBehaviours.cs" />
     <Compile Include="Assets\Scripts\Models\Behaviour.cs" />
+    <Compile Include="Assets\Scripts\Models\Bonus.cs" />
     <Compile Include="Assets\Scripts\Models\Bullet.cs" />
     <Compile Include="Assets\Scripts\Models\Cell.cs" />
     <Compile Include="Assets\Scripts\Models\Coroutiner.cs" />

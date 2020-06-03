@@ -184,7 +184,7 @@ public class UnitBehaviours
         if (!unit.Behaviour.IsMoving && unit.Behaviour.InactiveTime <= 0)
         {
             float newXPos = UnityEngine.Random.Range(unit.Behaviour.MaxLeftPos.x, unit.Behaviour.MaxRightPos.x);
-            float newYPos = UnityEngine.Random.Range(Camera.main.transform.localPosition.y, _objectStorage.TopDeactivationTrigger.transform.position.y - 4.5f);
+            float newYPos = _objectStorage.TopDeactivationTrigger.transform.position.y - 4.5f;
             unit.Behaviour.NextPos = new Vector3(newXPos, newYPos, 0);
 
             Vector3 distance = (unit.Behaviour.NextPos - unit.GameObject.transform.position).normalized;
@@ -215,7 +215,7 @@ public class UnitBehaviours
         if (!unit.Behaviour.IsMoving)
         {
             float newXPos = UnityEngine.Random.Range(unit.Behaviour.MaxLeftPos.x, unit.Behaviour.MaxRightPos.x);
-            float newYPos = UnityEngine.Random.Range(Camera.main.transform.localPosition.y, _objectStorage.TopDeactivationTrigger.transform.position.y - 4.5f);
+            float newYPos = _objectStorage.TopDeactivationTrigger.transform.position.y - 4f;
             unit.GameObject.transform.position = new Vector3(newXPos, newYPos);
 
             newXPos = UnityEngine.Random.Range(unit.Behaviour.MaxLeftPos.x, unit.Behaviour.MaxRightPos.x);
@@ -244,7 +244,7 @@ public class UnitBehaviours
         if (!unit.Behaviour.IsMoving)
         {
             float newXPos = UnityEngine.Random.Range(unit.Behaviour.MaxLeftPos.x, unit.Behaviour.MaxRightPos.x);
-            float newYPos = UnityEngine.Random.Range(Camera.main.transform.localPosition.y, _objectStorage.TopDeactivationTrigger.transform.position.y - 4.5f);
+            float newYPos = _objectStorage.TopDeactivationTrigger.transform.position.y - 4.5f;
             unit.GameObject.transform.position = new Vector3(newXPos, newYPos);
 
             unit.Behaviour.IsMoving = true;

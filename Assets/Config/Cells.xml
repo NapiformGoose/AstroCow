@@ -10,19 +10,29 @@
 	</Cell>
 	<Cell id="1" difficult="null">
 		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-2.5" maxXPos="-2.5" minYPos="2.81" maxYPos="2.81" ZPos="0"/> 
+			<diapasonSpawnPosition id="1" minXPos="-2.5" maxXPos="-1.5" minYPos="1" maxYPos="1" ZPos="0"/>
+			<diapasonSpawnPosition id="2" minXPos="-1" maxXPos="0" minYPos="1" maxYPos="1" ZPos="0"/> 
+			<diapasonSpawnPosition id="3" minXPos="0.5" maxXPos="2.5" minYPos="1" maxYPos="1" ZPos="0"/> 
 		</SpawnPositions>
 		<Units>
 			<Unit type="EnemyType1" diapasonSpawnPosition="1"/>
+			<Unit type="EnemyType1" diapasonSpawnPosition="2"/>
+			<Unit type="EnemyType1" diapasonSpawnPosition="3"/>
 		</Units>
 		<ObstacleSet id="0"/>
 	</Cell>
 	<Cell id="2" difficult="null">
 		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="2.8" maxYPos="2.8" ZPos="0"/> 			
-		</SpawnPositions>
+			<diapasonSpawnPosition id="1" minXPos="-1.5" maxXPos="-0.5" minYPos="2.8" maxYPos="2.8" ZPos="0"/>
+			<diapasonSpawnPosition id="2" minXPos="1" maxXPos="1.5" minYPos="2.8" maxYPos="2.8" ZPos="0"/>
+      <diapasonSpawnPosition id="4" minXPos="-2.5" maxXPos="-1.5" minYPos="1" maxYPos="1" ZPos="0"/>
+      <diapasonSpawnPosition id="5" minXPos="1.5" maxXPos="2.5" minYPos="1" maxYPos="1" ZPos="0"/>
+    </SpawnPositions>
 		<Units>
 			<Unit type="EnemyType2" diapasonSpawnPosition="1"/>
+			<Unit type="EnemyType2" diapasonSpawnPosition="2"/>
+      <Unit type="EnemyType1" diapasonSpawnPosition="4"/>
+      <Unit type="EnemyType1" diapasonSpawnPosition="5"/>
 		</Units>
 		<ObstacleSet id="0"/>
 	</Cell>
@@ -37,10 +47,12 @@
 	</Cell>
 	<Cell id="4" difficult="null">
 		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
+			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="0" minYPos="1" maxYPos="3" ZPos="0"/>
+			<diapasonSpawnPosition id="2" minXPos="1" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
 		</SpawnPositions>
 		<Units>
 			<Unit type="EnemyType4" diapasonSpawnPosition="1"/> 
+			<Unit type="EnemyType4" diapasonSpawnPosition="2"/>
 		</Units>
 		<ObstacleSet id="0"/>
 	</Cell>
@@ -64,10 +76,12 @@
 	</Cell>
 	<Cell id="7" difficult="null">
 		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
+			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="0" minYPos="1" maxYPos="2" ZPos="0"/>
+			<diapasonSpawnPosition id="2" minXPos="1" maxXPos="2" minYPos="2.5" maxYPos="3" ZPos="0"/>
 		</SpawnPositions>
 		<Units>
-			<Unit type="EnemyType7" diapasonSpawnPosition="1"/> 
+			<Unit type="EnemyType7" diapasonSpawnPosition="1"/>
+			<Unit type="EnemyType7" diapasonSpawnPosition="2"/>
 		</Units>
 		<ObstacleSet id="0"/>
 	</Cell>

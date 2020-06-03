@@ -1,14 +1,14 @@
 <Templates>
 	<UnitTemplates>
-		<UnitTemplate alias="Cow" type="Player" health="100" moveSpeed="10" ghost="false" inactiveTime="1" weaponType="PlayerWeaponType1"/>
-		<UnitTemplate alias="EnemyType1" type="EnemyType1" health="1" moveSpeed="1" ghost="false" inactiveTime="1" weaponType="WeaponType1"/>
-		<UnitTemplate alias="EnemyType2" type="EnemyType2" health="2" moveSpeed="1" ghost="false" inactiveTime="1" weaponType="WeaponType1"/>
-		<UnitTemplate alias="EnemyType3" type="EnemyType3" health="3" moveSpeed="2" ghost="false" inactiveTime="1" weaponType="WeaponType1"/>
-		<UnitTemplate alias="EnemyType4" type="EnemyType4" health="3" moveSpeed="3" ghost="false" inactiveTime="1" weaponType="WeaponType1"/>
-		<UnitTemplate alias="EnemyType5" type="EnemyType5" health="3" moveSpeed="2" ghost="false" inactiveTime="1" weaponType="WeaponType1"/>
-		<UnitTemplate alias="EnemyType6" type="EnemyType6" health="3" moveSpeed="2" ghost="false" inactiveTime="3" weaponType="WeaponType1"/>
-		<UnitTemplate alias="EnemyType7" type="EnemyType7" health="3" moveSpeed="2" ghost="false" inactiveTime="1" weaponType="WeaponType1"/>
-		<UnitTemplate alias="EnemyType8" type="EnemyType8" health="3" moveSpeed="2" ghost="false" inactiveTime="1" weaponType="WeaponType1"/>
+		<UnitTemplate alias="Cow" type="Player" health="15" moveSpeed="10" ghost="false" inactiveTime="1" weaponType="PlayerWeaponType1"/>
+		<UnitTemplate alias="EnemyType1" type="EnemyType1" health="1.5" moveSpeed="1" ghost="false" inactiveTime="1" weaponType="WeaponType1"/>
+		<UnitTemplate alias="EnemyType2" type="EnemyType2" health="2" moveSpeed="1" ghost="false" inactiveTime="1" weaponType="WeaponType5"/>
+		<UnitTemplate alias="EnemyType3" type="EnemyType3" health="2" moveSpeed="2" ghost="false" inactiveTime="1" weaponType="WeaponType2"/>
+		<UnitTemplate alias="EnemyType4" type="EnemyType4" health="3" moveSpeed="2.5" ghost="false" inactiveTime="1" weaponType="WeaponType3"/>
+		<UnitTemplate alias="EnemyType5" type="EnemyType5" health="3" moveSpeed="1" ghost="false" inactiveTime="1" weaponType="WeaponType4"/>
+		<UnitTemplate alias="EnemyType6" type="EnemyType6" health="2" moveSpeed="1.5" ghost="false" inactiveTime="3" weaponType="WeaponType5"/>
+		<UnitTemplate alias="EnemyType7" type="EnemyType7" health="2" moveSpeed="1.5" ghost="false" inactiveTime="1" weaponType="WeaponType7"/>
+		<UnitTemplate alias="EnemyType8" type="EnemyType8" health="2" moveSpeed="1.5" ghost="false" inactiveTime="1" weaponType="WeaponType1"/>
 	</UnitTemplates>
 
 	<ObstacleTemplates>
@@ -17,19 +17,19 @@
 	</ObstacleTemplates>
 
 	<WeaponTemplates>
-		<WeaponTemplate alias="WeaponType1" type="WeaponType1" fireSpeed="3" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>	
-		<WeaponTemplate alias="WeaponType2" type="WeaponType2" fireSpeed="1" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>
-		<WeaponTemplate alias="WeaponType3" type="WeaponType3" fireSpeed="1" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>
-		<WeaponTemplate alias="WeaponType4" type="WeaponType4" fireSpeed="1" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>	
-		<WeaponTemplate alias="WeaponType5" type="WeaponType5" fireSpeed="3" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>
-		<WeaponTemplate alias="WeaponType7" type="WeaponType7" fireSpeed="1" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>
-		<WeaponTemplate alias="PlayerWeaponType1" type="PlayerWeaponType1" fireSpeed="1" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType2"/>	
-		<WeaponTemplate alias="PlayerWeaponType2" type="PlayerWeaponType2" fireSpeed="1" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType2"/>		
+		<WeaponTemplate alias="WeaponType1" type="WeaponType1" fireSpeed="0.9" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>	
+		<WeaponTemplate alias="WeaponType2" type="WeaponType2" fireSpeed="0.9" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType1"/>
+		<WeaponTemplate alias="WeaponType3" type="WeaponType3" fireSpeed="0.9" reloadSpeed="1" critAttack="1" baseAttack="0.5" bulletType="BulletType1"/>
+		<WeaponTemplate alias="WeaponType4" type="WeaponType4" fireSpeed="0.5" reloadSpeed="1" critAttack="1" baseAttack="0.1" bulletType="BulletType2"/>	
+		<WeaponTemplate alias="WeaponType5" type="WeaponType5" fireSpeed="0.9" reloadSpeed="1" critAttack="1" baseAttack="0.5" bulletType="BulletType1"/>
+    <WeaponTemplate alias="WeaponType7" type="WeaponType7" fireSpeed="0.7" reloadSpeed="1" critAttack="1" baseAttack="0.5" bulletType="BulletType1"/>
+		<WeaponTemplate alias="PlayerWeaponType1" type="PlayerWeaponType1" fireSpeed="0.1" reloadSpeed="1" critAttack="1" baseAttack="0.23" bulletType="BulletType2"/>	
+		<WeaponTemplate alias="PlayerWeaponType2" type="PlayerWeaponType2" fireSpeed="0.7" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType2"/>		
 	</WeaponTemplates>
 
 	<BulletTemplates>
-		<BulletTemplate alias="Vertical" type="BulletType1" moveSpeed="3"/>
-		<BulletTemplate alias="Vertical" type="BulletType2" moveSpeed="20"/>
+		<BulletTemplate alias="Vertical" type="BulletType1" moveSpeed="5"/>
+		<BulletTemplate alias="Vertical" type="BulletType2" moveSpeed="9"/>
 
 	</BulletTemplates>
 </Templates>

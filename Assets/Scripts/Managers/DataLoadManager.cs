@@ -108,6 +108,17 @@ public class DataLoadManager : IDataLoadManager
                     throw new Exception($"Error reading config file.\nFile: {path}.\nNode: {element.Name}.\nNode value: {element}");
                 }
             }
+            //foreach (XElement element in xEGameObject.Element("BonusTemplates").Elements("BonusTemplate"))
+            //{
+            //    try
+            //    {
+            //        ReadBonusTemplate(element);
+            //    }
+            //    catch
+            //    {
+            //        throw new Exception($"Error reading config file.\nFile: {path}.\nNode: {element.Name}.\nNode value: {element}");
+            //    }
+            //}
         }
         catch (Exception e)
         {
@@ -226,6 +237,19 @@ public class DataLoadManager : IDataLoadManager
         obstacle.ObstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), element.Attribute("type").Value);
 
         _objectStorage.ObstacleTemplates.Add(element.Attribute("type").Value, obstacle);
+    }
+
+    void ReadBonusTemplate(XElement element)
+    {
+        IBonus bonus = new Bonus();
+
+        bonus.Alias = element.Attribute("alias").Value;
+        bonus.BonusType = (BonusType)Enum.Parse(typeof(BonusType), element.Attribute("type").Value);
+        bonus.HealthValue = float.Parse(element.Attribute("healthValue").Value, CultureInfo.InvariantCulture);
+        bonus.FireSpeedCoefficient = float.Parse(element.Attribute("fireSpeedCoefficient").Value, CultureInfo.InvariantCulture);
+        bonus.ReloadSpeedCoefficient = float.Parse(element.Attribute("reloadSpeedCoefficient").Value, CultureInfo.InvariantCulture);
+
+        _objectStorage.BonusesTemplates.Add(element.Attribute("type").Value, bonus);
     }
 
     void ReadWeaponTemplate(XElement element)

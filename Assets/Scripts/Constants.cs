@@ -58,6 +58,12 @@ namespace Assets.Scripts
         Player,
         Enemy
     }
+
+    public enum BonusType
+    {
+        BonusType1
+    }
+
     public static class Constants
     {
         //Config files
