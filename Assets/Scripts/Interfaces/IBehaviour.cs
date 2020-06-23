@@ -13,6 +13,7 @@ public interface IBehaviour
     bool IsMoving { get; set; }
     bool IsAttack { get; set; }
     Vector3 Direction { get; set; }
+    bool IsActive { get; set; }
 
     float TimeBeforeShot { get; set; }
     float InactiveTime { get; set; }

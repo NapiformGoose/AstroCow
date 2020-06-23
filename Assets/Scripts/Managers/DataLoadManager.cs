@@ -50,6 +50,11 @@ public class DataLoadManager : IDataLoadManager
 
         _objectStorage.Prefabs.Add(BulletType.BulletType1.ToString(), Resources.Load(Constants.prefabPath + BulletType.BulletType1.ToString()) as GameObject);
 
+        _objectStorage.Prefabs.Add(BonusType.BonusHealth.ToString(), Resources.Load(Constants.prefabPath + BonusType.BonusHealth.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(BonusType.BonusBoom.ToString(), Resources.Load(Constants.prefabPath + BonusType.BonusBoom.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(BonusType.BonusMagnet.ToString(), Resources.Load(Constants.prefabPath + BonusType.BonusMagnet.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(BonusType.СrystalEnemies.ToString(), Resources.Load(Constants.prefabPath + BonusType.СrystalEnemies.ToString()) as GameObject);
+
         _objectStorage.Prefabs.Add(Constants.controllerPrefabName, Resources.Load(Constants.prefabPath + Constants.controllerPrefabName) as GameObject);
         _objectStorage.Prefabs.Add(Constants.cellPrefabName, Resources.Load(Constants.prefabPath + Constants.cellPrefabName) as GameObject);
         _objectStorage.Prefabs.Add(Constants.lowerTriggerName, Resources.Load(Constants.prefabPath + Constants.lowerTriggerName) as GameObject);
@@ -108,17 +113,17 @@ public class DataLoadManager : IDataLoadManager
                     throw new Exception($"Error reading config file.\nFile: {path}.\nNode: {element.Name}.\nNode value: {element}");
                 }
             }
-            //foreach (XElement element in xEGameObject.Element("BonusTemplates").Elements("BonusTemplate"))
-            //{
-            //    try
-            //    {
-            //        ReadBonusTemplate(element);
-            //    }
-            //    catch
-            //    {
-            //        throw new Exception($"Error reading config file.\nFile: {path}.\nNode: {element.Name}.\nNode value: {element}");
-            //    }
-            //}
+            foreach (XElement element in xEGameObject.Element("BonusTemplates").Elements("BonusTemplate"))
+            {
+                try
+                {
+                    ReadBonusTemplate(element);
+                }
+                catch
+                {
+                    throw new Exception($"Error reading config file.\nFile: {path}.\nNode: {element.Name}.\nNode value: {element}");
+                }
+            }
         }
         catch (Exception e)
         {
@@ -245,9 +250,11 @@ public class DataLoadManager : IDataLoadManager
 
         bonus.Alias = element.Attribute("alias").Value;
         bonus.BonusType = (BonusType)Enum.Parse(typeof(BonusType), element.Attribute("type").Value);
+        bonus.RandomValue = float.Parse(element.Attribute("randomValue").Value, CultureInfo.InvariantCulture);
         bonus.HealthValue = float.Parse(element.Attribute("healthValue").Value, CultureInfo.InvariantCulture);
         bonus.FireSpeedCoefficient = float.Parse(element.Attribute("fireSpeedCoefficient").Value, CultureInfo.InvariantCulture);
         bonus.ReloadSpeedCoefficient = float.Parse(element.Attribute("reloadSpeedCoefficient").Value, CultureInfo.InvariantCulture);
+        bonus.ActiveTime = float.Parse(element.Attribute("activeTime").Value, CultureInfo.InvariantCulture);
 
         _objectStorage.BonusesTemplates.Add(element.Attribute("type").Value, bonus);
     }
@@ -318,7 +325,8 @@ public class DataLoadManager : IDataLoadManager
                 Ghost = template.Ghost,
                 DiapasonSpawnPosition = cell.DiapasonSpawnPositions[int.Parse(subElement.Attribute("diapasonSpawnPosition").Value)],
                 Weapon = template.Weapon,
-                InactiveTime = template.InactiveTime
+                InactiveTime = template.InactiveTime,
+                BonusType = (BonusType)Enum.Parse(typeof(BonusType), subElement.Attribute("bonusType").Value),
             };
             cell.Units.Add(unit);
         }

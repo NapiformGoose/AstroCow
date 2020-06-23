@@ -66,7 +66,8 @@ namespace Assets.Scripts.Managers
             newUnit.Health = unit.Health;
             newUnit.MoveSpeed = unit.MoveSpeed;
             newUnit.InactiveTime = unit.InactiveTime;
-
+            newUnit.BonusType = unit.BonusType;
+            
             return newUnit;
         }
         public Vector3 CalculateUnitSpawnPosition(IDiapasonSpawnPosition diapasonSpawnPosition, Vector3 currentCellPos)
@@ -201,6 +202,24 @@ namespace Assets.Scripts.Managers
             newBullet.BulletCollider2D = newBullet.BulletGameObject.GetComponent<Collider2D>() as Collider2D;
             newBullet.BulletRigidBody2D = newBullet.BulletGameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
             return newBullet;
+        }
+
+        public IBonus CreateBonus(IBonus bonusTemplate)
+        {
+
+            IBonus newBonus = new Bonus
+            {
+                BonusGameObject = GameObject.Instantiate(_prefabs[bonusTemplate.BonusType.ToString()]),
+                Alias = bonusTemplate.Alias,
+                BonusType = bonusTemplate.BonusType,
+                RandomValue = bonusTemplate.RandomValue,
+                HealthValue = bonusTemplate.HealthValue,
+                FireSpeedCoefficient = bonusTemplate.FireSpeedCoefficient,
+                ReloadSpeedCoefficient = bonusTemplate.ReloadSpeedCoefficient,
+                ActiveTime = bonusTemplate.ActiveTime
+            };
+            newBonus.BonusCollider2D = newBonus.BonusGameObject.GetComponent<Collider2D>() as Collider2D;
+            return newBonus;
         }
     }
 }

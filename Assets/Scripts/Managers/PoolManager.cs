@@ -49,6 +49,24 @@ public class PoolManager : IPoolManager
                     _objectStorage.Units[unit.UnitType.ToString()] = new List<IUnit>();
                     _objectStorage.Units[unit.UnitType.ToString()].Add(newUnit);
                 }
+                IBonus bonus = unit.BonusType != BonusType.Empty ? _objectCreateManager.CreateBonus(_objectStorage.BonusesTemplates[unit.BonusType.ToString()]) : null;
+                
+                if(bonus == null)
+                {
+                    continue;
+                }
+
+                if (_objectStorage.Bonuses.Keys.Contains(bonus.BonusType.ToString()))
+                {
+                    _objectStorage.Bonuses[bonus.BonusType.ToString()].Add(bonus);
+                }
+                else
+                {
+                    _objectStorage.Bonuses[bonus.BonusType.ToString()] = new List<IBonus>();
+                    _objectStorage.Bonuses[bonus.BonusType.ToString()].Add(bonus);
+                }
+
+                bonus.BonusGameObject.SetActive(false);
             }
             foreach (IObstacle obstacle in currentCellSet[i].ObstacleSet)
             {

@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IBonus
+public interface IBonus : IEntity
 {
     string Alias { get; set; }
     BonusType BonusType { get; set; }
+    float RandomValue { get; set; }
     float HealthValue { get; set; }
     float FireSpeedCoefficient { get; set; }
     float ReloadSpeedCoefficient { get; set; }
+    float ActiveTime { get; set; }
+
+    GameObject BonusGameObject { get; set; }
+    Collider2D BonusCollider2D { get; set; }
 }

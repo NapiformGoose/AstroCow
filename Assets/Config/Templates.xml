@@ -22,14 +22,21 @@
 		<WeaponTemplate alias="WeaponType3" type="WeaponType3" fireSpeed="0.9" reloadSpeed="1" critAttack="1" baseAttack="0.3" bulletType="BulletType1"/>
 		<WeaponTemplate alias="WeaponType4" type="WeaponType4" fireSpeed="0.5" reloadSpeed="1" critAttack="1" baseAttack="0.1" bulletType="BulletType2"/>	
 		<WeaponTemplate alias="WeaponType5" type="WeaponType5" fireSpeed="0.9" reloadSpeed="1" critAttack="1" baseAttack="0.3" bulletType="BulletType1"/>
-    <WeaponTemplate alias="WeaponType7" type="WeaponType7" fireSpeed="0.7" reloadSpeed="1" critAttack="1" baseAttack="0.3" bulletType="BulletType1"/>
-		<WeaponTemplate alias="PlayerWeaponType1" type="PlayerWeaponType1" fireSpeed="0.1" reloadSpeed="1" critAttack="1" baseAttack="0.25" bulletType="BulletType2"/>	
+    	<WeaponTemplate alias="WeaponType7" type="WeaponType7" fireSpeed="0.7" reloadSpeed="1" critAttack="1" baseAttack="0.3" bulletType="BulletType1"/>
+		<WeaponTemplate alias="PlayerWeaponType1" type="PlayerWeaponType1" fireSpeed="1" reloadSpeed="1" critAttack="1" baseAttack="1.25" bulletType="BulletType2"/>	
 		<WeaponTemplate alias="PlayerWeaponType2" type="PlayerWeaponType2" fireSpeed="0.7" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType2"/>		
 	</WeaponTemplates>
 
 	<BulletTemplates>
 		<BulletTemplate alias="Vertical" type="BulletType1" moveSpeed="5"/>
 		<BulletTemplate alias="Vertical" type="BulletType2" moveSpeed="9"/>
-
 	</BulletTemplates>
+
+	<BonusTemplates>
+		<BonusTemplate alias="Empty" type="Empty" randomValue="0" healthValue="0" fireSpeedCoefficient="1" reloadSpeedCoefficient="1" activeTime="3"/>
+		<BonusTemplate alias="BonusHealth" type="BonusHealth" randomValue="100" healthValue="1" fireSpeedCoefficient="0.1" reloadSpeedCoefficient="1" activeTime="3"/>
+		<BonusTemplate alias="BonusBoom" type="BonusBoom" randomValue="0" healthValue="0" fireSpeedCoefficient="1" reloadSpeedCoefficient="1" activeTime="3"/>
+		<BonusTemplate alias="BonusMagnet" type="BonusMagnet" randomValue="100" healthValue="0" fireSpeedCoefficient="0.1" reloadSpeedCoefficient="1" activeTime="3"/>
+		<BonusTemplate alias="СrystalEnemies" type="СrystalEnemies" randomValue="100" healthValue="0" fireSpeedCoefficient="1" reloadSpeedCoefficient="1" activeTime="3"/>
+	</BonusTemplates>
 </Templates>

@@ -61,7 +61,17 @@ namespace Assets.Scripts
 
     public enum BonusType
     {
-        BonusType1
+        Empty,
+        BonusBoom,
+        BonusFrost,
+        BonusHealth,
+        BonusMagnet,
+        СrystalEnemies
+    }
+
+    public enum EffectType
+    {
+        FireSpeedUp
     }
 
     public static class Constants

@@ -10,4 +10,5 @@ public interface IObjectCreateManager
     Vector3 CalculateUnitSpawnPosition(IDiapasonSpawnPosition diapasonSpawnPosition, Vector3 currentCellPos);
     void SetBehaviour(IUnit unit, Vector3 spawnPos);
     IBullet CreateBullet(GameObject bulletPrefab);
+    IBonus CreateBonus(IBonus bonusTemplate);
 }

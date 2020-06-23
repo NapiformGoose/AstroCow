@@ -21,6 +21,7 @@ namespace Assets.Scripts.Managers
         public IDictionary<string, IList<IUnit>> Units { get; set; }
         public IDictionary<string, IList<IObstacle>> Obstacles { get; set; }
         public IDictionary<string, IList<IBullet>> Bullets { get; set; }
+        public IDictionary<string, IList<IBonus>> Bonuses { get; set; }
 
         public Collider2D ActivationTrigger { get; set; }
         public Collider2D TopDeactivationTrigger { get; set; }
@@ -36,14 +37,17 @@ namespace Assets.Scripts.Managers
             ObstacleTemplates = new Dictionary<string, IObstacle>();
             WeaponTemplates = new Dictionary<string, IWeapon>();
             BulletTemplates = new Dictionary<string, IBullet>();
+            BonusesTemplates = new Dictionary<string, IBonus>();
+
             ObstacleSet = new Dictionary<int, IList<IObstacle>>();
             Cells = new Dictionary<int, ICell>();
             CellSets = new Dictionary<int, IList<ICell>>();
             Levels = new List<ILevel>();
+
             Units = new Dictionary<string, IList<IUnit>>();
             Obstacles = new Dictionary<string, IList<IObstacle>>();
             Bullets = new Dictionary<string, IList<IBullet>>();
-            BonusesTemplates = new Dictionary<string, IBonus>();
+            Bonuses = new Dictionary<string, IList<IBonus>>();
         }
     }
 }

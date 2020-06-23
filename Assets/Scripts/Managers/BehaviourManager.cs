@@ -10,6 +10,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
     IObjectStorage _objectStorage;
     UnitBehaviours _unitBehaviours;     //
     BulletBehaviours _bulletBehaviours; // название классов
+    BonusBehaviour _bonusBehaviour;
 
     public BehaviourManager(IUpdateManager updateManager, IObjectStorage objectStorage)
     {
@@ -18,7 +19,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
 
         _unitBehaviours = new UnitBehaviours(_objectStorage);
         _bulletBehaviours = new BulletBehaviours(_objectStorage);
-
+        _bonusBehaviour = new BonusBehaviour(_objectStorage);
         _updateManager.AddUpdatable(this);
     }
 
@@ -82,7 +83,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
             if (obstacle.ObstacleGameObject.activeSelf && obstacle.ObstacleCollider2D.IsTouching(player.Collider2D))
             {
                 float damage = 0;
-                switch(obstacle.ObstacleType)
+                switch (obstacle.ObstacleType)
                 {
                     case ObstacleType.EnergyWall:
                         {
@@ -98,6 +99,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
                 return damage;
             }
         }
+
         return 0;
     }
 
@@ -110,6 +112,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
             {
                 unit.GameObject.SetActive(false);
                 unit.Text.SetActive(false);
+                showBonus(unit);
             }
         }
         else
@@ -118,6 +121,25 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         }
     }
 
+    private void showBonus(IUnit unit)
+    {
+        if (unit.BonusType != BonusType.Empty)
+        {
+            foreach (IBonus bonus in _objectStorage.Bonuses[unit.BonusType.ToString()])
+            {
+                if (!bonus.BonusGameObject.activeSelf)
+                {
+                    if (UnityEngine.Random.Range(0, 100) <= bonus.RandomValue)
+                    {
+                        bonus.BonusGameObject.transform.position = unit.GameObject.transform.position;
+                        bonus.BonusGameObject.SetActive(true);
+                    }
+
+                    return;
+                }
+            }
+        }
+    }
     public void CustomFixedUpdate()
     {
         Camera.main.transform.position += new Vector3(0, Constants.cameraSpeed * Time.deltaTime, 0);
@@ -141,6 +163,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
                 if (IsActive(unit.Collider2D))
                 {
                     _unitBehaviours.UnitAct(unit);
+                    unit.Behaviour.IsActive = true;
                     unit.Text.transform.position = unit.GameObject.transform.position + new Vector3(0.7f, 0.7f, 0);
                     unit.Text.GetComponent<Text>().text = unit.Health.ToString();
                 }
@@ -180,6 +203,18 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
                     bullet.BulletGameObject.SetActive(false);
                 }
             }
+        }
+        foreach (var key in _objectStorage.Bonuses.Keys)
+        {
+            foreach (IBonus bonus in _objectStorage.Bonuses[key])
+            {
+                if (bonus.BonusGameObject.activeSelf && bonus.BonusCollider2D.IsTouching(player.Collider2D))
+                {
+                    bonus.BonusGameObject.SetActive(false);
+                    _bonusBehaviour.BonusAct(bonus);
+                }
+            }
+            _bonusBehaviour.ActiveBonusAct();
         }
     }
     public void CustomUpdate()
