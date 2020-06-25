@@ -8,17 +8,17 @@ using System.Linq;
 public class WeaponBehaviours
 {
     IObjectStorage _objectStorage;
-
     IUnit _player;
 
     public WeaponBehaviours(IObjectStorage objectStorage)
     {
         _objectStorage = objectStorage;
-        _player = _objectStorage.Units[UnitType.Player.ToString()].First();
     }
 
     public void WeaponAct(IUnit unit)
     {
+        _player = _objectStorage.Units[UnitType.Player.ToString()].First();
+
         switch (unit.Weapon.WeaponType)
         {
             case WeaponType.WeaponType1:
@@ -177,10 +177,10 @@ public class WeaponBehaviours
     {
         foreach (IBullet bullet in _objectStorage.Bullets[bulletType.ToString()])
         {
-            if (!bullet.BulletGameObject.activeSelf)
+            if (!bullet.GameObject.activeSelf)
             {
-                bullet.BulletGameObject.SetActive(true);
-                bullet.BulletGameObject.transform.position = shootPosition.transform.position;
+                bullet.GameObject.SetActive(true);
+                bullet.GameObject.transform.position = shootPosition.transform.position;
                 bullet.Aim = aim;
                 bullet.Damage = damage;
                 bullet.BulletBehaviourType = bulletBehaviourType;

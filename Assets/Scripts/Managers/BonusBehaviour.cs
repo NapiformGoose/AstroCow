@@ -30,12 +30,13 @@ public class BonusBehaviour
     public BonusBehaviour(IObjectStorage objectStorage)
 	{
         _objectStorage = objectStorage;
-        _player = _objectStorage.Units[UnitType.Player.ToString()].First();
         ActiveBonus = new List<ActiveBonusTemplate>();
     }
 
     public void BonusAct(IBonus bonus)
     {
+        _player = _objectStorage.Units[UnitType.Player.ToString()].First();
+
         switch (bonus.BonusType)
         {
             case BonusType.BonusHealth:

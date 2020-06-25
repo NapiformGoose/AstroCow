@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Interfaces;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Managers
 {
@@ -19,32 +20,19 @@ namespace Assets.Scripts.Managers
 
         public IObstacle CreateObstacle(IObstacle obstacle, Vector3 currentCellPos)
         {
-            IObstacle newObstacle = new Obstacle
-            {
-                ObstacleGameObject = GameObject.Instantiate(_prefabs[obstacle.ObstacleType.ToString()])
-            };
-            newObstacle.ObstacleCollider2D = newObstacle.ObstacleGameObject.GetComponent<Collider2D>() as Collider2D;
-            newObstacle.ObstacleRigidBody2D = newObstacle.ObstacleGameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
-            newObstacle.ObstacleGameObject.transform.position = Vector3.zero;
+            IObstacle newObstacle = new Obstacle();
 
-            newObstacle.ObstacleGameObject.transform.position = currentCellPos + obstacle.SpawnPosition;
+            newObstacle.GameObject.transform.position = currentCellPos + obstacle.SpawnPosition;
             return newObstacle;
         }
 
-        public IUnit CreateUnit(IUnit unit, Vector3 spawnPos)
+        public IUnit CreateUnit(IUnit unit)
         {
-            IUnit newUnit = new Unit
-            {
-                GameObject = GameObject.Instantiate(_prefabs[unit.UnitType.ToString()]),
-            };
+            IUnit newUnit = new Unit();
 
             newUnit.UnitType = unit.UnitType;
             newUnit.Team = unit.UnitType == UnitType.Player ? Team.Player : Team.Enemy;
 
-            newUnit.Collider2D = newUnit.GameObject.GetComponent<Collider2D>() as Collider2D;
-            newUnit.RigidBody2D = newUnit.GameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
-
-            newUnit.ShootPosition = (GameObject)newUnit.GameObject.transform.Find("ShootPosition").gameObject;
             newUnit.Weapon = new Weapon
             {
                 BaseAttack = unit.Weapon.BaseAttack,
@@ -70,6 +58,65 @@ namespace Assets.Scripts.Managers
             
             return newUnit;
         }
+
+        public IBullet CreateBullet(GameObject bulletPrefab)
+        {
+            IBullet newBullet = new Bullet();
+            return newBullet;
+        }
+
+        public IBonus CreateBonus(IBonus bonusTemplate)
+        {
+
+            IBonus newBonus = new Bonus
+            {
+                GameObject = GameObject.Instantiate(_prefabs[bonusTemplate.BonusType.ToString()]),
+                Alias = bonusTemplate.Alias,
+                BonusType = bonusTemplate.BonusType,
+                RandomValue = bonusTemplate.RandomValue,
+                HealthValue = bonusTemplate.HealthValue,
+                FireSpeedCoefficient = bonusTemplate.FireSpeedCoefficient,
+                ReloadSpeedCoefficient = bonusTemplate.ReloadSpeedCoefficient,
+                ActiveTime = bonusTemplate.ActiveTime
+            };
+            newBonus.Collider2D = newBonus.GameObject.GetComponent<Collider2D>() as Collider2D;
+            return newBonus;
+        }
+
+        public void InstantiateUnit(IUnit unit, Transform transformCanvas)
+        {
+            if(unit.GameObject == null)
+            {
+                unit.GameObject = GameObject.Instantiate(_prefabs[unit.UnitType.ToString()], unit.Behaviour.StartPos, Quaternion.identity);
+                unit.Collider2D = unit.GameObject.GetComponent<Collider2D>() as Collider2D;
+                unit.RigidBody2D = unit.GameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
+                unit.ShootPosition = (GameObject)unit.GameObject.transform.Find("ShootPosition").gameObject;
+
+                var text = Resources.Load(Constants.prefabPath + "Text") as GameObject;
+                unit.Text = GameObject.Instantiate<GameObject>(text);
+            }
+
+            unit.GameObject.transform.position = unit.Behaviour.StartPos;
+            unit.Text.transform.position = unit.GameObject.transform.position + new Vector3(0.7f, 0.7f, 0);
+            unit.Text.GetComponent<Text>().text = unit.Health.ToString();
+
+            unit.Text.GetComponent<Text>().transform.SetParent(transformCanvas);
+        }
+        public void InstantiateObstacle(IObstacle obstacle)
+        {
+            obstacle.GameObject = GameObject.Instantiate(_prefabs[obstacle.ObstacleType.ToString()]);
+            obstacle.Collider2D = obstacle.GameObject.GetComponent<Collider2D>() as Collider2D;
+            obstacle.RigidBody2D = obstacle.GameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
+            obstacle.GameObject.SetActive(false);
+        }
+        public void InstantiateBullet(IBullet bullet)
+        {
+            bullet.GameObject = GameObject.Instantiate(_prefabs[bullet.BulletType.ToString()]);
+            bullet.Collider2D = bullet.GameObject.GetComponent<Collider2D>() as Collider2D;
+            bullet.RigidBody2D = bullet.GameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
+            bullet.GameObject.SetActive(false);
+        }
+
         public Vector3 CalculateUnitSpawnPosition(IDiapasonSpawnPosition diapasonSpawnPosition, Vector3 currentCellPos)
         {
             float x = Random.Range(diapasonSpawnPosition.minXPos, diapasonSpawnPosition.maxXPos);
@@ -87,6 +134,7 @@ namespace Assets.Scripts.Managers
                     {
                         unit.Behaviour = new Behaviour
                         {
+                            StartPos = spawnPos,
                             MaxLeftPos = new Vector3(-2.7f, 0, 0),
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             IsMoving = false,
@@ -191,35 +239,6 @@ namespace Assets.Scripts.Managers
                         break;
                     }
             }
-        }
-
-        public IBullet CreateBullet(GameObject bulletPrefab)
-        {
-            IBullet newBullet = new Bullet
-            {
-                BulletGameObject = GameObject.Instantiate(_prefabs[BulletType.BulletType1.ToString()])
-            };
-            newBullet.BulletCollider2D = newBullet.BulletGameObject.GetComponent<Collider2D>() as Collider2D;
-            newBullet.BulletRigidBody2D = newBullet.BulletGameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
-            return newBullet;
-        }
-
-        public IBonus CreateBonus(IBonus bonusTemplate)
-        {
-
-            IBonus newBonus = new Bonus
-            {
-                BonusGameObject = GameObject.Instantiate(_prefabs[bonusTemplate.BonusType.ToString()]),
-                Alias = bonusTemplate.Alias,
-                BonusType = bonusTemplate.BonusType,
-                RandomValue = bonusTemplate.RandomValue,
-                HealthValue = bonusTemplate.HealthValue,
-                FireSpeedCoefficient = bonusTemplate.FireSpeedCoefficient,
-                ReloadSpeedCoefficient = bonusTemplate.ReloadSpeedCoefficient,
-                ActiveTime = bonusTemplate.ActiveTime
-            };
-            newBonus.BonusCollider2D = newBonus.BonusGameObject.GetComponent<Collider2D>() as Collider2D;
-            return newBonus;
         }
     }
 }

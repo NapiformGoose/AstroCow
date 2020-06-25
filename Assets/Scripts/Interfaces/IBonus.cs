@@ -13,6 +13,6 @@ public interface IBonus : IEntity
     float ReloadSpeedCoefficient { get; set; }
     float ActiveTime { get; set; }
 
-    GameObject BonusGameObject { get; set; }
-    Collider2D BonusCollider2D { get; set; }
+    GameObject GameObject { get; set; }
+    Collider2D Collider2D { get; set; }
 }

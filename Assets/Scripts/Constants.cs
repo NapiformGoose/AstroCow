@@ -110,5 +110,14 @@ namespace Assets.Scripts
 
         public static Vector3 centerActiveField = Camera.main.transform.position;
         public static Vector3 topActiveField = Camera.main.transform.position + new Vector3(0, 6.4f, 0);
+
+        //UI
+        //Buttons
+        public static string playBatton = "PlayButton";
+        public static string restartButton = "RestartButton";
+        public static string continueButton = "ContinueButton";
+        public static string menuButton = "MenuButton";
+        public static string exitButton = "ExitButton";
+        public static string backButton = "BackButton";
     }
 }

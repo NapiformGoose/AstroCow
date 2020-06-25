@@ -30,5 +30,7 @@ namespace Assets.Scripts.Interfaces
         Collider2D RightDeactivationTrigger { get; set; }
 
         Canvas Canvas { get; set; }
+
+        void ClearLevelData();
     }
 }

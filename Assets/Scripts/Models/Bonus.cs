@@ -13,6 +13,6 @@ public class Bonus : IBonus
     public float ReloadSpeedCoefficient { get; set; }
     public float ActiveTime { get; set; }
 
-    public GameObject BonusGameObject { get; set; }
-    public Collider2D BonusCollider2D { get; set; }
+    public GameObject GameObject { get; set; }
+    public Collider2D Collider2D { get; set; }
 }

@@ -49,6 +49,7 @@ public class DataLoadManager : IDataLoadManager
         _objectStorage.Prefabs.Add(ObstacleType.SteelWall.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.SteelWall.ToString()) as GameObject);
 
         _objectStorage.Prefabs.Add(BulletType.BulletType1.ToString(), Resources.Load(Constants.prefabPath + BulletType.BulletType1.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(BulletType.BulletType2.ToString(), Resources.Load(Constants.prefabPath + BulletType.BulletType2.ToString()) as GameObject);
 
         _objectStorage.Prefabs.Add(BonusType.BonusHealth.ToString(), Resources.Load(Constants.prefabPath + BonusType.BonusHealth.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(BonusType.BonusBoom.ToString(), Resources.Load(Constants.prefabPath + BonusType.BonusBoom.ToString()) as GameObject);

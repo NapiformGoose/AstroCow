@@ -16,6 +16,7 @@ namespace Assets.Scripts
         IDataLoadManager _dataLoadManager;
         IObjectCreateManager _objectCreateManager;
         IBehaviourManager _behaviourManager;
+        UIManager _UIManager;
 
         void Start()
         {
@@ -28,15 +29,17 @@ namespace Assets.Scripts
             _objectStorage = new ObjectStorage();
 
             _dataLoadManager = new DataLoadManager(_objectStorage);
+
+            _poolManager = new PoolManager(_objectStorage, _objectCreateManager);
+
+            //_poolManager.LoadLevel();
             _dataLoadManager.ReadConfig();
             _dataLoadManager.LoadPrefabs();
 
-            _poolManager = new PoolManager(_objectStorage, _objectCreateManager);
-            _poolManager.LoadLevel();
-
+            _UIManager = new UIManager(_updateManager, _objectStorage, _poolManager, _dataLoadManager);
+            _UIManager.ShowMainMenu(); //start game here
             _behaviourManager = new BehaviourManager(_updateManager, _objectStorage);
 
-            _updateManager.CustomStart();
         }
 
     }

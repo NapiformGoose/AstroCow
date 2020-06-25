@@ -6,9 +6,9 @@ using Assets.Scripts;
 public class Bullet : IBullet
 {
     public string Alias { get; set; }
-    public GameObject BulletGameObject { get; set; }
-    public Collider2D BulletCollider2D { get; set; }
-    public Rigidbody2D BulletRigidBody2D { get; set; }
+    public GameObject GameObject { get; set; }
+    public Collider2D Collider2D { get; set; }
+    public Rigidbody2D RigidBody2D { get; set; }
     public BulletType BulletType { get; set; }
     public BulletBehaviourType BulletBehaviourType { get; set; }
     public IBehaviour Behaviour { get; set; }

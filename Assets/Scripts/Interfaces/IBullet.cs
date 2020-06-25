@@ -6,9 +6,9 @@ using Assets.Scripts;
 public interface IBullet
 {
     string Alias { get; set; }
-    GameObject BulletGameObject { get; set; }
-    Collider2D BulletCollider2D { get; set; }
-    Rigidbody2D BulletRigidBody2D { get; set; }
+    GameObject GameObject { get; set; }
+    Collider2D Collider2D { get; set; }
+    Rigidbody2D RigidBody2D { get; set; }
     BulletType BulletType { get; set; }
     BulletBehaviourType BulletBehaviourType { get; set; }
     IBehaviour Behaviour { get; set; }

@@ -20,11 +20,12 @@ public class UnitBehaviours
     {
         _objectStorage = objectStorage;
         _weaponBehaviour = new WeaponBehaviours(_objectStorage);
-        _player = _objectStorage.Units[UnitType.Player.ToString()].First();
     }
 
     public void UnitAct(IUnit unit)
     {
+        _player = _objectStorage.Units[UnitType.Player.ToString()].First();
+
         switch (unit.UnitType)
         {
             case UnitType.Player:

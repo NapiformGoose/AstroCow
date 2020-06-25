@@ -49,5 +49,43 @@ namespace Assets.Scripts.Managers
             Bullets = new Dictionary<string, IList<IBullet>>();
             Bonuses = new Dictionary<string, IList<IBonus>>();
         }
+
+        public void ClearLevelData()
+        {
+            foreach (string key in Units.Keys)
+            {
+                foreach (IUnit unit in Units[key])
+                {
+                    GameObject.Destroy(unit.GameObject);
+                    GameObject.Destroy(unit.Text.gameObject);
+
+                }
+            }
+            foreach (string key in Obstacles.Keys)
+            {
+                foreach (IObstacle obstacle in Obstacles[key])
+                {
+                    GameObject.Destroy(obstacle.GameObject);
+                }
+            }
+            foreach (string key in Bullets.Keys)
+            {
+                foreach (IBullet bullet in Bullets[key])
+                {
+                    GameObject.Destroy(bullet.GameObject);
+                }
+            }
+            foreach (string key in Bonuses.Keys)
+            {
+                foreach (IBonus bonus in Bonuses[key])
+                {
+                    GameObject.Destroy(bonus.GameObject);
+                }
+            }
+            Units = new Dictionary<string, IList<IUnit>>();
+            Obstacles = new Dictionary<string, IList<IObstacle>>();
+            Bullets = new Dictionary<string, IList<IBullet>>();
+            Bonuses = new Dictionary<string, IList<IBonus>>();
+        }
     }
 }

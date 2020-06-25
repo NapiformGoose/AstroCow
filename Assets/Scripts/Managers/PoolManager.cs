@@ -28,17 +28,10 @@ public class PoolManager : IPoolManager
 
             foreach (IUnit unit in currentCellSet[i].Units)
             {
-                Vector3 spawnPos = _objectCreateManager.CalculateUnitSpawnPosition(unit.DiapasonSpawnPosition, currentCellPos); //использлвать в _objectCreateManager
-                IUnit newUnit = _objectCreateManager.CreateUnit(unit, spawnPos);
-                newUnit.GameObject.transform.position = spawnPos;
-                var text = Resources.Load(Constants.prefabPath + "Text") as GameObject;
-                newUnit.Text = GameObject.Instantiate<GameObject>(text);
-                newUnit.Text.transform.position = newUnit.GameObject.transform.position + new Vector3(0.7f, 0.7f, 0);
-                newUnit.Text.GetComponent<Text>().text = newUnit.Health.ToString();
+                Vector3 spawnPos = _objectCreateManager.CalculateUnitSpawnPosition(unit.DiapasonSpawnPosition, currentCellPos);
+                IUnit newUnit = _objectCreateManager.CreateUnit(unit);
 
-                newUnit.Text.GetComponent<Text>().transform.SetParent(_objectStorage.Canvas.transform);
-             
-                _objectCreateManager.SetBehaviour(newUnit, spawnPos); //?
+                _objectCreateManager.SetBehaviour(newUnit, spawnPos);
 
                 if (_objectStorage.Units.Keys.Contains(unit.UnitType.ToString()))
                 {
@@ -66,7 +59,7 @@ public class PoolManager : IPoolManager
                     _objectStorage.Bonuses[bonus.BonusType.ToString()].Add(bonus);
                 }
 
-                bonus.BonusGameObject.SetActive(false);
+                bonus.GameObject.SetActive(false);
             }
             foreach (IObstacle obstacle in currentCellSet[i].ObstacleSet)
             {
@@ -85,19 +78,42 @@ public class PoolManager : IPoolManager
         CreateBullet();
     }
 
+    public void InstantiateEntities()
+    {
+        foreach(string key in _objectStorage.Units.Keys)
+        {
+            foreach(IUnit unit in _objectStorage.Units[key])
+            {
+                _objectCreateManager.InstantiateUnit(unit, _objectStorage.Canvas.transform);
+            }
+        }
+        foreach (string key in _objectStorage.Obstacles.Keys)
+        {
+            foreach (IObstacle obstacle in _objectStorage.Obstacles[key])
+            {
+                _objectCreateManager.InstantiateObstacle(obstacle);
+            }
+        }
+        foreach (string key in _objectStorage.Bullets.Keys)
+        {
+            foreach (IBullet bullet in _objectStorage.Bullets[key])
+            {
+                _objectCreateManager.InstantiateBullet(bullet);
+            }
+        }
+    }
+
     void CreateBullet()
     {
         for (int i = 0; i < 50; i++)
         {
             IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType1.ToString()]);
-            bullet.BulletGameObject.SetActive(false);
             bullet.BulletType = BulletType.BulletType1;
             bullet.MoveSpeed = _objectStorage.BulletTemplates[bullet.BulletType.ToString()].MoveSpeed;
             bullet.Behaviour = new Behaviour();
             if (_objectStorage.Bullets.Keys.Contains(BulletType.BulletType1.ToString()))
             {
                 _objectStorage.Bullets[BulletType.BulletType1.ToString()].Add(bullet);
-
             }
             else
             {
@@ -108,7 +124,6 @@ public class PoolManager : IPoolManager
         for (int i = 0; i < 20; i++)
         {
             IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType1.ToString()]);
-            bullet.BulletGameObject.SetActive(false);
             bullet.BulletType = BulletType.BulletType2;
             bullet.MoveSpeed = _objectStorage.BulletTemplates[BulletType.BulletType2.ToString()].MoveSpeed;
             bullet.Behaviour = new Behaviour();

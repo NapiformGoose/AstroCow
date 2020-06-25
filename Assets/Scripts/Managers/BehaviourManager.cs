@@ -54,9 +54,9 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         {
             foreach (IBullet bullet in _objectStorage.Bullets[key])
             {
-                if (bullet.BulletGameObject.activeSelf && bullet.Aim == unit.Team && bullet.BulletCollider2D.IsTouching(unit.Collider2D))
+                if (bullet.GameObject.activeSelf && bullet.Aim == unit.Team && bullet.Collider2D.IsTouching(unit.Collider2D))
                 {
-                    bullet.BulletGameObject.SetActive(false);
+                    bullet.GameObject.SetActive(false);
                     return bullet.Damage;
                 }
             }
@@ -80,7 +80,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         IObstacle obstacle = entity as IObstacle;
         if (obstacle != null)
         {
-            if (obstacle.ObstacleGameObject.activeSelf && obstacle.ObstacleCollider2D.IsTouching(player.Collider2D))
+            if (obstacle.GameObject.activeSelf && obstacle.Collider2D.IsTouching(player.Collider2D))
             {
                 float damage = 0;
                 switch (obstacle.ObstacleType)
@@ -127,12 +127,12 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         {
             foreach (IBonus bonus in _objectStorage.Bonuses[unit.BonusType.ToString()])
             {
-                if (!bonus.BonusGameObject.activeSelf)
+                if (!bonus.GameObject.activeSelf)
                 {
                     if (UnityEngine.Random.Range(0, 100) <= bonus.RandomValue)
                     {
-                        bonus.BonusGameObject.transform.position = unit.GameObject.transform.position;
-                        bonus.BonusGameObject.SetActive(true);
+                        bonus.GameObject.transform.position = unit.GameObject.transform.position;
+                        bonus.GameObject.SetActive(true);
                     }
 
                     return;
@@ -184,7 +184,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
                     continue;
                 }
 
-                if (IsDownDeactive(obstacle.ObstacleCollider2D))
+                if (IsDownDeactive(obstacle.Collider2D))
                 {
                     //unit.GameObject.SetActive(false);
                 }
@@ -194,13 +194,13 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         {
             foreach (IBullet bullet in _objectStorage.Bullets[key])
             {
-                if (IsActive(bullet.BulletCollider2D))
+                if (IsActive(bullet.Collider2D))
                 {
                     _bulletBehaviours.BulletAct(bullet);
                 }
-                if (IsTopDeactive(bullet.BulletCollider2D) || IsDownDeactive(bullet.BulletCollider2D))
+                if (IsTopDeactive(bullet.Collider2D) || IsDownDeactive(bullet.Collider2D))
                 {
-                    bullet.BulletGameObject.SetActive(false);
+                    bullet.GameObject.SetActive(false);
                 }
             }
         }
@@ -208,9 +208,9 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         {
             foreach (IBonus bonus in _objectStorage.Bonuses[key])
             {
-                if (bonus.BonusGameObject.activeSelf && bonus.BonusCollider2D.IsTouching(player.Collider2D))
+                if (bonus.GameObject.activeSelf && bonus.Collider2D.IsTouching(player.Collider2D))
                 {
-                    bonus.BonusGameObject.SetActive(false);
+                    bonus.GameObject.SetActive(false);
                     _bonusBehaviour.BonusAct(bonus);
                 }
             }
