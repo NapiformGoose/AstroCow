@@ -69,6 +69,13 @@ namespace Assets.Scripts
         СrystalEnemies
     }
 
+    public enum UpgradeType
+    {
+        FireSpeedUp,
+        BaseAttackUp,
+        HealthUp
+    }
+
     public enum EffectType
     {
         FireSpeedUp
@@ -119,5 +126,20 @@ namespace Assets.Scripts
         public static string menuButton = "MenuButton";
         public static string exitButton = "ExitButton";
         public static string backButton = "BackButton";
+
+        public static string firstUpgradeButton = "FirstUpgradeButton"; 
+        public static string secondUpgradeButton = "SecondUpgradeButton";
+        public static string thirdUpgradeButton = "ThirdUpgradeButton";
+
+        //Upgrades
+        //Titles
+        public static string FireSpeedUpTitle = "Скорость атаки";
+        public static string BaseAttackUpTitle = "Урон";
+        public static string HealthUpTitle = "Здоровье";
+        //Descriptions
+        public static string FireSpeedUpDescription = "Увеличивает скорострельность на 10%";
+        public static string BaseAttackUpDescription = "Увеличивает урон на 10%";
+        public static string HealthUpDescription = "Увеличивает количество здоровья на 10%";
+
     }
 }

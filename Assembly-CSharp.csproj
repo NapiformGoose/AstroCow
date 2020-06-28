@@ -83,6 +83,8 @@
     <Compile Include="Assets\Scripts\Interfaces\IUnit.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IUpdatable.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IUpdateManager.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IUpgrade.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IUpgradeBehaviours.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IWeapon.cs" />
     <Compile Include="Assets\Scripts\Managers\BackgroundManager.cs" />
     <Compile Include="Assets\Scripts\Managers\BehaviourManager.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Scripts\Managers\UnitBehaviours.cs" />
     <Compile Include="Assets\Scripts\Managers\UpdateManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\UpgradeBehaviours.cs" />
     <Compile Include="Assets\Scripts\Managers\WeaponBehaviours.cs" />
     <Compile Include="Assets\Scripts\Models\Behaviour.cs" />
     <Compile Include="Assets\Scripts\Models\Bonus.cs" />
@@ -106,6 +109,7 @@
     <Compile Include="Assets\Scripts\Models\Level.cs" />
     <Compile Include="Assets\Scripts\Models\Obstacle.cs" />
     <Compile Include="Assets\Scripts\Models\Unit.cs" />
+    <Compile Include="Assets\Scripts\Models\Upgrade.cs" />
     <Compile Include="Assets\Scripts\Models\Weapon.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />

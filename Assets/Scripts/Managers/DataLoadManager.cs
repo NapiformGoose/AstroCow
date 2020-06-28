@@ -61,6 +61,36 @@ public class DataLoadManager : IDataLoadManager
         _objectStorage.Prefabs.Add(Constants.lowerTriggerName, Resources.Load(Constants.prefabPath + Constants.lowerTriggerName) as GameObject);
     }
 
+    public void CreateUpgrades()
+    {
+        IUpgrade fireSpeedUp = new Upgrade
+        {
+            Title = Constants.FireSpeedUpTitle,
+            Description = Constants.FireSpeedUpDescription,
+            //IconName =
+            UpgradeType = UpgradeType.FireSpeedUp
+        };
+        _objectStorage.Upgrades.Add(fireSpeedUp);
+
+        IUpgrade baseAttackUp = new Upgrade
+        {
+            Title = Constants.BaseAttackUpTitle,
+            Description = Constants.BaseAttackUpDescription,
+            //IconName =
+            UpgradeType = UpgradeType.BaseAttackUp
+        };
+        _objectStorage.Upgrades.Add(baseAttackUp);
+
+        IUpgrade healthUp = new Upgrade
+        {
+            Title = Constants.HealthUpTitle,
+            Description = Constants.HealthUpDescription,
+            //IconName =
+            UpgradeType = UpgradeType.HealthUp
+        };
+        _objectStorage.Upgrades.Add(healthUp);
+    }
+
     #region Private read method
     void ReadTemplatesConfig()
     {
@@ -231,6 +261,7 @@ public class DataLoadManager : IDataLoadManager
         unit.Ghost = bool.Parse(element.Attribute("ghost").Value);
         unit.InactiveTime = float.Parse(element.Attribute("inactiveTime").Value, CultureInfo.InvariantCulture);
         unit.Weapon = _objectStorage.WeaponTemplates[element.Attribute("weaponType").Value];
+        unit.ExperienceValue = float.Parse(element.Attribute("experienceValue").Value, CultureInfo.InvariantCulture);
 
         _objectStorage.UnitTemplates.Add(element.Attribute("type").Value, unit);
     }
@@ -328,6 +359,7 @@ public class DataLoadManager : IDataLoadManager
                 Weapon = template.Weapon,
                 InactiveTime = template.InactiveTime,
                 BonusType = (BonusType)Enum.Parse(typeof(BonusType), subElement.Attribute("bonusType").Value),
+                ExperienceValue = template.ExperienceValue
             };
             cell.Units.Add(unit);
         }

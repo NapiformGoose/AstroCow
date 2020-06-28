@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts;
 using Assets.Scripts.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,9 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
     UnitBehaviours _unitBehaviours;     //
     BulletBehaviours _bulletBehaviours; // название классов
     BonusBehaviour _bonusBehaviour;
+    IUpgradeBehaviours _upgradeBehaviours;
+
+    IUnit _player;
 
     public BehaviourManager(IUpdateManager updateManager, IObjectStorage objectStorage)
     {
@@ -20,6 +24,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         _unitBehaviours = new UnitBehaviours(_objectStorage);
         _bulletBehaviours = new BulletBehaviours(_objectStorage);
         _bonusBehaviour = new BonusBehaviour(_objectStorage);
+        _upgradeBehaviours = new UpgradeBehaviours(_objectStorage);
         _updateManager.AddUpdatable(this);
     }
 
@@ -66,13 +71,12 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
 
     private float IsCollision(IEntity entity)
     {
-        IUnit player = _objectStorage.Units[UnitType.Player.ToString()].First();
-
         IUnit unit = entity as IUnit;
         if (unit != null)
         {
-            if (unit.GameObject.activeSelf && unit.Collider2D.IsTouching(player.Collider2D))
+            if (unit.GameObject.activeSelf && unit.Collider2D.IsTouching(_player.Collider2D))
             {
+                CalculateExperience(unit.ExperienceValue);
                 return Constants.unitCollisionDamage;
             }
         }
@@ -80,7 +84,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         IObstacle obstacle = entity as IObstacle;
         if (obstacle != null)
         {
-            if (obstacle.GameObject.activeSelf && obstacle.Collider2D.IsTouching(player.Collider2D))
+            if (obstacle.GameObject.activeSelf && obstacle.Collider2D.IsTouching(_player.Collider2D))
             {
                 float damage = 0;
                 switch (obstacle.ObstacleType)
@@ -113,12 +117,18 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
                 unit.GameObject.SetActive(false);
                 unit.Text.SetActive(false);
                 showBonus(unit);
+                CalculateExperience(unit.ExperienceValue);
             }
         }
         else
         {
             unit.Health -= damage;
         }
+    }
+
+    private void CalculateExperience(float experienceValue)
+    {
+        _player.Behaviour.CurrentExperience += experienceValue;
     }
 
     private void showBonus(IUnit unit)
@@ -140,20 +150,34 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
             }
         }
     }
+
+    public void ApplyUpgrade(UpgradeType upgradeType)
+    {
+        _upgradeBehaviours.UpgradeAct(upgradeType);
+    }
+
+    public IList<IUpgrade> GetUpgrades()
+    {
+        return _upgradeBehaviours.GetUpgrades();
+    }
+
     public void CustomFixedUpdate()
     {
+        _player = _objectStorage.Units[UnitType.Player.ToString()].First();
         Camera.main.transform.position += new Vector3(0, Constants.cameraSpeed * Time.deltaTime, 0);
-        IUnit player = _objectStorage.Units["Player"].First();
 
         foreach (var key in _objectStorage.Units.Keys)
         {
             foreach (IUnit unit in _objectStorage.Units[key])
             {
                 float collisionDamage = IsCollision(unit);
+
                 if (unit.UnitType != UnitType.Player && collisionDamage > 0)
                 {
+                    //destroy enemy after collision with player
                     CalculateHealth(unit, 1000);
-                    CalculateHealth(player, collisionDamage);
+
+                    CalculateHealth(_player, collisionDamage);
                     continue;
                 }
 
@@ -180,7 +204,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
                 float collisionDamage = IsCollision(obstacle);
                 if (collisionDamage > 0)
                 {
-                    CalculateHealth(player, collisionDamage);
+                    CalculateHealth(_player, collisionDamage);
                     continue;
                 }
 
@@ -208,7 +232,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         {
             foreach (IBonus bonus in _objectStorage.Bonuses[key])
             {
-                if (bonus.GameObject.activeSelf && bonus.Collider2D.IsTouching(player.Collider2D))
+                if (bonus.GameObject.activeSelf && bonus.Collider2D.IsTouching(_player.Collider2D))
                 {
                     bonus.GameObject.SetActive(false);
                     _bonusBehaviour.BonusAct(bonus);
@@ -216,6 +240,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
             }
             _bonusBehaviour.ActiveBonusAct();
         }
+       
     }
     public void CustomUpdate()
     {

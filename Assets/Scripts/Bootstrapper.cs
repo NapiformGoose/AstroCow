@@ -35,11 +35,11 @@ namespace Assets.Scripts
             //_poolManager.LoadLevel();
             _dataLoadManager.ReadConfig();
             _dataLoadManager.LoadPrefabs();
-
-            _UIManager = new UIManager(_updateManager, _objectStorage, _poolManager, _dataLoadManager);
-            _UIManager.ShowMainMenu(); //start game here
+            _dataLoadManager.CreateUpgrades();
             _behaviourManager = new BehaviourManager(_updateManager, _objectStorage);
 
+            _UIManager = new UIManager(_updateManager, _objectStorage, _poolManager, _dataLoadManager, _behaviourManager);
+            _UIManager.ShowMainMenu(); //start game here
         }
 
     }

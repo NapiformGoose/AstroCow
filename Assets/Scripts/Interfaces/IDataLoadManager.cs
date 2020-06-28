@@ -6,4 +6,5 @@ public interface IDataLoadManager
 {
     void ReadConfig();
     void LoadPrefabs();
+    void CreateUpgrades();
 }

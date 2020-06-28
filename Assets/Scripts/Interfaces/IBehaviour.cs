@@ -10,9 +10,12 @@ public interface IBehaviour
     Vector3 MaxRightPos { get; set; }
     Vector3 MaxTopPos { get; set; }
     Vector3 MaxDownPos { get; set; }
+    Vector3 Direction { get; set; }
+
+    float CurrentExperience { get; set; }
+
     bool IsMoving { get; set; }
     bool IsAttack { get; set; }
-    Vector3 Direction { get; set; }
     bool IsActive { get; set; }
 
     float TimeBeforeShot { get; set; }

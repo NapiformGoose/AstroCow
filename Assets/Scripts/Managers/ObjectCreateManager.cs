@@ -55,7 +55,7 @@ namespace Assets.Scripts.Managers
             newUnit.MoveSpeed = unit.MoveSpeed;
             newUnit.InactiveTime = unit.InactiveTime;
             newUnit.BonusType = unit.BonusType;
-            
+            newUnit.ExperienceValue = unit.ExperienceValue;
             return newUnit;
         }
 
@@ -85,7 +85,7 @@ namespace Assets.Scripts.Managers
 
         public void InstantiateUnit(IUnit unit, Transform transformCanvas)
         {
-            if(unit.GameObject == null)
+            if (unit.GameObject == null)
             {
                 unit.GameObject = GameObject.Instantiate(_prefabs[unit.UnitType.ToString()], unit.Behaviour.StartPos, Quaternion.identity);
                 unit.Collider2D = unit.GameObject.GetComponent<Collider2D>() as Collider2D;
@@ -130,19 +130,6 @@ namespace Assets.Scripts.Managers
         {
             switch (unit.UnitType)
             {
-                case UnitType.Player:
-                    {
-                        unit.Behaviour = new Behaviour
-                        {
-                            StartPos = spawnPos,
-                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
-                            MaxRightPos = new Vector3(2.7f, 0, 0),
-                            IsMoving = false,
-                            Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
-                            InactiveTime = 0
-                        };
-                        break;
-                    }
                 case UnitType.EnemyType1:
                     {
                         unit.Behaviour = new Behaviour
@@ -152,19 +139,8 @@ namespace Assets.Scripts.Managers
                         };
                         break;
                     }
+                case UnitType.Player:
                 case UnitType.EnemyType2:
-                    {
-                        unit.Behaviour = new Behaviour
-                        {
-                            StartPos = spawnPos,
-                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
-                            MaxRightPos = new Vector3(2.7f, 0, 0),
-                            Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
-                            IsMoving = false,
-                            InactiveTime = 0
-                        };
-                        break;
-                    }
                 case UnitType.EnemyType3:
                     {
                         unit.Behaviour = new Behaviour
@@ -179,29 +155,7 @@ namespace Assets.Scripts.Managers
                         break;
                     }
                 case UnitType.EnemyType4:
-                    {
-                        unit.Behaviour = new Behaviour
-                        {
-                            StartPos = spawnPos,
-                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
-                            MaxRightPos = new Vector3(2.7f, 0, 0),
-                            IsMoving = false,
-                            InactiveTime = 0
-                        };
-                        break;
-                    }
                 case UnitType.EnemyType5:
-                    {
-                        unit.Behaviour = new Behaviour
-                        {
-                            StartPos = spawnPos,
-                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
-                            MaxRightPos = new Vector3(2.7f, 0, 0),
-                            IsMoving = false,
-                            InactiveTime = 0
-                        };
-                        break;
-                    }
                 case UnitType.EnemyType6:
                     {
                         unit.Behaviour = new Behaviour
@@ -215,17 +169,6 @@ namespace Assets.Scripts.Managers
                         break;
                     }
                 case UnitType.EnemyType7:
-                    {
-                        unit.Behaviour = new Behaviour
-                        {
-                            StartPos = spawnPos,
-                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
-                            MaxRightPos = new Vector3(2.7f, 0, 0),
-                            IsMoving = false,
-                            InactiveTime = -1
-                        };
-                        break;
-                    }
                 case UnitType.EnemyType8:
                     {
                         unit.Behaviour = new Behaviour

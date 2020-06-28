@@ -12,6 +12,7 @@ public interface IUnit : IEntity
     float MoveSpeed { get; set; }
     bool Ghost { get; set; }
     float InactiveTime { get; set; }
+    float ExperienceValue { get; set; }
     BonusType BonusType { get; set; }
 
     GameObject GameObject { get; set; }
