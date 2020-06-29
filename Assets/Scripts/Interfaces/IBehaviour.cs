@@ -13,6 +13,13 @@ public interface IBehaviour
     Vector3 Direction { get; set; }
 
     float CurrentExperience { get; set; }
+    float CurrentHealth { get; set; }
+    float CurrentMoveSpeed { get; set; }
+
+    float CurrentFireSpeed { get; set; }
+    float CurrentReloadSpeed { get; set; }
+    float CurrentCritAttack { get; set; }
+    float CurrentBaseAttack { get; set; }
 
     bool IsMoving { get; set; }
     bool IsAttack { get; set; }

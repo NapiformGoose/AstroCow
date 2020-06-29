@@ -105,8 +105,8 @@ public class BonusBehaviour
 
     void BonusMagnetEffect(IBonus bonus)
     {
-        _player.Weapon.FireSpeed *= bonus.FireSpeedCoefficient;
-        ActiveBonus.Add(new ActiveBonusTemplate(_player.Weapon.FireSpeed, bonus.FireSpeedCoefficient, bonus.ActiveTime, EffectType.FireSpeedUp));
+        _player.Behaviour.CurrentFireSpeed *= bonus.FireSpeedCoefficient;
+        ActiveBonus.Add(new ActiveBonusTemplate(_player.Behaviour.CurrentFireSpeed, bonus.FireSpeedCoefficient, bonus.ActiveTime, EffectType.FireSpeedUp));
     }
 
     void BonusСrystalEnemiesEffect()

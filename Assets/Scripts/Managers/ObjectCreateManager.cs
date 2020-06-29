@@ -135,7 +135,13 @@ namespace Assets.Scripts.Managers
                         unit.Behaviour = new Behaviour
                         {
                             StartPos = spawnPos,
-                            InactiveTime = 0
+                            InactiveTime = 0,
+                            CurrentHealth = unit.Health,
+                            CurrentMoveSpeed = unit.MoveSpeed,
+                            CurrentFireSpeed = unit.Weapon.FireSpeed,
+                            CurrentReloadSpeed = unit.Weapon.ReloadSpeed,
+                            CurrentCritAttack = unit.Weapon.CritAttack,
+                            CurrentBaseAttack = unit.Weapon.BaseAttack
                         };
                         break;
                     }
@@ -150,7 +156,13 @@ namespace Assets.Scripts.Managers
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
-                            InactiveTime = 0
+                            InactiveTime = 0,
+                            CurrentHealth = unit.Health,
+                            CurrentMoveSpeed = unit.MoveSpeed,
+                            CurrentFireSpeed = unit.Weapon.FireSpeed,
+                            CurrentReloadSpeed = unit.Weapon.ReloadSpeed,
+                            CurrentCritAttack = unit.Weapon.CritAttack,
+                            CurrentBaseAttack = unit.Weapon.BaseAttack
                         };
                         break;
                     }
@@ -164,7 +176,13 @@ namespace Assets.Scripts.Managers
                             MaxLeftPos = new Vector3(-2.7f, 0, 0),
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             IsMoving = false,
-                            InactiveTime = 0
+                            InactiveTime = 0,
+                            CurrentHealth = unit.Health,
+                            CurrentMoveSpeed = unit.MoveSpeed,
+                            CurrentFireSpeed = unit.Weapon.FireSpeed,
+                            CurrentReloadSpeed = unit.Weapon.ReloadSpeed,
+                            CurrentCritAttack = unit.Weapon.CritAttack,
+                            CurrentBaseAttack = unit.Weapon.BaseAttack
                         };
                         break;
                     }
@@ -177,7 +195,13 @@ namespace Assets.Scripts.Managers
                             MaxLeftPos = new Vector3(-2.7f, 0, 0),
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             IsMoving = false,
-                            InactiveTime = -1
+                            InactiveTime = -1,
+                            CurrentHealth = unit.Health,
+                            CurrentMoveSpeed = unit.MoveSpeed,
+                            CurrentFireSpeed = unit.Weapon.FireSpeed,
+                            CurrentReloadSpeed = unit.Weapon.ReloadSpeed,
+                            CurrentCritAttack = unit.Weapon.CritAttack,
+                            CurrentBaseAttack = unit.Weapon.BaseAttack
                         };
                         break;
                     }

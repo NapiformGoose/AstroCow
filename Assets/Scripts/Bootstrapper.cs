@@ -32,7 +32,6 @@ namespace Assets.Scripts
 
             _poolManager = new PoolManager(_objectStorage, _objectCreateManager);
 
-            //_poolManager.LoadLevel();
             _dataLoadManager.ReadConfig();
             _dataLoadManager.LoadPrefabs();
             _dataLoadManager.CreateUpgrades();

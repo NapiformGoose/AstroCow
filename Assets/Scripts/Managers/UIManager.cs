@@ -19,10 +19,13 @@ namespace Assets.Scripts.Managers
         IDictionary<string, Button> _buttons { get; set; }
         IUnit _player;
 
+        GameObject _mainMenu;
+        GameObject _gameMenu;
+
         float minimumHealth;
         float maximumHealth;
-        int lowHealth = 7;
-        int highHealth = 14;
+        float lowHealth;
+        float highHealth;
 
         Slider healthBar;
         Slider experiencebar;
@@ -52,10 +55,13 @@ namespace Assets.Scripts.Managers
 
             _buttons = new Dictionary<string, Button>();
 
+            _mainMenu = GameObject.Find("MainMenu");
+            _gameMenu = GameObject.Find("GameMenu");
+
             _buttons.Add(Constants.playBatton, GameObject.Find(Constants.playBatton).GetComponent<Button>());
             _buttons.Add(Constants.exitButton, GameObject.Find(Constants.exitButton).GetComponent<Button>());
 
-            _buttons.Add(Constants.menuButton, GameObject.Find(Constants.menuButton).GetComponent<Button>());
+            _buttons.Add(Constants.pauseButton, GameObject.Find(Constants.pauseButton).GetComponent<Button>());
 
             _buttons.Add(Constants.continueButton, GameObject.Find(Constants.continueButton).GetComponent<Button>());
             _buttons.Add(Constants.restartButton, GameObject.Find(Constants.restartButton).GetComponent<Button>());
@@ -68,7 +74,7 @@ namespace Assets.Scripts.Managers
             _buttons[Constants.playBatton].onClick.AddListener(delegate () { StartLevel(); });
             _buttons[Constants.exitButton].onClick.AddListener(delegate () { QuitApplication(); });
 
-            _buttons[Constants.menuButton].onClick.AddListener(delegate () { OpenGameMenu(); });
+            _buttons[Constants.pauseButton].onClick.AddListener(delegate () { OpenGameMenu(); });
 
             _buttons[Constants.continueButton].onClick.AddListener(delegate () { ContinueLevel(); });
             _buttons[Constants.restartButton].onClick.AddListener(delegate () { RestartLevel(); });
@@ -81,6 +87,7 @@ namespace Assets.Scripts.Managers
             healthBar = GameObject.Find("Healthbar").GetComponent<Slider>();
             experiencebar = GameObject.Find("Experiencebar").GetComponent<Slider>();
 
+
             _upgradeMenu = GameObject.Find("UpgradeMenu");
             _firstTitle = GameObject.Find("FirstTitle").GetComponent<TextMeshProUGUI>();
             _firstDescription = GameObject.Find("FirstDescription").GetComponent<TextMeshProUGUI>();
@@ -92,26 +99,19 @@ namespace Assets.Scripts.Managers
 
         public void ShowMainMenu()
         {
+            _mainMenu.SetActive(true);
+            _gameMenu.SetActive(false);
             _upgradeMenu.SetActive(false);
-            _buttons[Constants.firstUpgradeButton].gameObject.SetActive(false);
-            _buttons[Constants.secondUpgradeButton].gameObject.SetActive(false);
-            _buttons[Constants.thirdUpgradeButton].gameObject.SetActive(false);
-
-            _buttons[Constants.playBatton].gameObject.SetActive(true);
-            _buttons[Constants.exitButton].gameObject.SetActive(true);
-            _buttons[Constants.menuButton].gameObject.SetActive(false);
-            _buttons[Constants.restartButton].gameObject.SetActive(false);
-            _buttons[Constants.continueButton].gameObject.SetActive(false);
-            _buttons[Constants.backButton].gameObject.SetActive(false);
+            healthBar.gameObject.SetActive(false);
+            experiencebar.gameObject.SetActive(false);
         }
         void StartLevel()
         {
-            _buttons[Constants.playBatton].gameObject.SetActive(false);
-            _buttons[Constants.exitButton].gameObject.SetActive(false);
-            _buttons[Constants.restartButton].gameObject.SetActive(false);
-            _buttons[Constants.backButton].gameObject.SetActive(false);
+            _mainMenu.SetActive(false);
+            healthBar.gameObject.SetActive(true);
+            experiencebar.gameObject.SetActive(true);
 
-            _buttons[Constants.menuButton].gameObject.SetActive(true);
+            _buttons[Constants.pauseButton].gameObject.SetActive(true);
 
             _poolManager.LoadLevel();
             _poolManager.InstantiateEntities();
@@ -119,28 +119,26 @@ namespace Assets.Scripts.Managers
             _player = _objectStorage.Units[UnitType.Player.ToString()].First();
 
             healthBar.minValue = minimumHealth = 0;
-            healthBar.maxValue = maximumHealth = _player.Health;
+            healthBar.maxValue = maximumHealth = _player.Behaviour.CurrentHealth;
+            lowHealth = _player.Behaviour.CurrentHealth * 0.33f;
+            highHealth = _player.Behaviour.CurrentHealth * 0.66f;
 
-            experiencebar.minValue = 0;
-            experiencebar.maxValue = 100;
+            experiencebar.minValue = Constants.experiencebarMinValue;
+            experiencebar.maxValue = Constants.experiencebarMaxValue;
 
             _updateManager.CustomStart();
         }
 
         void RestartLevel()
         {
-            _buttons[Constants.playBatton].gameObject.SetActive(false);
-            _buttons[Constants.exitButton].gameObject.SetActive(false);
-            _buttons[Constants.continueButton].gameObject.SetActive(false);
-            _buttons[Constants.restartButton].gameObject.SetActive(false);
-            _buttons[Constants.backButton].gameObject.SetActive(false);
-
-            _buttons[Constants.menuButton].gameObject.SetActive(true);
+            _gameMenu.SetActive(false);
+            _buttons[Constants.pauseButton].gameObject.SetActive(true);
 
             Camera.main.transform.position = new Vector3(0, 0, -10);
             _objectStorage.ClearLevelData();
             _poolManager.LoadLevel();
             _poolManager.InstantiateEntities();
+            _player = _objectStorage.Units[UnitType.Player.ToString()].First();
 
             _updateManager.CustomStart();
         }
@@ -152,22 +150,17 @@ namespace Assets.Scripts.Managers
 
         void OpenGameMenu()
         {
-            _buttons[Constants.continueButton].gameObject.SetActive(true);
-            _buttons[Constants.restartButton].gameObject.SetActive(true);
-            _buttons[Constants.backButton].gameObject.SetActive(true);
-            _buttons[Constants.menuButton].gameObject.SetActive(false);
+            _gameMenu.SetActive(true);
+            _buttons[Constants.pauseButton].gameObject.SetActive(false);
             _updateManager.Stop();
-
         }
 
         void OpenMainMenu()
         {
-            _buttons[Constants.playBatton].gameObject.SetActive(true);
-            _buttons[Constants.exitButton].gameObject.SetActive(true);
-
-            _buttons[Constants.continueButton].gameObject.SetActive(false);
-            _buttons[Constants.restartButton].gameObject.SetActive(false);
-            _buttons[Constants.backButton].gameObject.SetActive(false);
+            _mainMenu.SetActive(true);
+            _gameMenu.SetActive(false);
+            healthBar.gameObject.SetActive(false);
+            experiencebar.gameObject.SetActive(false);
 
             Camera.main.transform.position = new Vector3(0, 0, -10);
 
@@ -177,41 +170,47 @@ namespace Assets.Scripts.Managers
 
         void ContinueLevel()
         {
-            _buttons[Constants.continueButton].gameObject.SetActive(false);
-            _buttons[Constants.restartButton].gameObject.SetActive(false);
-            _buttons[Constants.backButton].gameObject.SetActive(false);
-
-            _buttons[Constants.menuButton].gameObject.SetActive(true);
+            _gameMenu.SetActive(false);
+            _buttons[Constants.pauseButton].gameObject.SetActive(true);
 
             _updateManager.CustomStart();
         }
 
+        void OpenGameOverMenu()
+        {
+            _updateManager.Stop();
+
+            _gameMenu.SetActive(true);
+            _buttons[Constants.continueButton].gameObject.SetActive(false);
+            _buttons[Constants.pauseButton].gameObject.SetActive(false);
+        }
+
         void UpdateHealthBar()
         {
-            if (_player.Health < minimumHealth)
+            if (_player.Behaviour.CurrentHealth < minimumHealth)
             {
-                _player.Health = minimumHealth;
+                _player.Behaviour.CurrentHealth = minimumHealth;
             }
 
-            if (_player.Health > maximumHealth)
+            if (_player.Behaviour.CurrentHealth > maximumHealth)
             {
-                _player.Health = maximumHealth;
+                _player.Behaviour.CurrentHealth = maximumHealth;
             }
 
-            if (_player.Health >= minimumHealth && _player.Health < lowHealth)
+            if (_player.Behaviour.CurrentHealth >= minimumHealth && _player.Behaviour.CurrentHealth < lowHealth)
             {
                 healthBar.transform.Find("Bar").GetComponent<Image>().color = lowHealthColor;
             }
-            else if (_player.Health > lowHealth && _player.Health < highHealth)
+            else if (_player.Behaviour.CurrentHealth > lowHealth && _player.Behaviour.CurrentHealth < highHealth)
             {
                 healthBar.transform.Find("Bar").GetComponent<Image>().color = mediumHealthColor;
             }
-            else if (_player.Health > highHealth)
+            else if (_player.Behaviour.CurrentHealth > highHealth)
             {
                 healthBar.transform.Find("Bar").GetComponent<Image>().color = highHealthColor;
             }
 
-            healthBar.value = _player.Health;
+            healthBar.value = _player.Behaviour.CurrentHealth;
         }
 
         void UpdateExperienceBar()
@@ -221,7 +220,7 @@ namespace Assets.Scripts.Managers
 
         void ShowUpgradeView()
         {
-            _buttons[Constants.menuButton].gameObject.SetActive(false);
+            _buttons[Constants.pauseButton].gameObject.SetActive(false);
             _updateManager.Stop();
 
             _upgradeMenu.SetActive(true);
@@ -242,7 +241,7 @@ namespace Assets.Scripts.Managers
         {
             _behaviourManager.ApplyUpgrade(upgrades[0].UpgradeType);
             _upgradeMenu.SetActive(false);
-            _buttons[Constants.menuButton].gameObject.SetActive(true);
+            _buttons[Constants.pauseButton].gameObject.SetActive(true);
 
             _updateManager.CustomStart();
 
@@ -251,7 +250,7 @@ namespace Assets.Scripts.Managers
         {
             _behaviourManager.ApplyUpgrade(upgrades[1].UpgradeType);
             _upgradeMenu.SetActive(false);
-            _buttons[Constants.menuButton].gameObject.SetActive(true);
+            _buttons[Constants.pauseButton].gameObject.SetActive(true);
 
             _updateManager.CustomStart();
         }
@@ -259,7 +258,7 @@ namespace Assets.Scripts.Managers
         {
             _behaviourManager.ApplyUpgrade(upgrades[2].UpgradeType);
             _upgradeMenu.SetActive(false);
-            _buttons[Constants.menuButton].gameObject.SetActive(true);
+            _buttons[Constants.pauseButton].gameObject.SetActive(true);
 
             _updateManager.CustomStart();
         }
@@ -273,6 +272,10 @@ namespace Assets.Scripts.Managers
             {
                 ShowUpgradeView();
                 _player.Behaviour.CurrentExperience = 0;
+            }
+            if(_player.Behaviour.CurrentHealth <= 0)
+            {
+                OpenGameOverMenu();
             }
         }
         public void CustomFixedUpdate()

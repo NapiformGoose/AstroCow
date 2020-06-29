@@ -73,7 +73,8 @@ namespace Assets.Scripts
     {
         FireSpeedUp,
         BaseAttackUp,
-        HealthUp
+        HealthUp,
+        BonusRandomValueUp
     }
 
     public enum EffectType
@@ -119,11 +120,11 @@ namespace Assets.Scripts
         public static Vector3 topActiveField = Camera.main.transform.position + new Vector3(0, 6.4f, 0);
 
         //UI
-        //Buttons
+        //buttons
         public static string playBatton = "PlayButton";
         public static string restartButton = "RestartButton";
         public static string continueButton = "ContinueButton";
-        public static string menuButton = "MenuButton";
+        public static string pauseButton = "PauseButton";
         public static string exitButton = "ExitButton";
         public static string backButton = "BackButton";
 
@@ -131,15 +132,19 @@ namespace Assets.Scripts
         public static string secondUpgradeButton = "SecondUpgradeButton";
         public static string thirdUpgradeButton = "ThirdUpgradeButton";
 
+        //Bars
+        public static float experiencebarMinValue = 0;
+        public static float experiencebarMaxValue = 100;
+
         //Upgrades
-        //Titles
+        //titles
         public static string FireSpeedUpTitle = "Скорость атаки";
         public static string BaseAttackUpTitle = "Урон";
         public static string HealthUpTitle = "Здоровье";
-        //Descriptions
+        //descriptions
         public static string FireSpeedUpDescription = "Увеличивает скорострельность на 10%";
         public static string BaseAttackUpDescription = "Увеличивает урон на 10%";
-        public static string HealthUpDescription = "Увеличивает количество здоровья на 10%";
+        public static string HealthUpDescription = "Увеличивает максимальное и текущее количество здоровья на 10%";
 
     }
 }

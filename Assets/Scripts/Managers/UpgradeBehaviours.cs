@@ -47,21 +47,38 @@ public class UpgradeBehaviours : IUpgradeBehaviours
                     HealthUpApply();
                     break;
                 }
+            case UpgradeType.BonusRandomValueUp:
+                {
+                    BonusRandomValueUpApply();
+                    break;
+                }
         }
     }
 
     void FireSpeedUpApply()
     {
-        _player.Weapon.FireSpeed -= _player.Weapon.FireSpeed * 0.1f;
+        _player.Behaviour.CurrentFireSpeed -= _player.Weapon.FireSpeed * 0.1f;
     }
 
     void BaseAttackApply()
     {
-        _player.Weapon.BaseAttack += _player.Weapon.BaseAttack * 0.1f;
+        _player.Behaviour.CurrentBaseAttack += _player.Weapon.BaseAttack * 0.1f;
     }
 
     void HealthUpApply()
     {
         _player.Health += _player.Health * 0.1f;
+        _player.Behaviour.CurrentHealth += _player.Health * 0.1f;
+    }
+
+    void BonusRandomValueUpApply()
+    {
+        foreach (var key in _objectStorage.Bonuses.Keys)
+        {
+            foreach (IBonus bonus in _objectStorage.Bonuses[key])
+            {
+                bonus.RandomValue += 5;
+            }
+        }
     }
 }

@@ -111,8 +111,8 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
     {
         if (damage > 0)
         {
-            unit.Health -= damage;
-            if (unit.Health <= 0)
+            unit.Behaviour.CurrentHealth -= damage;
+            if (unit.Behaviour.CurrentHealth <= 0)
             {
                 unit.GameObject.SetActive(false);
                 unit.Text.SetActive(false);
@@ -122,7 +122,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         }
         else
         {
-            unit.Health -= damage;
+            unit.Behaviour.CurrentHealth -= damage;
         }
     }
 
@@ -189,7 +189,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
                     _unitBehaviours.UnitAct(unit);
                     unit.Behaviour.IsActive = true;
                     unit.Text.transform.position = unit.GameObject.transform.position + new Vector3(0.7f, 0.7f, 0);
-                    unit.Text.GetComponent<Text>().text = unit.Health.ToString();
+                    unit.Text.GetComponent<Text>().text = unit.Behaviour.CurrentHealth.ToString();
                 }
                 if (IsDownDeactive(unit.Collider2D))
                 {
