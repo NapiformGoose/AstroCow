@@ -23,6 +23,7 @@ namespace Assets.Scripts.Interfaces
         IDictionary<string, IList<IBullet>> Bullets { get; set; }
         IDictionary<string, IList<IBonus>> Bonuses { get; set; }
         IList<IUpgrade> Upgrades { get; set; }
+        IList<ICoin> Coins { get; set; }
 
         Collider2D ActivationTrigger { get; set; }
         Collider2D TopDeactivationTrigger { get; set; }

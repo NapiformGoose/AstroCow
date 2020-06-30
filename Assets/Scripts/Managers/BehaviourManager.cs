@@ -116,7 +116,8 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
             {
                 unit.GameObject.SetActive(false);
                 unit.Text.SetActive(false);
-                showBonus(unit);
+                ShowBonus(unit);
+                ShowCoin(unit);
                 CalculateExperience(unit.ExperienceValue);
             }
         }
@@ -131,7 +132,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         _player.Behaviour.CurrentExperience += experienceValue;
     }
 
-    private void showBonus(IUnit unit)
+    private void ShowBonus(IUnit unit)
     {
         if (unit.BonusType != BonusType.Empty)
         {
@@ -139,12 +140,28 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
             {
                 if (!bonus.GameObject.activeSelf)
                 {
-                    if (UnityEngine.Random.Range(0, 100) <= bonus.RandomValue)
+                    if (UnityEngine.Random.Range(0, 100) <= bonus.RandomPercent)
                     {
                         bonus.GameObject.transform.position = unit.GameObject.transform.position;
                         bonus.GameObject.SetActive(true);
                     }
 
+                    return;
+                }
+            }
+        }
+    }
+    private void ShowCoin(IUnit unit)
+    {
+        if (UnityEngine.Random.Range(0, 100) <= unit.Behaviour.CurrentLootPercent)
+        {
+            foreach (ICoin coin in _objectStorage.Coins)
+            {
+                if (!coin.GameObject.activeSelf)
+                {
+                    coin.GameObject.transform.position = new Vector3(unit.GameObject.transform.position.x, unit.GameObject.transform.position.y + 0.5f, unit.GameObject.transform.position.z);
+
+                    coin.GameObject.SetActive(true);
                     return;
                 }
             }
@@ -240,7 +257,15 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
             }
             _bonusBehaviour.ActiveBonusAct();
         }
-       
+
+        foreach (ICoin coin in _objectStorage.Coins)
+        {
+            if (coin.GameObject.activeSelf && coin.Collider2D.IsTouching(_player.Collider2D))
+            {
+                coin.GameObject.SetActive(false);
+                _player.Behaviour.CurrentCoinValue++;
+            }
+        }
     }
     public void CustomUpdate()
     {

@@ -20,6 +20,9 @@ public interface IBehaviour
     float CurrentReloadSpeed { get; set; }
     float CurrentCritAttack { get; set; }
     float CurrentBaseAttack { get; set; }
+    int CurrentResurrectionValue { get; set; }
+    float CurrentLootPercent { get; set; }
+    int CurrentCoinValue { get; set; }
 
     bool IsMoving { get; set; }
     bool IsAttack { get; set; }

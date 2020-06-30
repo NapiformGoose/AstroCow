@@ -27,12 +27,12 @@ namespace Assets.Scripts.Managers
         float lowHealth;
         float highHealth;
 
-        Slider healthBar;
-        Slider experiencebar;
+        Slider _healthBar;
+        Slider _experiencebar;
 
-        public Color highHealthColor = new Color(0.35f, 1f, 0.35f);
-        public Color mediumHealthColor = new Color(0.9450285f, 1f, 0.4481132f);
-        public Color lowHealthColor = new Color(1f, 0.259434f, 0.259434f);
+        Color highHealthColor = new Color(0.35f, 1f, 0.35f);
+        Color mediumHealthColor = new Color(0.9450285f, 1f, 0.4481132f);
+        Color lowHealthColor = new Color(1f, 0.259434f, 0.259434f);
 
         IList<IUpgrade> upgrades;
         GameObject _upgradeMenu;
@@ -42,6 +42,10 @@ namespace Assets.Scripts.Managers
         TextMeshProUGUI _secondDescription;
         TextMeshProUGUI _thirdTitle;
         TextMeshProUGUI _thirdDescription;
+
+        GameObject _coinPanel;
+        TextMeshProUGUI _coinValue;
+
 
         public UIManager(IUpdateManager updateManager, IObjectStorage objectStorage, IPoolManager poolManager, IDataLoadManager dataLoadManager, IBehaviourManager behaviourManager)
         {
@@ -84,9 +88,8 @@ namespace Assets.Scripts.Managers
             _buttons[Constants.secondUpgradeButton].onClick.AddListener(delegate () { ApplySecondUpgrade(); });
             _buttons[Constants.thirdUpgradeButton].onClick.AddListener(delegate () { ApplyThirdUpgrade(); });
 
-            healthBar = GameObject.Find("Healthbar").GetComponent<Slider>();
-            experiencebar = GameObject.Find("Experiencebar").GetComponent<Slider>();
-
+            _healthBar = GameObject.Find("Healthbar").GetComponent<Slider>();
+            _experiencebar = GameObject.Find("Experiencebar").GetComponent<Slider>();
 
             _upgradeMenu = GameObject.Find("UpgradeMenu");
             _firstTitle = GameObject.Find("FirstTitle").GetComponent<TextMeshProUGUI>();
@@ -95,6 +98,9 @@ namespace Assets.Scripts.Managers
             _secondDescription = GameObject.Find("SecondDescription").GetComponent<TextMeshProUGUI>();
             _thirdTitle = GameObject.Find("ThirdTitle").GetComponent<TextMeshProUGUI>();
             _thirdDescription = GameObject.Find("ThirdDescription").GetComponent<TextMeshProUGUI>();
+
+            _coinPanel = GameObject.Find("CoinPanel");
+            _coinValue = GameObject.Find("CoinValue").GetComponent<TextMeshProUGUI>();
         }
 
         public void ShowMainMenu()
@@ -102,15 +108,16 @@ namespace Assets.Scripts.Managers
             _mainMenu.SetActive(true);
             _gameMenu.SetActive(false);
             _upgradeMenu.SetActive(false);
-            healthBar.gameObject.SetActive(false);
-            experiencebar.gameObject.SetActive(false);
+            _healthBar.gameObject.SetActive(false);
+            _experiencebar.gameObject.SetActive(false);
+            _coinPanel.gameObject.SetActive(false);
         }
         void StartLevel()
         {
             _mainMenu.SetActive(false);
-            healthBar.gameObject.SetActive(true);
-            experiencebar.gameObject.SetActive(true);
-
+            _healthBar.gameObject.SetActive(true);
+            _experiencebar.gameObject.SetActive(true);
+            _coinPanel.gameObject.SetActive(true);
             _buttons[Constants.pauseButton].gameObject.SetActive(true);
 
             _poolManager.LoadLevel();
@@ -118,13 +125,13 @@ namespace Assets.Scripts.Managers
 
             _player = _objectStorage.Units[UnitType.Player.ToString()].First();
 
-            healthBar.minValue = minimumHealth = 0;
-            healthBar.maxValue = maximumHealth = _player.Behaviour.CurrentHealth;
+            _healthBar.minValue = minimumHealth = 0;
+            _healthBar.maxValue = maximumHealth = _player.Health;
             lowHealth = _player.Behaviour.CurrentHealth * 0.33f;
             highHealth = _player.Behaviour.CurrentHealth * 0.66f;
 
-            experiencebar.minValue = Constants.experiencebarMinValue;
-            experiencebar.maxValue = Constants.experiencebarMaxValue;
+            _experiencebar.minValue = Constants.experiencebarMinValue;
+            _experiencebar.maxValue = Constants.experiencebarMaxValue;
 
             _updateManager.CustomStart();
         }
@@ -159,8 +166,9 @@ namespace Assets.Scripts.Managers
         {
             _mainMenu.SetActive(true);
             _gameMenu.SetActive(false);
-            healthBar.gameObject.SetActive(false);
-            experiencebar.gameObject.SetActive(false);
+            _healthBar.gameObject.SetActive(false);
+            _experiencebar.gameObject.SetActive(false);
+            _coinPanel.gameObject.SetActive(false);
 
             Camera.main.transform.position = new Vector3(0, 0, -10);
 
@@ -199,23 +207,23 @@ namespace Assets.Scripts.Managers
 
             if (_player.Behaviour.CurrentHealth >= minimumHealth && _player.Behaviour.CurrentHealth < lowHealth)
             {
-                healthBar.transform.Find("Bar").GetComponent<Image>().color = lowHealthColor;
+                _healthBar.transform.Find("Bar").GetComponent<Image>().color = lowHealthColor;
             }
             else if (_player.Behaviour.CurrentHealth > lowHealth && _player.Behaviour.CurrentHealth < highHealth)
             {
-                healthBar.transform.Find("Bar").GetComponent<Image>().color = mediumHealthColor;
+                _healthBar.transform.Find("Bar").GetComponent<Image>().color = mediumHealthColor;
             }
             else if (_player.Behaviour.CurrentHealth > highHealth)
             {
-                healthBar.transform.Find("Bar").GetComponent<Image>().color = highHealthColor;
+                _healthBar.transform.Find("Bar").GetComponent<Image>().color = highHealthColor;
             }
 
-            healthBar.value = _player.Behaviour.CurrentHealth;
+            _healthBar.value = _player.Behaviour.CurrentHealth;
         }
 
         void UpdateExperienceBar()
         {
-            experiencebar.value = _player.Behaviour.CurrentExperience;
+            _experiencebar.value = _player.Behaviour.CurrentExperience;
         }
 
         void ShowUpgradeView()
@@ -275,8 +283,18 @@ namespace Assets.Scripts.Managers
             }
             if(_player.Behaviour.CurrentHealth <= 0)
             {
-                OpenGameOverMenu();
+                if(_player.Behaviour.CurrentResurrectionValue > 0)
+                {
+                    _player.Behaviour.CurrentHealth = _player.Health;
+                    ContinueLevel();
+                }
+                else
+                {
+                    OpenGameOverMenu();
+                }
             }
+
+            _coinValue.text = _player.Behaviour.CurrentCoinValue.ToString();
         }
         public void CustomFixedUpdate()
         {

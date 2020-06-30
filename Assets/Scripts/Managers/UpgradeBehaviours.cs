@@ -52,6 +52,11 @@ public class UpgradeBehaviours : IUpgradeBehaviours
                     BonusRandomValueUpApply();
                     break;
                 }
+            case UpgradeType.Resurrection:
+                {
+                    ResurrectionApply();
+                    break;
+                }
         }
     }
 
@@ -77,8 +82,13 @@ public class UpgradeBehaviours : IUpgradeBehaviours
         {
             foreach (IBonus bonus in _objectStorage.Bonuses[key])
             {
-                bonus.RandomValue += 5;
+                bonus.RandomPercent += 5;
             }
         }
+    }
+
+    void ResurrectionApply()
+    {
+        _player.Behaviour.CurrentResurrectionValue += 1;
     }
 }

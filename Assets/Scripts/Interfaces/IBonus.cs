@@ -7,7 +7,7 @@ public interface IBonus : IEntity
 {
     string Alias { get; set; }
     BonusType BonusType { get; set; }
-    float RandomValue { get; set; }
+    float RandomPercent { get; set; }
     float HealthValue { get; set; }
     float FireSpeedCoefficient { get; set; }
     float ReloadSpeedCoefficient { get; set; }

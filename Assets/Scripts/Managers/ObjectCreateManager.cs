@@ -56,6 +56,8 @@ namespace Assets.Scripts.Managers
             newUnit.InactiveTime = unit.InactiveTime;
             newUnit.BonusType = unit.BonusType;
             newUnit.ExperienceValue = unit.ExperienceValue;
+            newUnit.LootPercent = unit.LootPercent;
+
             return newUnit;
         }
 
@@ -67,13 +69,12 @@ namespace Assets.Scripts.Managers
 
         public IBonus CreateBonus(IBonus bonusTemplate)
         {
-
             IBonus newBonus = new Bonus
             {
                 GameObject = GameObject.Instantiate(_prefabs[bonusTemplate.BonusType.ToString()]),
                 Alias = bonusTemplate.Alias,
                 BonusType = bonusTemplate.BonusType,
-                RandomValue = bonusTemplate.RandomValue,
+                RandomPercent = bonusTemplate.RandomPercent,
                 HealthValue = bonusTemplate.HealthValue,
                 FireSpeedCoefficient = bonusTemplate.FireSpeedCoefficient,
                 ReloadSpeedCoefficient = bonusTemplate.ReloadSpeedCoefficient,
@@ -116,6 +117,13 @@ namespace Assets.Scripts.Managers
             bullet.RigidBody2D = bullet.GameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
             bullet.GameObject.SetActive(false);
         }
+        public void InstantiateCoin(ICoin coin)
+        {
+            coin.GameObject = GameObject.Instantiate(_prefabs[Constants.coin]);
+            coin.Collider2D = coin.GameObject.GetComponent<Collider2D>() as Collider2D;
+            coin.RigidBody2D = coin.GameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
+            coin.GameObject.SetActive(false);
+        }
 
         public Vector3 CalculateUnitSpawnPosition(IDiapasonSpawnPosition diapasonSpawnPosition, Vector3 currentCellPos)
         {
@@ -141,7 +149,8 @@ namespace Assets.Scripts.Managers
                             CurrentFireSpeed = unit.Weapon.FireSpeed,
                             CurrentReloadSpeed = unit.Weapon.ReloadSpeed,
                             CurrentCritAttack = unit.Weapon.CritAttack,
-                            CurrentBaseAttack = unit.Weapon.BaseAttack
+                            CurrentBaseAttack = unit.Weapon.BaseAttack,
+                            CurrentLootPercent = unit.LootPercent
                         };
                         break;
                     }
@@ -162,7 +171,8 @@ namespace Assets.Scripts.Managers
                             CurrentFireSpeed = unit.Weapon.FireSpeed,
                             CurrentReloadSpeed = unit.Weapon.ReloadSpeed,
                             CurrentCritAttack = unit.Weapon.CritAttack,
-                            CurrentBaseAttack = unit.Weapon.BaseAttack
+                            CurrentBaseAttack = unit.Weapon.BaseAttack,
+                            CurrentLootPercent = unit.LootPercent
                         };
                         break;
                     }
@@ -182,7 +192,8 @@ namespace Assets.Scripts.Managers
                             CurrentFireSpeed = unit.Weapon.FireSpeed,
                             CurrentReloadSpeed = unit.Weapon.ReloadSpeed,
                             CurrentCritAttack = unit.Weapon.CritAttack,
-                            CurrentBaseAttack = unit.Weapon.BaseAttack
+                            CurrentBaseAttack = unit.Weapon.BaseAttack,
+                            CurrentLootPercent = unit.LootPercent
                         };
                         break;
                     }
@@ -201,7 +212,8 @@ namespace Assets.Scripts.Managers
                             CurrentFireSpeed = unit.Weapon.FireSpeed,
                             CurrentReloadSpeed = unit.Weapon.ReloadSpeed,
                             CurrentCritAttack = unit.Weapon.CritAttack,
-                            CurrentBaseAttack = unit.Weapon.BaseAttack
+                            CurrentBaseAttack = unit.Weapon.BaseAttack,
+                            CurrentLootPercent = unit.LootPercent
                         };
                         break;
                     }

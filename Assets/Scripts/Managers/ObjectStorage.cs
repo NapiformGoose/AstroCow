@@ -23,6 +23,7 @@ namespace Assets.Scripts.Managers
         public IDictionary<string, IList<IBullet>> Bullets { get; set; }
         public IDictionary<string, IList<IBonus>> Bonuses { get; set; }
         public IList<IUpgrade> Upgrades { get; set; }
+        public IList<ICoin> Coins { get; set; }
 
         public Collider2D ActivationTrigger { get; set; }
         public Collider2D TopDeactivationTrigger { get; set; }
@@ -50,6 +51,7 @@ namespace Assets.Scripts.Managers
             Bullets = new Dictionary<string, IList<IBullet>>();
             Bonuses = new Dictionary<string, IList<IBonus>>();
             Upgrades = new List<IUpgrade>();
+            Coins = new List<ICoin>();
         }
 
         public void ClearLevelData()

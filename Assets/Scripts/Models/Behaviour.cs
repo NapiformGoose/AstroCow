@@ -20,6 +20,9 @@ public class Behaviour : IBehaviour
     public float CurrentReloadSpeed { get; set; }
     public float CurrentCritAttack { get; set; }
     public float CurrentBaseAttack { get; set; }
+    public int CurrentResurrectionValue { get; set; }
+    public float CurrentLootPercent { get; set; }
+    public int CurrentCoinValue { get; set; }
 
     public bool IsMoving { get; set; }
     public bool IsAttack { get; set; }
@@ -45,6 +48,9 @@ public class Behaviour : IBehaviour
                      float currentReloadSpeed = 0,
                      float currentCritAttack = 0,
                      float currentBaseAttack = 0,
+                     int currentResurrectionValue = 0,
+                     float currentLootPercent = 0,
+                     int currentCoinValue = 0,
 
                      bool isMoving = true,
                      bool isAttack = true,
@@ -59,12 +65,8 @@ public class Behaviour : IBehaviour
         MaxRightPos = maxRightPos;
         MaxTopPos = maxTopPos;
         MaxDownPos = maxDownPos;
-        IsMoving = isMoving;
-        IsAttack = isAttack;
         Direction = direction;
-        TimeBeforeShot = timeBeforeShot;
-        InactiveTime = inactiveTime;
-        IsActive = isActive;
+
         CurrentExperience = currentExperience;
         CurrentHealth = currentHealth;
         CurrentMoveSpeed = currentMoveSpeed;
@@ -72,6 +74,17 @@ public class Behaviour : IBehaviour
         CurrentReloadSpeed = currentReloadSpeed;
         CurrentCritAttack = currentCritAttack;
         CurrentBaseAttack = currentBaseAttack;
+        CurrentResurrectionValue = currentResurrectionValue;
+        CurrentLootPercent = currentLootPercent;
+        CurrentCoinValue = currentCoinValue;
+
+        IsMoving = isMoving;
+        IsAttack = isAttack;
+        IsActive = isActive;
+
+        TimeBeforeShot = timeBeforeShot;
+        InactiveTime = inactiveTime;
+        
     }
 
 }

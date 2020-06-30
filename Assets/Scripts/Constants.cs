@@ -74,7 +74,8 @@ namespace Assets.Scripts
         FireSpeedUp,
         BaseAttackUp,
         HealthUp,
-        BonusRandomValueUp
+        BonusRandomValueUp,
+        Resurrection
     }
 
     public enum EffectType
@@ -84,6 +85,8 @@ namespace Assets.Scripts
 
     public static class Constants
     {
+        public static string coin = "Coin";
+
         //Config files
         public static string ConfigFolderPath = Application.dataPath + "/Config/";
 

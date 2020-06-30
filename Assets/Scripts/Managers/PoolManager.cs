@@ -7,15 +7,15 @@ using UnityEngine.UI;
 
 public class PoolManager : IPoolManager
 {
-	IObjectStorage _objectStorage;
-	IObjectCreateManager _objectCreateManager;
+    IObjectStorage _objectStorage;
+    IObjectCreateManager _objectCreateManager;
 
-	public PoolManager(IObjectStorage objectStorage, IObjectCreateManager objectCreateManager)
-	{
-		_objectStorage = objectStorage;
-		_objectCreateManager = objectCreateManager;
+    public PoolManager(IObjectStorage objectStorage, IObjectCreateManager objectCreateManager)
+    {
+        _objectStorage = objectStorage;
+        _objectCreateManager = objectCreateManager;
         _objectCreateManager.AddPrefabs(_objectStorage.Prefabs);
-	}
+    }
 
     public void LoadLevel()
     {
@@ -43,8 +43,8 @@ public class PoolManager : IPoolManager
                     _objectStorage.Units[unit.UnitType.ToString()].Add(newUnit);
                 }
                 IBonus bonus = unit.BonusType != BonusType.Empty ? _objectCreateManager.CreateBonus(_objectStorage.BonusesTemplates[unit.BonusType.ToString()]) : null;
-                
-                if(bonus == null)
+
+                if (bonus == null)
                 {
                     continue;
                 }
@@ -75,14 +75,15 @@ public class PoolManager : IPoolManager
             }
             currentCellPos += Constants.distanceToNextCell;
         }
-        CreateBullet();
+        CreateBullets();
+        CreateCoins();
     }
 
     public void InstantiateEntities()
     {
-        foreach(string key in _objectStorage.Units.Keys)
+        foreach (string key in _objectStorage.Units.Keys)
         {
-            foreach(IUnit unit in _objectStorage.Units[key])
+            foreach (IUnit unit in _objectStorage.Units[key])
             {
                 _objectCreateManager.InstantiateUnit(unit, _objectStorage.Canvas.transform);
             }
@@ -101,9 +102,15 @@ public class PoolManager : IPoolManager
                 _objectCreateManager.InstantiateBullet(bullet);
             }
         }
+
+        foreach (ICoin coin in _objectStorage.Coins)
+        {
+            _objectCreateManager.InstantiateCoin(coin);
+        }
+
     }
 
-    void CreateBullet()
+    void CreateBullets()
     {
         for (int i = 0; i < 50; i++)
         {
@@ -138,6 +145,13 @@ public class PoolManager : IPoolManager
                 _objectStorage.Bullets[BulletType.BulletType2.ToString()] = new List<IBullet>();
                 _objectStorage.Bullets[BulletType.BulletType2.ToString()].Add(bullet);
             }
+        }
+    }
+    void CreateCoins()
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            _objectStorage.Coins.Add(new Coin());
         }
     }
 }

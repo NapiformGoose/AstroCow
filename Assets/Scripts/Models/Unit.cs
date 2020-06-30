@@ -13,6 +13,7 @@ public class Unit : IUnit
     public bool Ghost { get; set; }
     public float InactiveTime { get; set; }
     public float ExperienceValue { get; set; }
+    public float LootPercent { get; set; }
     public BonusType BonusType { get; set; }
 
     public GameObject GameObject { get; set; }

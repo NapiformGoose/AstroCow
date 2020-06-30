@@ -1,14 +1,14 @@
 <Templates>
 	<UnitTemplates>
-		<UnitTemplate alias="Cow" type="Player" health="2" moveSpeed="10" ghost="false" inactiveTime="1" weaponType="PlayerWeaponType1" experienceValue="0"/>
-		<UnitTemplate alias="EnemyType1" type="EnemyType1" health="1.5" moveSpeed="1" ghost="false" inactiveTime="1" weaponType="WeaponType1" experienceValue="10"/>
-		<UnitTemplate alias="EnemyType2" type="EnemyType2" health="2" moveSpeed="1" ghost="false" inactiveTime="1" weaponType="WeaponType5" experienceValue="10"/>
-		<UnitTemplate alias="EnemyType3" type="EnemyType3" health="2" moveSpeed="2" ghost="false" inactiveTime="1" weaponType="WeaponType2" experienceValue="10"/>
-		<UnitTemplate alias="EnemyType4" type="EnemyType4" health="3" moveSpeed="2.5" ghost="false" inactiveTime="1" weaponType="WeaponType3" experienceValue="10"/>
-		<UnitTemplate alias="EnemyType5" type="EnemyType5" health="3" moveSpeed="1" ghost="false" inactiveTime="1" weaponType="WeaponType4" experienceValue="10"/>
-		<UnitTemplate alias="EnemyType6" type="EnemyType6" health="2" moveSpeed="1.5" ghost="false" inactiveTime="3" weaponType="WeaponType5" experienceValue="10"/>
-		<UnitTemplate alias="EnemyType7" type="EnemyType7" health="2" moveSpeed="1.5" ghost="false" inactiveTime="1" weaponType="WeaponType7" experienceValue="10"/>
-		<UnitTemplate alias="EnemyType8" type="EnemyType8" health="2" moveSpeed="1.5" ghost="false" inactiveTime="1" weaponType="WeaponType1" experienceValue="10"/>
+		<UnitTemplate alias="Cow" type="Player" health="20" moveSpeed="10" ghost="false" inactiveTime="1" weaponType="PlayerWeaponType1" experienceValue="0" lootPercent="0"/>
+		<UnitTemplate alias="EnemyType1" type="EnemyType1" health="1.5" moveSpeed="1" ghost="false" inactiveTime="1" weaponType="WeaponType1" experienceValue="10" lootPercent="100"/>
+		<UnitTemplate alias="EnemyType2" type="EnemyType2" health="2" moveSpeed="1" ghost="false" inactiveTime="1" weaponType="WeaponType5" experienceValue="10" lootPercent="100"/>
+		<UnitTemplate alias="EnemyType3" type="EnemyType3" health="2" moveSpeed="2" ghost="false" inactiveTime="1" weaponType="WeaponType2" experienceValue="10" lootPercent="100"/>
+		<UnitTemplate alias="EnemyType4" type="EnemyType4" health="3" moveSpeed="2.5" ghost="false" inactiveTime="1" weaponType="WeaponType3" experienceValue="10" lootPercent="0"/>
+		<UnitTemplate alias="EnemyType5" type="EnemyType5" health="3" moveSpeed="1" ghost="false" inactiveTime="1" weaponType="WeaponType4" experienceValue="10" lootPercent="0"/>
+		<UnitTemplate alias="EnemyType6" type="EnemyType6" health="2" moveSpeed="1.5" ghost="false" inactiveTime="3" weaponType="WeaponType5" experienceValue="10" lootPercent="0"/>
+		<UnitTemplate alias="EnemyType7" type="EnemyType7" health="2" moveSpeed="1.5" ghost="false" inactiveTime="1" weaponType="WeaponType7" experienceValue="10" lootPercent="0"/>
+		<UnitTemplate alias="EnemyType8" type="EnemyType8" health="2" moveSpeed="1.5" ghost="false" inactiveTime="1" weaponType="WeaponType1" experienceValue="10" lootPercent="0"/>
 	</UnitTemplates>
 
 	<ObstacleTemplates>
@@ -33,10 +33,10 @@
 	</BulletTemplates>
 
 	<BonusTemplates>
-		<BonusTemplate alias="Empty" type="Empty" randomValue="0" healthValue="0" fireSpeedCoefficient="1" reloadSpeedCoefficient="1" activeTime="3"/>
-		<BonusTemplate alias="BonusHealth" type="BonusHealth" randomValue="100" healthValue="1" fireSpeedCoefficient="0.1" reloadSpeedCoefficient="1" activeTime="3"/>
-		<BonusTemplate alias="BonusBoom" type="BonusBoom" randomValue="0" healthValue="0" fireSpeedCoefficient="1" reloadSpeedCoefficient="1" activeTime="3"/>
-		<BonusTemplate alias="BonusMagnet" type="BonusMagnet" randomValue="100" healthValue="0" fireSpeedCoefficient="0.5" reloadSpeedCoefficient="1" activeTime="3"/>
-		<BonusTemplate alias="СrystalEnemies" type="СrystalEnemies" randomValue="100" healthValue="0" fireSpeedCoefficient="1" reloadSpeedCoefficient="1" activeTime="3"/>
+		<BonusTemplate alias="Empty" type="Empty" randomPercent="0" healthValue="0" fireSpeedCoefficient="1" reloadSpeedCoefficient="1" activeTime="3"/>
+		<BonusTemplate alias="BonusHealth" type="BonusHealth" randomPercent="100" healthValue="1" fireSpeedCoefficient="0.1" reloadSpeedCoefficient="1" activeTime="3"/>
+		<BonusTemplate alias="BonusBoom" type="BonusBoom" randomPercent="0" healthValue="0" fireSpeedCoefficient="1" reloadSpeedCoefficient="1" activeTime="3"/>
+		<BonusTemplate alias="BonusMagnet" type="BonusMagnet" randomPercent="100" healthValue="0" fireSpeedCoefficient="0.5" reloadSpeedCoefficient="1" activeTime="3"/>
+		<BonusTemplate alias="СrystalEnemies" type="СrystalEnemies" randomPercent="100" healthValue="0" fireSpeedCoefficient="1" reloadSpeedCoefficient="1" activeTime="3"/>
 	</BonusTemplates>
 </Templates>

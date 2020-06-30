@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Interfaces\IBonus.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IBullet.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICell.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\ICoin.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICoroutiner.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDataLoadManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDiapasonSpawnPosition.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Assets\Scripts\Models\Bonus.cs" />
     <Compile Include="Assets\Scripts\Models\Bullet.cs" />
     <Compile Include="Assets\Scripts\Models\Cell.cs" />
+    <Compile Include="Assets\Scripts\Models\Coin.cs" />
     <Compile Include="Assets\Scripts\Models\Coroutiner.cs" />
     <Compile Include="Assets\Scripts\Models\DiapasonSpawnPosition.cs" />
     <Compile Include="Assets\Scripts\Models\Level.cs" />

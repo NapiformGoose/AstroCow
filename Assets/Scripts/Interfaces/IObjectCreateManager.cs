@@ -17,4 +17,5 @@ public interface IObjectCreateManager
     void InstantiateUnit(IUnit unit, Transform transformCanvas);
     void InstantiateObstacle(IObstacle obstacle);
     void InstantiateBullet(IBullet bullet);
+    void InstantiateCoin(ICoin coin);
 }

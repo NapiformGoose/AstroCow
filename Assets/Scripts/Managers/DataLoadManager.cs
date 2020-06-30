@@ -56,6 +56,8 @@ public class DataLoadManager : IDataLoadManager
         _objectStorage.Prefabs.Add(BonusType.BonusMagnet.ToString(), Resources.Load(Constants.prefabPath + BonusType.BonusMagnet.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(BonusType.СrystalEnemies.ToString(), Resources.Load(Constants.prefabPath + BonusType.СrystalEnemies.ToString()) as GameObject);
 
+        _objectStorage.Prefabs.Add(Constants.coin, Resources.Load(Constants.prefabPath + Constants.coin) as GameObject);
+
         _objectStorage.Prefabs.Add(Constants.controllerPrefabName, Resources.Load(Constants.prefabPath + Constants.controllerPrefabName) as GameObject);
         _objectStorage.Prefabs.Add(Constants.cellPrefabName, Resources.Load(Constants.prefabPath + Constants.cellPrefabName) as GameObject);
         _objectStorage.Prefabs.Add(Constants.lowerTriggerName, Resources.Load(Constants.prefabPath + Constants.lowerTriggerName) as GameObject);
@@ -262,6 +264,7 @@ public class DataLoadManager : IDataLoadManager
         unit.InactiveTime = float.Parse(element.Attribute("inactiveTime").Value, CultureInfo.InvariantCulture);
         unit.Weapon = _objectStorage.WeaponTemplates[element.Attribute("weaponType").Value];
         unit.ExperienceValue = float.Parse(element.Attribute("experienceValue").Value, CultureInfo.InvariantCulture);
+        unit.LootPercent = float.Parse(element.Attribute("lootPercent").Value, CultureInfo.InvariantCulture);
 
         _objectStorage.UnitTemplates.Add(element.Attribute("type").Value, unit);
     }
@@ -282,7 +285,7 @@ public class DataLoadManager : IDataLoadManager
 
         bonus.Alias = element.Attribute("alias").Value;
         bonus.BonusType = (BonusType)Enum.Parse(typeof(BonusType), element.Attribute("type").Value);
-        bonus.RandomValue = float.Parse(element.Attribute("randomValue").Value, CultureInfo.InvariantCulture);
+        bonus.RandomPercent = float.Parse(element.Attribute("randomPercent").Value, CultureInfo.InvariantCulture);
         bonus.HealthValue = float.Parse(element.Attribute("healthValue").Value, CultureInfo.InvariantCulture);
         bonus.FireSpeedCoefficient = float.Parse(element.Attribute("fireSpeedCoefficient").Value, CultureInfo.InvariantCulture);
         bonus.ReloadSpeedCoefficient = float.Parse(element.Attribute("reloadSpeedCoefficient").Value, CultureInfo.InvariantCulture);
@@ -359,7 +362,8 @@ public class DataLoadManager : IDataLoadManager
                 Weapon = template.Weapon,
                 InactiveTime = template.InactiveTime,
                 BonusType = (BonusType)Enum.Parse(typeof(BonusType), subElement.Attribute("bonusType").Value),
-                ExperienceValue = template.ExperienceValue
+                ExperienceValue = template.ExperienceValue,
+                LootPercent = template.LootPercent
             };
             cell.Units.Add(unit);
         }
