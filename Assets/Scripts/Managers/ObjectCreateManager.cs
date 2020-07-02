@@ -57,7 +57,7 @@ namespace Assets.Scripts.Managers
             newUnit.BonusType = unit.BonusType;
             newUnit.ExperienceValue = unit.ExperienceValue;
             newUnit.LootPercent = unit.LootPercent;
-
+            newUnit.MagazineCapacity = unit.MagazineCapacity;
             return newUnit;
         }
 
@@ -172,7 +172,10 @@ namespace Assets.Scripts.Managers
                             CurrentReloadSpeed = unit.Weapon.ReloadSpeed,
                             CurrentCritAttack = unit.Weapon.CritAttack,
                             CurrentBaseAttack = unit.Weapon.BaseAttack,
-                            CurrentLootPercent = unit.LootPercent
+                            CurrentLootPercent = unit.LootPercent,
+                            CurrentBulletValue = unit.MagazineCapacity,
+                            TimeBeforeReload = unit.Weapon.ReloadSpeed,
+                            Bloodthirstiness = Constants.bloodthirstiness
                         };
                         break;
                     }

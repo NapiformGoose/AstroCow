@@ -74,8 +74,12 @@ namespace Assets.Scripts
         FireSpeedUp,
         BaseAttackUp,
         HealthUp,
-        BonusRandomValueUp,
-        Resurrection
+        ReloadSpeedUp,
+        Resurrection,
+        Bloodthirstiness,
+        LootPercentUp,
+        BonusRandomUp,
+        MagazineCapacityUp
     }
 
     public enum EffectType
@@ -86,6 +90,7 @@ namespace Assets.Scripts
     public static class Constants
     {
         public static string coin = "Coin";
+
 
         //Config files
         public static string ConfigFolderPath = Application.dataPath + "/Config/";
@@ -138,16 +143,45 @@ namespace Assets.Scripts
         //Bars
         public static float experiencebarMinValue = 0;
         public static float experiencebarMaxValue = 100;
+        public static float experiencebarNextLevelValue = 10;
 
         //Upgrades
+        //values and percent
+        public static int magazineCapacity = 10; //количество патронов на старте
+        public static int maxMagazineCapacity = 17; //максимум патронов (если больше, то магазин вылезет за пределы экоана и сломается)
+
+        public static float bloodthirstiness = 0; //кровожадность на старте
+
+        public static float fireSpeedUpPercent = 10;     //прцоенты
+        public static float baseAttackUpPercent = 10;
+        public static float healthUpPercent = 10;
+        public static float reloadSpeedUpPercent = 10;
+        public static float bloodthirstinessPercent = 10;
+        public static float lootPercentUpPercent = 10;
+        public static float bonusRandomUpPercent = 10;
+        public static int magazineCapacityUpValue = 1; //количество патронов которое добавится при выборе перка
+
         //titles
         public static string FireSpeedUpTitle = "Скорость атаки";
         public static string BaseAttackUpTitle = "Урон";
         public static string HealthUpTitle = "Здоровье";
+        public static string ReloadSpeedUpTitle = "Скорость перезарядки";
+        public static string ResurrectionTitle = "Возрождение";
+        public static string BloodthirstinessTitle = "Кровожадность";
+        public static string LootPercentUpTitle = "Нужно больше золота";
+        public static string BonusRandomUpTitle = "Бонусный магнат";
+        public static string MagazineCapacityUpTitle = "Больше патронов";
+
         //descriptions
-        public static string FireSpeedUpDescription = "Увеличивает скорострельность на 10%";
-        public static string BaseAttackUpDescription = "Увеличивает урон на 10%";
-        public static string HealthUpDescription = "Увеличивает максимальное и текущее количество здоровья на 10%";
+        public static string FireSpeedUpDescription = $"Увеличивает скорострельность на {fireSpeedUpPercent}%";
+        public static string BaseAttackUpDescription = $"Увеличивает урон на {baseAttackUpPercent}%";
+        public static string HealthUpDescription = $"Увеличивает максимальное и текущее количество здоровья на {healthUpPercent}%";
+        public static string ReloadSpeedUpDescription = $"Увеличивает скорость перезарядки на {reloadSpeedUpPercent}%";
+        public static string ResurrectionDescription = "Возрождение после смерти с 100% здоровья";
+        public static string BloodthirstinessDescription = $"Пополнение здоровья после каждого убитого врага на {bloodthirstinessPercent}%";
+        public static string LootPercentUpDescription = $"Увеличивает шанс выпадения монет из врагов на {lootPercentUpPercent}%";
+        public static string BonusRandomUpDescription = $"Увеличивает шанс выпадения бонусов из врагов на {bonusRandomUpPercent}%";
+        public static string MagazineCapacityUpDescription = $"Увеличивает ёмкость магазина на {magazineCapacityUpValue} патрон";
 
     }
 }

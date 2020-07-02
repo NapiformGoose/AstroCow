@@ -46,6 +46,9 @@ namespace Assets.Scripts.Managers
         GameObject _coinPanel;
         TextMeshProUGUI _coinValue;
 
+        GameObject _magazinePanel;
+        GameObject _bulletImagePrefab;
+        IList<GameObject> _bulletImages;
 
         public UIManager(IUpdateManager updateManager, IObjectStorage objectStorage, IPoolManager poolManager, IDataLoadManager dataLoadManager, IBehaviourManager behaviourManager)
         {
@@ -101,6 +104,10 @@ namespace Assets.Scripts.Managers
 
             _coinPanel = GameObject.Find("CoinPanel");
             _coinValue = GameObject.Find("CoinValue").GetComponent<TextMeshProUGUI>();
+
+            _magazinePanel = GameObject.Find("MagazinePanel");
+            _bulletImagePrefab = Resources.Load(Constants.prefabPath + "BulletImage") as GameObject;
+            _bulletImages = new List<GameObject>();
         }
 
         public void ShowMainMenu()
@@ -132,6 +139,8 @@ namespace Assets.Scripts.Managers
 
             _experiencebar.minValue = Constants.experiencebarMinValue;
             _experiencebar.maxValue = Constants.experiencebarMaxValue;
+
+            CreateBulletImage();
 
             _updateManager.CustomStart();
         }
@@ -191,6 +200,30 @@ namespace Assets.Scripts.Managers
             _gameMenu.SetActive(true);
             _buttons[Constants.continueButton].gameObject.SetActive(false);
             _buttons[Constants.pauseButton].gameObject.SetActive(false);
+        }
+
+        void CreateBulletImage()
+        {
+            GameObject image = GameObject.Instantiate(_bulletImagePrefab);
+            image.transform.SetParent(_magazinePanel.transform);
+            image.transform.localScale = new Vector3(0.002f, 0.09f, 1);
+            image.transform.localPosition = new Vector3(-3.3f, 0, 0);
+            _bulletImages.Add(image);
+            for (int i = 1; i < Constants.maxMagazineCapacity; i++)
+            {
+                GameObject newImage = GameObject.Instantiate(_bulletImagePrefab);
+                newImage.transform.SetParent(_magazinePanel.transform);
+                newImage.transform.localPosition = new Vector3(_bulletImages[i-1].gameObject.transform.localPosition.x + 0.4f, 0, 0);
+                newImage.transform.localScale = new Vector3(0.002f, 0.09f, 1);
+
+                _bulletImages.Add(newImage);
+
+                if(i >= _player.MagazineCapacity)
+                {
+                    newImage.SetActive(false);
+                }
+            }
+
         }
 
         void UpdateHealthBar()
@@ -276,7 +309,7 @@ namespace Assets.Scripts.Managers
             UpdateHealthBar();
             UpdateExperienceBar();
 
-            if (_player.Behaviour.CurrentExperience >= 30)
+            if (_player.GameObject.activeSelf && _player.Behaviour.CurrentExperience >= Constants.experiencebarNextLevelValue)
             {
                 ShowUpgradeView();
                 _player.Behaviour.CurrentExperience = 0;
@@ -286,6 +319,8 @@ namespace Assets.Scripts.Managers
                 if(_player.Behaviour.CurrentResurrectionValue > 0)
                 {
                     _player.Behaviour.CurrentHealth = _player.Health;
+                    _player.GameObject.SetActive(true);
+                    _player.Text.SetActive(true);
                     ContinueLevel();
                 }
                 else
@@ -295,6 +330,17 @@ namespace Assets.Scripts.Managers
             }
 
             _coinValue.text = _player.Behaviour.CurrentCoinValue.ToString();
+
+            int currentMagazineCapacity = _player.MagazineCapacity;
+            for (int i = 0; i < currentMagazineCapacity; i++)
+            {
+                _bulletImages[i].SetActive(false);
+
+                if (i < _player.Behaviour.CurrentBulletValue)
+                {
+                    _bulletImages[i].SetActive(true);
+                }
+            }
         }
         public void CustomFixedUpdate()
         {

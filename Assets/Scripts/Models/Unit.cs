@@ -14,6 +14,7 @@ public class Unit : IUnit
     public float InactiveTime { get; set; }
     public float ExperienceValue { get; set; }
     public float LootPercent { get; set; }
+    public int MagazineCapacity { get; set; }
     public BonusType BonusType { get; set; }
 
     public GameObject GameObject { get; set; }

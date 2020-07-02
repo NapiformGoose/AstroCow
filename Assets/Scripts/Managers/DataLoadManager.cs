@@ -65,32 +65,32 @@ public class DataLoadManager : IDataLoadManager
 
     public void CreateUpgrades()
     {
-        IUpgrade fireSpeedUp = new Upgrade
-        {
-            Title = Constants.FireSpeedUpTitle,
-            Description = Constants.FireSpeedUpDescription,
-            //IconName =
-            UpgradeType = UpgradeType.FireSpeedUp
-        };
+        IUpgrade fireSpeedUp = new Upgrade(Constants.FireSpeedUpTitle, Constants.FireSpeedUpDescription, "", UpgradeType.FireSpeedUp);
         _objectStorage.Upgrades.Add(fireSpeedUp);
 
-        IUpgrade baseAttackUp = new Upgrade
-        {
-            Title = Constants.BaseAttackUpTitle,
-            Description = Constants.BaseAttackUpDescription,
-            //IconName =
-            UpgradeType = UpgradeType.BaseAttackUp
-        };
+        IUpgrade baseAttackUp = new Upgrade(Constants.BaseAttackUpTitle, Constants.BaseAttackUpDescription, "", UpgradeType.BaseAttackUp);
         _objectStorage.Upgrades.Add(baseAttackUp);
 
-        IUpgrade healthUp = new Upgrade
-        {
-            Title = Constants.HealthUpTitle,
-            Description = Constants.HealthUpDescription,
-            //IconName =
-            UpgradeType = UpgradeType.HealthUp
-        };
+        IUpgrade healthUp = new Upgrade(Constants.HealthUpTitle, Constants.HealthUpDescription, "", UpgradeType.HealthUp);
         _objectStorage.Upgrades.Add(healthUp);
+
+        IUpgrade reloadSpeedUp = new Upgrade(Constants.ReloadSpeedUpTitle, Constants.ReloadSpeedUpDescription, "", UpgradeType.ReloadSpeedUp);
+        _objectStorage.Upgrades.Add(reloadSpeedUp);
+
+        IUpgrade resurrection = new Upgrade(Constants.ResurrectionTitle, Constants.ResurrectionDescription, "", UpgradeType.Resurrection);
+        _objectStorage.Upgrades.Add(resurrection);
+
+        IUpgrade bloodthirstiness = new Upgrade(Constants.BloodthirstinessTitle, Constants.BloodthirstinessDescription, "", UpgradeType.Bloodthirstiness);
+        _objectStorage.Upgrades.Add(bloodthirstiness);
+
+        IUpgrade lootPercentUp = new Upgrade(Constants.LootPercentUpTitle, Constants.LootPercentUpDescription, "", UpgradeType.LootPercentUp);
+        _objectStorage.Upgrades.Add(lootPercentUp);
+
+        IUpgrade bonusRandomUp = new Upgrade(Constants.BonusRandomUpTitle, Constants.BonusRandomUpDescription, "", UpgradeType.BonusRandomUp);
+        _objectStorage.Upgrades.Add(bonusRandomUp);
+
+        IUpgrade magazineCapacityUp = new Upgrade(Constants.MagazineCapacityUpTitle, Constants.MagazineCapacityUpDescription, "", UpgradeType.MagazineCapacityUp);
+        _objectStorage.Upgrades.Add(magazineCapacityUp);
     }
 
     #region Private read method
@@ -363,7 +363,8 @@ public class DataLoadManager : IDataLoadManager
                 InactiveTime = template.InactiveTime,
                 BonusType = (BonusType)Enum.Parse(typeof(BonusType), subElement.Attribute("bonusType").Value),
                 ExperienceValue = template.ExperienceValue,
-                LootPercent = template.LootPercent
+                LootPercent = template.LootPercent,
+                MagazineCapacity = Constants.magazineCapacity
             };
             cell.Units.Add(unit);
         }

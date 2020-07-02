@@ -9,4 +9,12 @@ public class Upgrade : IUpgrade
     public string Description { get; set; }
     public string IconName { get; set; }
     public UpgradeType UpgradeType { get; set; }
+
+    public Upgrade(string title, string description, string iconName, UpgradeType upgradeType)
+    {
+        Title = title;
+        Description = description;
+        IconName = iconName;
+        UpgradeType = upgradeType;
+    }
 }

@@ -72,7 +72,7 @@ public class BonusBehaviour
                 switch(ActiveBonus[i].EffectType)
                 {
                     case EffectType.FireSpeedUp:
-                        _player.Weapon.FireSpeed /= ActiveBonus[i].Coefficient;
+                        _player.Behaviour.CurrentFireSpeed /= ActiveBonus[i].Coefficient;
                         ActiveBonus.RemoveAt(i);
                         break;
                     default:
@@ -85,7 +85,7 @@ public class BonusBehaviour
 
     void BonusHealthEffect(IBonus bonus)
     {
-        _player.Health += bonus.HealthValue;
+        _player.Behaviour.CurrentHealth += bonus.HealthValue;
     }
 
     void BonusBoomEffect()
@@ -117,7 +117,7 @@ public class BonusBehaviour
             {
                 if (unit.Behaviour.IsActive && unit.Team == Team.Enemy)
                 {
-                    unit.Health = 0.0001f;
+                    unit.Behaviour.CurrentHealth = 0.0001f;
                 }
             }
         }

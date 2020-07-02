@@ -14,6 +14,7 @@ public interface IUnit : IEntity
     float InactiveTime { get; set; }
     float ExperienceValue { get; set; }
     float LootPercent { get; set; }
+    int MagazineCapacity { get; set; }
     BonusType BonusType { get; set; }
 
     GameObject GameObject { get; set; }

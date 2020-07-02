@@ -114,11 +114,15 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
             unit.Behaviour.CurrentHealth -= damage;
             if (unit.Behaviour.CurrentHealth <= 0)
             {
+                if(unit.UnitType != UnitType.Player)
+                {
+                    ShowBonus(unit);
+                    ShowCoin(unit);
+                    CalculateExperience(unit.ExperienceValue);
+                    _player.Behaviour.CurrentHealth += _player.Behaviour.Bloodthirstiness;
+                }
                 unit.GameObject.SetActive(false);
                 unit.Text.SetActive(false);
-                ShowBonus(unit);
-                ShowCoin(unit);
-                CalculateExperience(unit.ExperienceValue);
             }
         }
         else
@@ -181,6 +185,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
     public void CustomFixedUpdate()
     {
         _player = _objectStorage.Units[UnitType.Player.ToString()].First();
+        Debug.Log(_player.MagazineCapacity);
         Camera.main.transform.position += new Vector3(0, Constants.cameraSpeed * Time.deltaTime, 0);
 
         foreach (var key in _objectStorage.Units.Keys)

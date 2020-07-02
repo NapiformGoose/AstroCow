@@ -107,7 +107,6 @@ public class PoolManager : IPoolManager
         {
             _objectCreateManager.InstantiateCoin(coin);
         }
-
     }
 
     void CreateBullets()

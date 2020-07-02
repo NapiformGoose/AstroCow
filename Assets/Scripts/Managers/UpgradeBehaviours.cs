@@ -24,7 +24,7 @@ public class UpgradeBehaviours : IUpgradeBehaviours
         {
             upgrades.Add(_objectStorage.Upgrades[UnityEngine.Random.Range(0, _objectStorage.Upgrades.Count)]);
         }
-        return _objectStorage.Upgrades;//upgrades;
+        return upgrades;
     }
     public void UpgradeAct(UpgradeType upgradeType)
     {
@@ -47,9 +47,9 @@ public class UpgradeBehaviours : IUpgradeBehaviours
                     HealthUpApply();
                     break;
                 }
-            case UpgradeType.BonusRandomValueUp:
+            case UpgradeType.BonusRandomUp:
                 {
-                    BonusRandomValueUpApply();
+                    BonusRandomUpApply();
                     break;
                 }
             case UpgradeType.Resurrection:
@@ -57,38 +57,84 @@ public class UpgradeBehaviours : IUpgradeBehaviours
                     ResurrectionApply();
                     break;
                 }
+            case UpgradeType.LootPercentUp:
+                {
+                    LootPercentUpApply();
+                    break;
+                }
+            case UpgradeType.ReloadSpeedUp:
+                {
+                    ReloadSpeedUpApply();
+                    break;
+                }
+            case UpgradeType.Bloodthirstiness:
+                {
+                    BloodthirstinessApply();
+                    break;
+                }
+            case UpgradeType.MagazineCapacityUp:
+                {
+                    MagazineCapacityUpApply();
+                    break;
+                }
         }
     }
 
     void FireSpeedUpApply()
     {
-        _player.Behaviour.CurrentFireSpeed -= _player.Weapon.FireSpeed * 0.1f;
+        _player.Behaviour.CurrentFireSpeed -= _player.Weapon.FireSpeed * (Constants.fireSpeedUpPercent / 100);
     }
 
     void BaseAttackApply()
     {
-        _player.Behaviour.CurrentBaseAttack += _player.Weapon.BaseAttack * 0.1f;
+        _player.Behaviour.CurrentBaseAttack += _player.Weapon.BaseAttack * (Constants.baseAttackUpPercent / 100);
     }
 
     void HealthUpApply()
     {
-        _player.Health += _player.Health * 0.1f;
-        _player.Behaviour.CurrentHealth += _player.Health * 0.1f;
+        _player.Health += _player.Health * (Constants.healthUpPercent / 100);
+        _player.Behaviour.CurrentHealth += _player.Health * (Constants.healthUpPercent / 100);
     }
 
-    void BonusRandomValueUpApply()
+    void BonusRandomUpApply()
     {
         foreach (var key in _objectStorage.Bonuses.Keys)
         {
             foreach (IBonus bonus in _objectStorage.Bonuses[key])
             {
-                bonus.RandomPercent += 5;
+                bonus.RandomPercent += Constants.bonusRandomUpPercent;
             }
         }
     }
 
     void ResurrectionApply()
     {
-        _player.Behaviour.CurrentResurrectionValue += 1;
+        _player.Behaviour.CurrentResurrectionValue++;
+    }
+
+    void LootPercentUpApply()
+    {
+        foreach (var key in _objectStorage.Units.Keys)
+        {
+            foreach (IUnit unit in _objectStorage.Units[key])
+            {
+                unit.Behaviour.CurrentLootPercent += Constants.lootPercentUpPercent;
+            }
+        }
+    }
+
+    void ReloadSpeedUpApply()
+    {
+        _player.Behaviour.CurrentReloadSpeed -= _player.Weapon.ReloadSpeed * (Constants.reloadSpeedUpPercent / 100);
+    }
+
+    void BloodthirstinessApply()
+    {
+        _player.Behaviour.Bloodthirstiness += _player.Health * (Constants.bloodthirstinessPercent / 100);
+    }
+
+    void MagazineCapacityUpApply()
+    {
+        _player.MagazineCapacity++;
     }
 }

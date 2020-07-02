@@ -23,12 +23,14 @@ public class Behaviour : IBehaviour
     public int CurrentResurrectionValue { get; set; }
     public float CurrentLootPercent { get; set; }
     public int CurrentCoinValue { get; set; }
-
+    public int CurrentBulletValue { get; set; }
+    public float Bloodthirstiness { get; set; }
     public bool IsMoving { get; set; }
     public bool IsAttack { get; set; }
     public bool IsActive { get; set; }
 
     public float TimeBeforeShot { get; set; }
+    public float TimeBeforeReload { get; set; }
     public float InactiveTime { get; set; }
 
 
@@ -51,12 +53,15 @@ public class Behaviour : IBehaviour
                      int currentResurrectionValue = 0,
                      float currentLootPercent = 0,
                      int currentCoinValue = 0,
+                     int currentBulletValue = 0,
+                     float bloodthirstiness = 0,
 
                      bool isMoving = true,
                      bool isAttack = true,
                      bool isActive = false,
 
                      float timeBeforeShot = 0,
+                     float timeBeforeReload = 0,
                      float inactiveTime = 0)
     {
         StartPos = startPos;
@@ -77,12 +82,15 @@ public class Behaviour : IBehaviour
         CurrentResurrectionValue = currentResurrectionValue;
         CurrentLootPercent = currentLootPercent;
         CurrentCoinValue = currentCoinValue;
+        CurrentBulletValue = currentBulletValue;
+        Bloodthirstiness = bloodthirstiness;
 
         IsMoving = isMoving;
         IsAttack = isAttack;
         IsActive = isActive;
 
         TimeBeforeShot = timeBeforeShot;
+        TimeBeforeReload = timeBeforeReload;
         InactiveTime = inactiveTime;
         
     }

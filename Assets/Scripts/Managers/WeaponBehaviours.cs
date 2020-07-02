@@ -78,19 +78,44 @@ public class WeaponBehaviours
                 }
             case WeaponType.PlayerWeaponType1:
                 {
-                    unit.Behaviour.TimeBeforeShot -= Time.fixedDeltaTime;
-                    if (unit.Behaviour.TimeBeforeShot <= 0)
+                    if(_player.Behaviour.CurrentBulletValue <= 0)
                     {
-                        WeaponType1Shoot(unit);
+                        _player.Behaviour.TimeBeforeReload -= Time.fixedDeltaTime;
+                        if(_player.Behaviour.TimeBeforeReload <= 0)
+                        {
+                            _player.Behaviour.CurrentBulletValue = _player.MagazineCapacity;
+                            _player.Behaviour.TimeBeforeReload = _player.Weapon.ReloadSpeed;
+                        }
                     }
+                    else
+                    {
+                        unit.Behaviour.TimeBeforeShot -= Time.fixedDeltaTime;
+                        if (unit.Behaviour.TimeBeforeShot <= 0)
+                        {
+                            WeaponType1Shoot(unit);
+                        }
+                    }
+                   
                     break;
                 }
             case WeaponType.PlayerWeaponType2:
                 {
-                    unit.Behaviour.TimeBeforeShot -= Time.fixedDeltaTime;
-                    if (unit.Behaviour.TimeBeforeShot <= 0)
+                    if (_player.Behaviour.CurrentBulletValue <= 0)
                     {
-                        WeaponType2Shoot(unit);
+                        _player.Behaviour.TimeBeforeReload -= Time.fixedDeltaTime;
+                        if (_player.Behaviour.TimeBeforeReload <= 0)
+                        {
+                            _player.Behaviour.CurrentBulletValue = _player.MagazineCapacity;
+                            _player.Behaviour.TimeBeforeReload = _player.Weapon.ReloadSpeed;
+                        }
+                    }
+                    else
+                    {
+                        unit.Behaviour.TimeBeforeShot -= Time.fixedDeltaTime;
+                        if (unit.Behaviour.TimeBeforeShot <= 0)
+                        {
+                            WeaponType2Shoot(unit);
+                        }
                     }
                     break;
                 }
@@ -103,6 +128,7 @@ public class WeaponBehaviours
         Team aim = unit.Team == Team.Player ? Team.Enemy : Team.Player;
         CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.Vertical, unit.ShootPosition, aim, unit.Weapon.BaseAttack);
         unit.Behaviour.TimeBeforeShot = unit.Behaviour.CurrentFireSpeed;
+        unit.Behaviour.CurrentBulletValue--;
     }
 
     void WeaponType2Shoot(IUnit unit)
@@ -115,6 +141,7 @@ public class WeaponBehaviours
         CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.RightDiagonal, unit.ShootPosition, aim, unit.Behaviour.CurrentBaseAttack);
 
         unit.Behaviour.TimeBeforeShot = unit.Behaviour.CurrentFireSpeed;
+        unit.Behaviour.CurrentBulletValue--;
     }
 
     void WeaponType3Shoot(IUnit unit)

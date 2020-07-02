@@ -23,11 +23,14 @@ public interface IBehaviour
     int CurrentResurrectionValue { get; set; }
     float CurrentLootPercent { get; set; }
     int CurrentCoinValue { get; set; }
+    int CurrentBulletValue { get; set; }
+    float Bloodthirstiness { get; set; }
 
     bool IsMoving { get; set; }
     bool IsAttack { get; set; }
     bool IsActive { get; set; }
 
     float TimeBeforeShot { get; set; }
+    float TimeBeforeReload { get; set; }
     float InactiveTime { get; set; }
 }
