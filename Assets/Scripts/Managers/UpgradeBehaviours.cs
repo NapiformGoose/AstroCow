@@ -20,10 +20,27 @@ public class UpgradeBehaviours : IUpgradeBehaviours
     public IList<IUpgrade> GetUpgrades()
     {
         IList<IUpgrade> upgrades = new List<IUpgrade>(3);
-        for(int i = 0; i < 3; i++)
+        upgrades.Add(_objectStorage.Upgrades[UnityEngine.Random.Range(0, _objectStorage.Upgrades.Count)]);
+        IUpgrade upgrade;
+
+        do
         {
-            upgrades.Add(_objectStorage.Upgrades[UnityEngine.Random.Range(0, _objectStorage.Upgrades.Count)]);
+            upgrade = _objectStorage.Upgrades[UnityEngine.Random.Range(0, _objectStorage.Upgrades.Count)];
+            for(int i = 0; i < upgrades.Count; i++)
+            {
+                if (upgrades[0] == upgrade)
+                {
+                    break;
+                }
+                else
+                {
+                    upgrades.Add(upgrade);
+                    break;
+                }
+            }
         }
+        while (upgrades.Count < 3);
+
         return upgrades;
     }
     public void UpgradeAct(UpgradeType upgradeType)
