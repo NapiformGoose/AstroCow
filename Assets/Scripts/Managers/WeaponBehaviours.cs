@@ -21,6 +21,7 @@ public class WeaponBehaviours
 
         switch (unit.Weapon.WeaponType)
         {
+            case WeaponType.WeaponType0:
             case WeaponType.WeaponType1:
                 {
                     unit.Behaviour.TimeBeforeShot -= Time.fixedDeltaTime;

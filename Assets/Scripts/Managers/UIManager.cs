@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Assets.Scripts.Interfaces;
 using TMPro;
 using System.Linq;
+using System;
 
 namespace Assets.Scripts.Managers
 {
@@ -50,6 +51,11 @@ namespace Assets.Scripts.Managers
         GameObject _bulletImagePrefab;
         IList<GameObject> _bulletImages;
 
+        GameObject _machineMenu;
+        TMP_Dropdown _machineDropdown;
+        TextMeshProUGUI _weaponDescription;
+        IWeapon _selectWeapon;
+
         public UIManager(IUpdateManager updateManager, IObjectStorage objectStorage, IPoolManager poolManager, IDataLoadManager dataLoadManager, IBehaviourManager behaviourManager)
         {
             _updateManager = updateManager;
@@ -78,6 +84,10 @@ namespace Assets.Scripts.Managers
             _buttons.Add(Constants.secondUpgradeButton, GameObject.Find(Constants.secondUpgradeButton).GetComponent<Button>());
             _buttons.Add(Constants.thirdUpgradeButton, GameObject.Find(Constants.thirdUpgradeButton).GetComponent<Button>());
 
+            _buttons.Add(Constants.machineButton, GameObject.Find(Constants.machineButton).GetComponent<Button>());
+            _buttons.Add(Constants.weaponApplyButton, GameObject.Find(Constants.weaponApplyButton).GetComponent<Button>());
+
+
             _buttons[Constants.playBatton].onClick.AddListener(delegate () { StartLevel(); });
             _buttons[Constants.exitButton].onClick.AddListener(delegate () { QuitApplication(); });
 
@@ -90,6 +100,9 @@ namespace Assets.Scripts.Managers
             _buttons[Constants.firstUpgradeButton].onClick.AddListener(delegate () { ApplyFirstUpgrade(); });
             _buttons[Constants.secondUpgradeButton].onClick.AddListener(delegate () { ApplySecondUpgrade(); });
             _buttons[Constants.thirdUpgradeButton].onClick.AddListener(delegate () { ApplyThirdUpgrade(); });
+
+            _buttons[Constants.machineButton].onClick.AddListener(delegate () { OpenMachineMenu(); });
+            _buttons[Constants.weaponApplyButton].onClick.AddListener(delegate () { WeaponApplyMenu(); });
 
             _healthBar = GameObject.Find("Healthbar").GetComponent<Slider>();
             _experiencebar = GameObject.Find("Experiencebar").GetComponent<Slider>();
@@ -108,6 +121,17 @@ namespace Assets.Scripts.Managers
             _magazinePanel = GameObject.Find("MagazinePanel");
             _bulletImagePrefab = Resources.Load(Constants.prefabPath + "BulletImage") as GameObject;
             _bulletImages = new List<GameObject>();
+
+            _machineMenu = GameObject.Find("MachineMenu");
+            _machineDropdown = GameObject.Find("MachineDropdown").GetComponent<TMP_Dropdown>();
+            _machineDropdown.options = new List<TMP_Dropdown.OptionData>
+            {
+                new TMP_Dropdown.OptionData(WeaponType.PlayerWeaponType1.ToString()),
+                new TMP_Dropdown.OptionData(WeaponType.PlayerWeaponType2.ToString()),
+
+            };
+            _machineDropdown.onValueChanged.AddListener(delegate { MachineDropdownValueChangedHandler(_machineDropdown); });
+            _weaponDescription = GameObject.Find("WeaponDescription").GetComponent<TextMeshProUGUI>();
         }
 
         public void ShowMainMenu()
@@ -118,6 +142,7 @@ namespace Assets.Scripts.Managers
             _healthBar.gameObject.SetActive(false);
             _experiencebar.gameObject.SetActive(false);
             _coinPanel.gameObject.SetActive(false);
+            _machineMenu.gameObject.SetActive(false);
         }
         void StartLevel()
         {
@@ -141,6 +166,7 @@ namespace Assets.Scripts.Managers
             _experiencebar.maxValue = Constants.experiencebarMaxValue;
 
             CreateBulletImage();
+            _buttons[Constants.machineButton].gameObject.SetActive(_player.Behaviour.IsMachineAvailable);
 
             _updateManager.CustomStart();
         }
@@ -202,6 +228,18 @@ namespace Assets.Scripts.Managers
             _buttons[Constants.pauseButton].gameObject.SetActive(false);
         }
 
+        void OpenMachineMenu()
+        {
+            _updateManager.Stop();
+
+            _buttons[Constants.pauseButton].gameObject.SetActive(false);
+            _coinPanel.SetActive(false);
+            _magazinePanel.SetActive(false);
+
+            _machineMenu.gameObject.SetActive(true);
+            MachineDropdownValueChangedHandler(_machineDropdown);
+        }
+
         void CreateBulletImage()
         {
             GameObject image = GameObject.Instantiate(_bulletImagePrefab);
@@ -213,12 +251,12 @@ namespace Assets.Scripts.Managers
             {
                 GameObject newImage = GameObject.Instantiate(_bulletImagePrefab);
                 newImage.transform.SetParent(_magazinePanel.transform);
-                newImage.transform.localPosition = new Vector3(_bulletImages[i-1].gameObject.transform.localPosition.x + 0.4f, 0, 0);
+                newImage.transform.localPosition = new Vector3(_bulletImages[i - 1].gameObject.transform.localPosition.x + 0.4f, 0, 0);
                 newImage.transform.localScale = new Vector3(0.002f, 0.09f, 1);
 
                 _bulletImages.Add(newImage);
 
-                if(i >= _player.MagazineCapacity)
+                if (i >= _player.MagazineCapacity)
                 {
                     newImage.SetActive(false);
                 }
@@ -304,6 +342,47 @@ namespace Assets.Scripts.Managers
             _updateManager.CustomStart();
         }
 
+        void MachineDropdownValueChangedHandler(TMP_Dropdown target)
+        {
+            switch ((WeaponType)Enum.Parse(typeof(WeaponType), target.options[target.value].text))
+            {
+                case WeaponType.PlayerWeaponType1:
+                    {
+                        _selectWeapon = _objectStorage.WeaponTemplates[WeaponType.PlayerWeaponType1.ToString()];
+                        _weaponDescription.text = $"Скорострельность: {_player.Behaviour.CurrentFireSpeed} | {_selectWeapon.FireSpeed}\n\n" +
+                            $"Скорость перезарядки: {_player.Behaviour.CurrentReloadSpeed} | {_selectWeapon.ReloadSpeed}\n\n" +
+                            $"Урон: {_player.Behaviour.CurrentBaseAttack} | {_selectWeapon.BaseAttack}";
+                        break;
+                    }
+                case WeaponType.PlayerWeaponType2:
+                    {
+                        _selectWeapon = _objectStorage.WeaponTemplates[WeaponType.PlayerWeaponType2.ToString()];
+                        _weaponDescription.text = $"Скорострельность: {_player.Behaviour.CurrentFireSpeed} | {_selectWeapon.FireSpeed}\n\n" +
+                            $"Скорость перезарядки: {_player.Behaviour.CurrentReloadSpeed} | {_selectWeapon.ReloadSpeed}\n\n" +
+                            $"Урон: {_player.Behaviour.CurrentBaseAttack} | {_selectWeapon.BaseAttack}";
+                        break;
+                    }
+            }
+            
+        }
+
+        void WeaponApplyMenu()
+        {
+            _player.Behaviour.IsMachineAvailable = false;
+            _player.Weapon.WeaponType = WeaponType.PlayerWeaponType1;
+            _player.Behaviour.CurrentReloadSpeed = _player.Behaviour.TimeBeforeReload = _selectWeapon.ReloadSpeed;
+            _player.Behaviour.CurrentFireSpeed = _player.Behaviour.TimeBeforeShot = _selectWeapon.FireSpeed;
+            _player.Behaviour.CurrentBaseAttack = _selectWeapon.BaseAttack;
+
+            _machineMenu.SetActive(false);
+            _buttons[Constants.machineButton].gameObject.SetActive(false);
+            _coinPanel.SetActive(true);
+            _magazinePanel.SetActive(true);
+
+            _updateManager.CustomStart();
+        }
+
+
         public void CustomUpdate()
         {
             UpdateHealthBar();
@@ -314,9 +393,9 @@ namespace Assets.Scripts.Managers
                 ShowUpgradeView();
                 _player.Behaviour.CurrentExperience = 0;
             }
-            if(_player.Behaviour.CurrentHealth <= 0)
+            if (_player.Behaviour.CurrentHealth <= 0)
             {
-                if(_player.Behaviour.CurrentResurrectionValue > 0)
+                if (_player.Behaviour.CurrentResurrectionValue > 0)
                 {
                     _player.Behaviour.CurrentHealth = _player.Health;
                     _player.GameObject.SetActive(true);
@@ -340,6 +419,11 @@ namespace Assets.Scripts.Managers
                 {
                     _bulletImages[i].SetActive(true);
                 }
+            }
+
+            if (_player.Behaviour.IsMachineAvailable)
+            {
+                _buttons[Constants.machineButton].gameObject.SetActive(true);
             }
         }
         public void CustomFixedUpdate()

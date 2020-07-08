@@ -29,6 +29,7 @@ public interface IBehaviour
     bool IsMoving { get; set; }
     bool IsAttack { get; set; }
     bool IsActive { get; set; }
+    bool IsMachineAvailable { get; set; }
 
     float TimeBeforeShot { get; set; }
     float TimeBeforeReload { get; set; }

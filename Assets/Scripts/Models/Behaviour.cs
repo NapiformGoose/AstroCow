@@ -28,6 +28,7 @@ public class Behaviour : IBehaviour
     public bool IsMoving { get; set; }
     public bool IsAttack { get; set; }
     public bool IsActive { get; set; }
+    public bool IsMachineAvailable { get; set; }
 
     public float TimeBeforeShot { get; set; }
     public float TimeBeforeReload { get; set; }
@@ -59,6 +60,7 @@ public class Behaviour : IBehaviour
                      bool isMoving = true,
                      bool isAttack = true,
                      bool isActive = false,
+                     bool isMachineAvailable = false,
 
                      float timeBeforeShot = 0,
                      float timeBeforeReload = 0,
@@ -88,6 +90,7 @@ public class Behaviour : IBehaviour
         IsMoving = isMoving;
         IsAttack = isAttack;
         IsActive = isActive;
+        IsMachineAvailable = isMachineAvailable;
 
         TimeBeforeShot = timeBeforeShot;
         TimeBeforeReload = timeBeforeReload;

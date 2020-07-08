@@ -49,14 +49,19 @@ public class BonusBehaviour
                     BonusBoomEffect();
                     break;
                 }
-            case BonusType.BonusMagnet: // скоростреьность
+            case BonusType.BonusFastShoot:
                 {
-                    BonusMagnetEffect(bonus);
+                    BonusFastShootEffect(bonus);
                     break;
                 }
             case BonusType.СrystalEnemies:
                 {
                     BonusСrystalEnemiesEffect();
+                    break;
+                }
+            case BonusType.BonusMachine:
+                {
+                    MachineEffect();
                     break;
                 }
         }
@@ -103,7 +108,7 @@ public class BonusBehaviour
         }
     }
 
-    void BonusMagnetEffect(IBonus bonus)
+    void BonusFastShootEffect(IBonus bonus)
     {
         _player.Behaviour.CurrentFireSpeed *= bonus.FireSpeedCoefficient;
         ActiveBonus.Add(new ActiveBonusTemplate(_player.Behaviour.CurrentFireSpeed, bonus.FireSpeedCoefficient, bonus.ActiveTime, EffectType.FireSpeedUp));
@@ -121,5 +126,10 @@ public class BonusBehaviour
                 }
             }
         }
+    }
+
+    void MachineEffect()
+    {
+        _player.Behaviour.IsMachineAvailable = true;
     }
 }

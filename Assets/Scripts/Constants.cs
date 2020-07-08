@@ -27,7 +27,8 @@ namespace Assets.Scripts
     {
         BulletType1,
         BulletType2,
-        BulletType3
+        BulletType3,
+        BulletType4
     }
 
     public enum BulletBehaviourType
@@ -43,6 +44,7 @@ namespace Assets.Scripts
     }
     public enum WeaponType
     {
+        WeaponType0,
         WeaponType1,
         WeaponType2,
         WeaponType3,
@@ -65,8 +67,9 @@ namespace Assets.Scripts
         BonusBoom,
         BonusFrost,
         BonusHealth,
-        BonusMagnet,
-        СrystalEnemies
+        BonusFastShoot,
+        СrystalEnemies,
+        BonusMachine
     }
 
     public enum UpgradeType
@@ -139,6 +142,9 @@ namespace Assets.Scripts
         public static string firstUpgradeButton = "FirstUpgradeButton"; 
         public static string secondUpgradeButton = "SecondUpgradeButton";
         public static string thirdUpgradeButton = "ThirdUpgradeButton";
+
+        public static string machineButton = "MachineButton";
+        public static string weaponApplyButton = "WeaponApplyButton";
 
         //Bars
         public static float experiencebarMinValue = 0;

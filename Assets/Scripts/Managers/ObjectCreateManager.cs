@@ -78,7 +78,7 @@ namespace Assets.Scripts.Managers
                 HealthValue = bonusTemplate.HealthValue,
                 FireSpeedCoefficient = bonusTemplate.FireSpeedCoefficient,
                 ReloadSpeedCoefficient = bonusTemplate.ReloadSpeedCoefficient,
-                ActiveTime = bonusTemplate.ActiveTime
+                ActiveTime = bonusTemplate.ActiveTime,
             };
             newBonus.Collider2D = newBonus.GameObject.GetComponent<Collider2D>() as Collider2D;
             return newBonus;
@@ -150,7 +150,8 @@ namespace Assets.Scripts.Managers
                             CurrentReloadSpeed = unit.Weapon.ReloadSpeed,
                             CurrentCritAttack = unit.Weapon.CritAttack,
                             CurrentBaseAttack = unit.Weapon.BaseAttack,
-                            CurrentLootPercent = unit.LootPercent
+                            CurrentLootPercent = unit.LootPercent,
+                            TimeBeforeShot = unit.Weapon.FireSpeed
                         };
                         break;
                     }
@@ -165,6 +166,7 @@ namespace Assets.Scripts.Managers
                             MaxRightPos = new Vector3(2.7f, 0, 0),
                             Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
                             IsMoving = false,
+                            IsMachineAvailable = false,
                             InactiveTime = 0,
                             CurrentHealth = unit.Health,
                             CurrentMoveSpeed = unit.MoveSpeed,
@@ -175,7 +177,8 @@ namespace Assets.Scripts.Managers
                             CurrentLootPercent = unit.LootPercent,
                             CurrentBulletValue = unit.MagazineCapacity,
                             TimeBeforeReload = unit.Weapon.ReloadSpeed,
-                            Bloodthirstiness = Constants.bloodthirstiness
+                            Bloodthirstiness = Constants.bloodthirstiness,
+                            TimeBeforeShot = unit.Weapon.FireSpeed
                         };
                         break;
                     }
@@ -196,7 +199,8 @@ namespace Assets.Scripts.Managers
                             CurrentReloadSpeed = unit.Weapon.ReloadSpeed,
                             CurrentCritAttack = unit.Weapon.CritAttack,
                             CurrentBaseAttack = unit.Weapon.BaseAttack,
-                            CurrentLootPercent = unit.LootPercent
+                            CurrentLootPercent = unit.LootPercent,
+                            TimeBeforeShot = unit.Weapon.FireSpeed
                         };
                         break;
                     }
@@ -216,7 +220,8 @@ namespace Assets.Scripts.Managers
                             CurrentReloadSpeed = unit.Weapon.ReloadSpeed,
                             CurrentCritAttack = unit.Weapon.CritAttack,
                             CurrentBaseAttack = unit.Weapon.BaseAttack,
-                            CurrentLootPercent = unit.LootPercent
+                            CurrentLootPercent = unit.LootPercent,
+                            TimeBeforeShot = unit.Weapon.FireSpeed
                         };
                         break;
                     }

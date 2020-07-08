@@ -50,11 +50,14 @@ public class DataLoadManager : IDataLoadManager
 
         _objectStorage.Prefabs.Add(BulletType.BulletType1.ToString(), Resources.Load(Constants.prefabPath + BulletType.BulletType1.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(BulletType.BulletType2.ToString(), Resources.Load(Constants.prefabPath + BulletType.BulletType2.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(BulletType.BulletType3.ToString(), Resources.Load(Constants.prefabPath + BulletType.BulletType3.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(BulletType.BulletType4.ToString(), Resources.Load(Constants.prefabPath + BulletType.BulletType4.ToString()) as GameObject);
 
         _objectStorage.Prefabs.Add(BonusType.BonusHealth.ToString(), Resources.Load(Constants.prefabPath + BonusType.BonusHealth.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(BonusType.BonusBoom.ToString(), Resources.Load(Constants.prefabPath + BonusType.BonusBoom.ToString()) as GameObject);
-        _objectStorage.Prefabs.Add(BonusType.BonusMagnet.ToString(), Resources.Load(Constants.prefabPath + BonusType.BonusMagnet.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(BonusType.BonusFastShoot.ToString(), Resources.Load(Constants.prefabPath + BonusType.BonusFastShoot.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(BonusType.СrystalEnemies.ToString(), Resources.Load(Constants.prefabPath + BonusType.СrystalEnemies.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(BonusType.BonusMachine.ToString(), Resources.Load(Constants.prefabPath + BonusType.BonusMachine.ToString()) as GameObject);
 
         _objectStorage.Prefabs.Add(Constants.coin, Resources.Load(Constants.prefabPath + Constants.coin) as GameObject);
 

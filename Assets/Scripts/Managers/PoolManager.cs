@@ -145,6 +145,42 @@ public class PoolManager : IPoolManager
                 _objectStorage.Bullets[BulletType.BulletType2.ToString()].Add(bullet);
             }
         }
+        for (int i = 0; i < 20; i++)
+        {
+            IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType4.ToString()]);
+            bullet.BulletType = BulletType.BulletType2;
+            bullet.MoveSpeed = _objectStorage.BulletTemplates[BulletType.BulletType3.ToString()].MoveSpeed;
+            bullet.Behaviour = new Behaviour();
+
+            if (_objectStorage.Bullets.Keys.Contains(BulletType.BulletType3.ToString()))
+            {
+                _objectStorage.Bullets[BulletType.BulletType3.ToString()].Add(bullet);
+
+            }
+            else
+            {
+                _objectStorage.Bullets[BulletType.BulletType3.ToString()] = new List<IBullet>();
+                _objectStorage.Bullets[BulletType.BulletType3.ToString()].Add(bullet);
+            }
+        }
+        for (int i = 0; i < 20; i++)
+        {
+            IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType4.ToString()]);
+            bullet.BulletType = BulletType.BulletType2;
+            bullet.MoveSpeed = _objectStorage.BulletTemplates[BulletType.BulletType4.ToString()].MoveSpeed;
+            bullet.Behaviour = new Behaviour();
+
+            if (_objectStorage.Bullets.Keys.Contains(BulletType.BulletType4.ToString()))
+            {
+                _objectStorage.Bullets[BulletType.BulletType4.ToString()].Add(bullet);
+
+            }
+            else
+            {
+                _objectStorage.Bullets[BulletType.BulletType4.ToString()] = new List<IBullet>();
+                _objectStorage.Bullets[BulletType.BulletType4.ToString()].Add(bullet);
+            }
+        }
     }
     void CreateCoins()
     {

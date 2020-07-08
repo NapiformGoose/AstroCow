@@ -163,7 +163,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
             {
                 if (!coin.GameObject.activeSelf)
                 {
-                    coin.GameObject.transform.position = new Vector3(unit.GameObject.transform.position.x, unit.GameObject.transform.position.y + 0.5f, unit.GameObject.transform.position.z);
+                    coin.GameObject.transform.position = new Vector3(unit.GameObject.transform.position.x, unit.GameObject.transform.position.y + 1f, unit.GameObject.transform.position.z);
 
                     coin.GameObject.SetActive(true);
                     return;
@@ -185,7 +185,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
     public void CustomFixedUpdate()
     {
         _player = _objectStorage.Units[UnitType.Player.ToString()].First();
-        Debug.Log(_player.MagazineCapacity);
+
         Camera.main.transform.position += new Vector3(0, Constants.cameraSpeed * Time.deltaTime, 0);
 
         foreach (var key in _objectStorage.Units.Keys)
