@@ -2,15 +2,15 @@
 	<ObstacleSet id="0">
 	</ObstacleSet>
 	<ObstacleSet id="1">
-		<Obstacle type="EnergyWall" x="0" y="1" z="0"/>
-		<Obstacle type="SteelWall" x="-2" y="2" z="0"/>
+		<Obstacle type="WallType7" x="0" y="1" z="0"/>
+		<Obstacle type="WallType7" x="-2" y="2" z="0"/>
 	</ObstacleSet>
 	<ObstacleSet id="2">
-		<Obstacle type="EnergyWall" x="1" y="1" z="0"/>
-		<Obstacle type="SteelWall" x="-1" y="-2" z="0"/>
+		<Obstacle type="WallType1" x="1" y="1" z="0"/>
+		<Obstacle type="WallType1" x="-1" y="-2" z="0"/>
 	</ObstacleSet>
 	<ObstacleSet id="3">
-		<Obstacle type="EnergyWall" x="20" y="18" z="0"/>
-		<Obstacle type="EnergyWall" x="-12" y="0" z="0"/>
+		<Obstacle type="WallType1" x="20" y="18" z="0"/>
+		<Obstacle type="WallType1" x="-12" y="0" z="0"/>
 	</ObstacleSet>
 </ObstacleSets>

@@ -45,8 +45,13 @@ public class DataLoadManager : IDataLoadManager
         _objectStorage.Prefabs.Add(UnitType.EnemyType7.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType7.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(UnitType.EnemyType8.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType8.ToString()) as GameObject);
 
-        _objectStorage.Prefabs.Add(ObstacleType.EnergyWall.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.EnergyWall.ToString()) as GameObject);
-        _objectStorage.Prefabs.Add(ObstacleType.SteelWall.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.SteelWall.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(ObstacleType.WallType1.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.WallType1.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(ObstacleType.WallType2.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.WallType2.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(ObstacleType.WallType3.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.WallType1.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(ObstacleType.WallType4.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.WallType1.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(ObstacleType.WallType5.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.WallType1.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(ObstacleType.WallType6.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.WallType6.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(ObstacleType.WallType7.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.WallType7.ToString()) as GameObject);
 
         _objectStorage.Prefabs.Add(BulletType.BulletType1.ToString(), Resources.Load(Constants.prefabPath + BulletType.BulletType1.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(BulletType.BulletType2.ToString(), Resources.Load(Constants.prefabPath + BulletType.BulletType2.ToString()) as GameObject);
@@ -278,6 +283,8 @@ public class DataLoadManager : IDataLoadManager
 
         obstacle.Alias = element.Attribute("alias").Value;
         obstacle.ObstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), element.Attribute("type").Value);
+        obstacle.DamagePercent = float.Parse(element.Attribute("damagePercent").Value);
+        obstacle.Health = float.Parse(element.Attribute("health").Value, CultureInfo.InvariantCulture);
 
         _objectStorage.ObstacleTemplates.Add(element.Attribute("type").Value, obstacle);
     }
@@ -379,7 +386,9 @@ public class DataLoadManager : IDataLoadManager
             {
                 Alias = obstacleTemplate.Alias,
                 ObstacleType = obstacleTemplate.ObstacleType,
-                SpawnPosition = obstacleTemplate.SpawnPosition
+                SpawnPosition = obstacleTemplate.SpawnPosition,
+                DamagePercent = obstacleTemplate.DamagePercent,
+                Health = obstacleTemplate.Health
             };
             obstacles.Add(obstacle);
         }
@@ -405,8 +414,9 @@ public class DataLoadManager : IDataLoadManager
             {
                 Alias = template.ObstacleType.ToString(),
                 ObstacleType = template.ObstacleType,
-                SpawnPosition = new Vector3(x, y, z)
-
+                SpawnPosition = new Vector3(x, y, z),
+                DamagePercent = template.DamagePercent,
+                Health = template.Health
             };
             obstacles.Add(obstacle);
         }

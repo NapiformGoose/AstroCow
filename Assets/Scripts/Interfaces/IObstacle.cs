@@ -10,5 +10,8 @@ public interface IObstacle : IEntity
     Collider2D Collider2D { get; set; }
     Rigidbody2D RigidBody2D { get; set; }
     ObstacleType ObstacleType { get; set; }
+    //Behaviour
     Vector3 SpawnPosition { get; set; }
+    float DamagePercent { get; set; }
+    float Health { get; set; }
 }

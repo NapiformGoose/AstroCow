@@ -21,8 +21,12 @@ namespace Assets.Scripts.Managers
         public IObstacle CreateObstacle(IObstacle obstacle, Vector3 currentCellPos)
         {
             IObstacle newObstacle = new Obstacle();
+            newObstacle.Alias = obstacle.Alias;
+            newObstacle.ObstacleType = obstacle.ObstacleType;
+            newObstacle.SpawnPosition = new Vector3(currentCellPos.x + obstacle.SpawnPosition.x, currentCellPos.y + obstacle.SpawnPosition.y, obstacle.SpawnPosition.z);
+            newObstacle.DamagePercent = obstacle.DamagePercent;
+            newObstacle.Health = obstacle.Health;
 
-            newObstacle.GameObject.transform.position = currentCellPos + obstacle.SpawnPosition;
             return newObstacle;
         }
 
@@ -105,10 +109,10 @@ namespace Assets.Scripts.Managers
         }
         public void InstantiateObstacle(IObstacle obstacle)
         {
-            obstacle.GameObject = GameObject.Instantiate(_prefabs[obstacle.ObstacleType.ToString()]);
+            obstacle.GameObject = GameObject.Instantiate(_prefabs[obstacle.ObstacleType.ToString()], obstacle.SpawnPosition, Quaternion.identity);
             obstacle.Collider2D = obstacle.GameObject.GetComponent<Collider2D>() as Collider2D;
             obstacle.RigidBody2D = obstacle.GameObject.GetComponent<Rigidbody2D>() as Rigidbody2D;
-            obstacle.GameObject.SetActive(false);
+            //obstacle.GameObject.SetActive(false);
         }
         public void InstantiateBullet(IBullet bullet)
         {

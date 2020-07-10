@@ -25,12 +25,12 @@ public class BonusBehaviour
 
     IObjectStorage _objectStorage;
     IUnit _player;
-    IList<ActiveBonusTemplate> ActiveBonus;
+    IList<ActiveBonusTemplate> ActiveBonuses;
 
     public BonusBehaviour(IObjectStorage objectStorage)
 	{
         _objectStorage = objectStorage;
-        ActiveBonus = new List<ActiveBonusTemplate>();
+        ActiveBonuses = new List<ActiveBonusTemplate>();
     }
 
     public void BonusAct(IBonus bonus)
@@ -69,16 +69,16 @@ public class BonusBehaviour
 
     public void ActiveBonusAct()
     {
-        for(int i = 0; i < ActiveBonus.Count; i++)
+        for(int i = 0; i < ActiveBonuses.Count; i++)
         {
-            ActiveBonus[i].ActiveTime -= Time.fixedDeltaTime;
-            if(ActiveBonus[i].ActiveTime < 0)
+            ActiveBonuses[i].ActiveTime -= Time.fixedDeltaTime;
+            if(ActiveBonuses[i].ActiveTime < 0)
             {
-                switch(ActiveBonus[i].EffectType)
+                switch(ActiveBonuses[i].EffectType)
                 {
                     case EffectType.FireSpeedUp:
-                        _player.Behaviour.CurrentFireSpeed /= ActiveBonus[i].Coefficient;
-                        ActiveBonus.RemoveAt(i);
+                        _player.Behaviour.CurrentFireSpeed /= ActiveBonuses[i].Coefficient;
+                        ActiveBonuses.RemoveAt(i);
                         break;
                     default:
                         return;
@@ -111,7 +111,7 @@ public class BonusBehaviour
     void BonusFastShootEffect(IBonus bonus)
     {
         _player.Behaviour.CurrentFireSpeed *= bonus.FireSpeedCoefficient;
-        ActiveBonus.Add(new ActiveBonusTemplate(_player.Behaviour.CurrentFireSpeed, bonus.FireSpeedCoefficient, bonus.ActiveTime, EffectType.FireSpeedUp));
+        ActiveBonuses.Add(new ActiveBonusTemplate(_player.Behaviour.CurrentFireSpeed, bonus.FireSpeedCoefficient, bonus.ActiveTime, EffectType.FireSpeedUp));
     }
 
     void BonusСrystalEnemiesEffect()

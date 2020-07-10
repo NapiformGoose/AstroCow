@@ -95,6 +95,7 @@
     <Compile Include="Assets\Scripts\Managers\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ObjectCreateManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ObjectStorage.cs" />
+    <Compile Include="Assets\Scripts\Managers\ObstacleBehaviour.cs" />
     <Compile Include="Assets\Scripts\Managers\PoolManager.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Scripts\Managers\UnitBehaviours.cs" />

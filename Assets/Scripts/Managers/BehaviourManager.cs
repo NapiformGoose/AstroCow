@@ -13,7 +13,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
     BulletBehaviours _bulletBehaviours; // название классов
     BonusBehaviour _bonusBehaviour;
     IUpgradeBehaviours _upgradeBehaviours;
-
+    ObstacleBehaviour _obstacleBehaviour;
     IUnit _player;
 
     public BehaviourManager(IUpdateManager updateManager, IObjectStorage objectStorage)
@@ -25,6 +25,8 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         _bulletBehaviours = new BulletBehaviours(_objectStorage);
         _bonusBehaviour = new BonusBehaviour(_objectStorage);
         _upgradeBehaviours = new UpgradeBehaviours(_objectStorage);
+        _obstacleBehaviour = new ObstacleBehaviour(_objectStorage);
+
         _updateManager.AddUpdatable(this);
     }
 
@@ -65,11 +67,48 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
                     return bullet.Damage;
                 }
             }
+            
         }
         return 0;
     }
 
-    private float IsCollision(IEntity entity)
+    private float IsHit(IObstacle obstacle)
+    {
+        foreach (var key in _objectStorage.Bullets.Keys)
+        {
+            foreach (IBullet bullet in _objectStorage.Bullets[key])
+            {
+                if (IsActive(obstacle.Collider2D) && bullet.Collider2D.IsTouching(obstacle.Collider2D))
+                {
+                    switch (obstacle.ObstacleType)
+                    {
+                        case ObstacleType.WallType1:
+                        case ObstacleType.WallType3:
+                        case ObstacleType.WallType4:
+                            {
+                                bullet.GameObject.SetActive(false);
+                                return 0;
+                            }
+                        case ObstacleType.WallType5:
+                        case ObstacleType.WallType6:
+                            {
+                                bullet.GameObject.SetActive(false);
+                                return bullet.Damage;
+                            }
+                        case ObstacleType.WallType2:
+                        case ObstacleType.WallType7:
+                            {
+                                return 0;
+                            }
+                    }
+                }
+            }
+
+        }
+        return 0;
+    }
+
+    private float GetCollisionDamage(IEntity entity)
     {
         IUnit unit = entity as IUnit;
         if (unit != null)
@@ -80,55 +119,44 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
                 return Constants.unitCollisionDamage;
             }
         }
-
-        IObstacle obstacle = entity as IObstacle;
-        if (obstacle != null)
-        {
-            if (obstacle.GameObject.activeSelf && obstacle.Collider2D.IsTouching(_player.Collider2D))
-            {
-                float damage = 0;
-                switch (obstacle.ObstacleType)
-                {
-                    case ObstacleType.EnergyWall:
-                        {
-                            damage = Constants.energyWallDamage;
-                            break;
-                        }
-                    case ObstacleType.SteelWall:
-                        {
-                            damage = Constants.steelWallDamage;
-                            break;
-                        }
-                }
-                return damage;
-            }
-        }
-
         return 0;
     }
 
-    private void CalculateHealth(IUnit unit, float damage)
+    private void CalculateHealth(IEntity entity, float damage)
     {
         if (damage > 0)
         {
-            unit.Behaviour.CurrentHealth -= damage;
-            if (unit.Behaviour.CurrentHealth <= 0)
+            IUnit unit = entity as IUnit;
+            if (unit != null)
             {
-                if(unit.UnitType != UnitType.Player)
+                unit.Behaviour.CurrentHealth -= damage;
+                if (unit.Behaviour.CurrentHealth <= 0)
                 {
-                    ShowBonus(unit);
-                    ShowCoin(unit);
-                    CalculateExperience(unit.ExperienceValue);
-                    _player.Behaviour.CurrentHealth += _player.Behaviour.Bloodthirstiness;
+                    if (unit.UnitType != UnitType.Player)
+                    {
+                        ShowBonus(unit);
+                        ShowCoin(unit);
+                        CalculateExperience(unit.ExperienceValue);
+                        _player.Behaviour.CurrentHealth += _player.Behaviour.Bloodthirstiness;
+                    }
+                    unit.GameObject.SetActive(false);
+                    unit.Text.SetActive(false);
                 }
-                unit.GameObject.SetActive(false);
-                unit.Text.SetActive(false);
             }
-        }
-        else
-        {
-            unit.Behaviour.CurrentHealth -= damage;
-        }
+            IObstacle obstacle = entity as IObstacle;
+            if (obstacle != null)
+            {
+                obstacle.Health -= damage;
+                if (obstacle.Health <= 0)
+                {
+                    obstacle.GameObject.SetActive(false);
+                }
+            }
+            //else
+            //{
+            //    unit.Behaviour.CurrentHealth -= damage;
+            //}
+        }    
     }
 
     private void CalculateExperience(float experienceValue)
@@ -192,7 +220,7 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         {
             foreach (IUnit unit in _objectStorage.Units[key])
             {
-                float collisionDamage = IsCollision(unit);
+                float collisionDamage = GetCollisionDamage(unit);
 
                 if (unit.UnitType != UnitType.Player && collisionDamage > 0)
                 {
@@ -223,11 +251,11 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
         {
             foreach (IObstacle obstacle in _objectStorage.Obstacles[key])
             {
-                float collisionDamage = IsCollision(obstacle);
-                if (collisionDamage > 0)
+                float damage = IsHit(obstacle);
+                CalculateHealth(obstacle, damage);
+                if (IsActive(obstacle.Collider2D) && obstacle.Collider2D.IsTouching(_player.Collider2D))
                 {
-                    CalculateHealth(_player, collisionDamage);
-                    continue;
+                    _obstacleBehaviour.ObstacleAct(obstacle);
                 }
 
                 if (IsDownDeactive(obstacle.Collider2D))
@@ -236,6 +264,8 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
                 }
             }
         }
+        _obstacleBehaviour.ActiveObstacleAct();
+
         foreach (var key in _objectStorage.Bullets.Keys)
         {
             foreach (IBullet bullet in _objectStorage.Bullets[key])
@@ -260,9 +290,9 @@ public class BehaviourManager : IBehaviourManager, IUpdatable
                     _bonusBehaviour.BonusAct(bonus);
                 }
             }
-            _bonusBehaviour.ActiveBonusAct();
-        }
 
+        }
+        _bonusBehaviour.ActiveBonusAct();
         foreach (ICoin coin in _objectStorage.Coins)
         {
             if (coin.GameObject.activeSelf && coin.Collider2D.IsTouching(_player.Collider2D))

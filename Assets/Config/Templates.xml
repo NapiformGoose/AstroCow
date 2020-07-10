@@ -12,8 +12,13 @@
 	</UnitTemplates>
 
 	<ObstacleTemplates>
-		<ObstacleTemplate alias="SteelWall" type="SteelWall"/>
-		<ObstacleTemplate alias="EnergyWall" type="EnergyWall"/>
+		<ObstacleTemplate alias="SteelWall" type="WallType1" damagePercent="1" health="2"/>
+		<ObstacleTemplate alias="EnergyWall" type="WallType2" damagePercent="40" health="2"/>
+		<ObstacleTemplate alias="EnergyWall" type="WallType3" damagePercent="20" health="2"/>
+		<ObstacleTemplate alias="EnergyWall" type="WallType4" damagePercent="0" health="2"/>
+		<ObstacleTemplate alias="EnergyWall" type="WallType5" damagePercent="30" health="2"/>
+		<ObstacleTemplate alias="EnergyWall" type="WallType6" damagePercent="0" health="12"/>
+		<ObstacleTemplate alias="EnergyWall" type="WallType7" damagePercent="0" health="2"/>
 	</ObstacleTemplates>
 
 	<WeaponTemplates>

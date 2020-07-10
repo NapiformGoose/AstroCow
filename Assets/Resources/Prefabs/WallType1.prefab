@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2265101407255325994}
   - component: {fileID: 4934049521650312093}
   m_Layer: 0
-  m_Name: EnergyWall
+  m_Name: WallType1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3977604c8474fbc448ba519a1ab16f2a, type: 3}
-  m_Color: {r: 0.7924528, g: 0.38501248, b: 0.48172095, a: 1}
+  m_Color: {r: 0.18560876, g: 0.25541618, b: 0.9150943, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

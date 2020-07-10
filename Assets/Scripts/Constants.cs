@@ -19,8 +19,13 @@ namespace Assets.Scripts
 
     public enum ObstacleType
     {
-        SteelWall,
-        EnergyWall
+        WallType1,
+        WallType2,
+        WallType3,
+        WallType4,
+        WallType5,
+        WallType6,
+        WallType7
     }
 
     public enum BulletType
@@ -87,7 +92,8 @@ namespace Assets.Scripts
 
     public enum EffectType
     {
-        FireSpeedUp
+        FireSpeedUp,
+        MoveSpeedReduce
     }
 
     public static class Constants
