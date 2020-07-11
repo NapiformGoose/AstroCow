@@ -4,21 +4,10 @@
 			<Cell cellId="0"/>
 			<Cell cellId="1"/>
 			<Cell cellId="2"/>
-			<!-- <Cell cellId="3"/>
-      		<Cell cellId="1"/>
-			<Cell cellId="7"/>
-			<Cell cellId="1"/>
-			<Cell cellId="4"/>
-			<Cell cellId="2"/>
+			<Cell cellId="3"/>
+      		<Cell cellId="4"/>
 			<Cell cellId="5"/>
-			<Cell cellId="1"/>
-			<Cell cellId="2"/>
 			<Cell cellId="6"/>
-			<Cell cellId="2"/>
-			<Cell cellId="1"/>
-			<Cell cellId="7"/>
-			<Cell cellId="1"/>
-			<Cell cellId="8"/> -->
 		</CellSet>
 		<CellSet id="2" maxDifficult="null">
 			<Cell cellId="1"/>

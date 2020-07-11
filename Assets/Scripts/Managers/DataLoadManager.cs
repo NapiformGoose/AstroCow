@@ -283,7 +283,7 @@ public class DataLoadManager : IDataLoadManager
 
         obstacle.Alias = element.Attribute("alias").Value;
         obstacle.ObstacleType = (ObstacleType)Enum.Parse(typeof(ObstacleType), element.Attribute("type").Value);
-        obstacle.DamagePercent = float.Parse(element.Attribute("damagePercent").Value);
+        obstacle.DamagePercent = float.Parse(element.Attribute("damagePercent").Value, CultureInfo.InvariantCulture);
         obstacle.Health = float.Parse(element.Attribute("health").Value, CultureInfo.InvariantCulture);
 
         _objectStorage.ObstacleTemplates.Add(element.Attribute("type").Value, obstacle);
@@ -341,7 +341,8 @@ public class DataLoadManager : IDataLoadManager
         ICell cell = new Cell();
         cell.DiapasonSpawnPositions = new Dictionary<int, IDiapasonSpawnPosition>();
         cell.Units = new List<IUnit>();
-        //cell.Difficult = int.Parse(element.Attribute("difficult").Value);
+        cell.Difficult = float.Parse(element.Attribute("difficult").Value, CultureInfo.InvariantCulture);
+        cell.Id = int.Parse(element.Attribute("id").Value, CultureInfo.InvariantCulture);
 
         foreach (XElement subElement in element.Element("SpawnPositions").Elements("diapasonSpawnPosition"))
         {

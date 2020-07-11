@@ -1,5 +1,5 @@
 <Cells>
-	<Cell id="0" difficult="null">
+	<Cell id="0" difficult="0">
 		<SpawnPositions>
 			<diapasonSpawnPosition id="1" minXPos="0" maxXPos="0" minYPos="0" maxYPos="0" ZPos="0"/>
 		</SpawnPositions>
@@ -8,20 +8,20 @@
 		</Units>
 		<ObstacleSet id="0"/>
 	</Cell>
-	<Cell id="1" difficult="null">
+	<Cell id="1" difficult="1">
 		<SpawnPositions>
 			<diapasonSpawnPosition id="1" minXPos="-2.5" maxXPos="-1.5" minYPos="1" maxYPos="1" ZPos="0"/>
 			<diapasonSpawnPosition id="2" minXPos="-1" maxXPos="0" minYPos="1" maxYPos="1" ZPos="0"/> 
 			<diapasonSpawnPosition id="3" minXPos="0.5" maxXPos="2.5" minYPos="1" maxYPos="1" ZPos="0"/> 
 		</SpawnPositions>
 		<Units>
-			<!-- <Unit type="EnemyType1" diapasonSpawnPosition="1" bonusType="BonusMachine"/>
+			<Unit type="EnemyType1" diapasonSpawnPosition="1" bonusType="BonusMachine"/>
 			<Unit type="EnemyType1" diapasonSpawnPosition="2" bonusType="BonusMachine"/>
-			<Unit type="EnemyType1" diapasonSpawnPosition="3" bonusType="BonusMachine"/> -->
+			<Unit type="EnemyType1" diapasonSpawnPosition="3" bonusType="BonusMachine"/>
 		</Units>
-		<ObstacleSet id="1"/>
+		<ObstacleSet id="0"/>
 	</Cell>
-	<Cell id="2" difficult="null">
+	<Cell id="2" difficult="2">
 		<SpawnPositions>
 			<diapasonSpawnPosition id="1" minXPos="-1.5" maxXPos="-0.5" minYPos="2.8" maxYPos="2.8" ZPos="0"/>
 			<diapasonSpawnPosition id="2" minXPos="1" maxXPos="1.5" minYPos="2.8" maxYPos="2.8" ZPos="0"/>
@@ -29,69 +29,67 @@
       		<diapasonSpawnPosition id="5" minXPos="1.5" maxXPos="2.5" minYPos="1" maxYPos="1" ZPos="0"/>
     </SpawnPositions>
 		<Units>
-			<!-- <Unit type="EnemyType2" diapasonSpawnPosition="1" bonusType="BonusHealth"/>
+			<Unit type="EnemyType2" diapasonSpawnPosition="1" bonusType="BonusHealth"/>
 			<Unit type="EnemyType2" diapasonSpawnPosition="2" bonusType="BonusHealth"/>
       		<Unit type="EnemyType1" diapasonSpawnPosition="4" bonusType="BonusHealth"/>
-     		<Unit type="EnemyType1" diapasonSpawnPosition="5" bonusType="BonusHealth"/> -->
-		</Units>
-		<ObstacleSet id="2"/>
-	</Cell>
-	<!-- <Cell id="3" difficult="null">
-		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
-		</SpawnPositions>
-		<Units>
-			<Unit type="EnemyType3" diapasonSpawnPosition="1"/> 
+     		<Unit type="EnemyType1" diapasonSpawnPosition="5" bonusType="BonusHealth"/>
 		</Units>
 		<ObstacleSet id="0"/>
 	</Cell>
-	<Cell id="4" difficult="null">
+	<Cell id="3" difficult="3">
 		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="0" minYPos="1" maxYPos="3" ZPos="0"/>
-			<diapasonSpawnPosition id="2" minXPos="1" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
+			<diapasonSpawnPosition id="1" minXPos="-2.5" maxXPos="-1.5" minYPos="1" maxYPos="1" ZPos="0"/>
+			<diapasonSpawnPosition id="2" minXPos="-1" maxXPos="0" minYPos="1" maxYPos="1" ZPos="0"/> 
+			<diapasonSpawnPosition id="3" minXPos="0.5" maxXPos="2.5" minYPos="1" maxYPos="1" ZPos="0"/> 
 		</SpawnPositions>
 		<Units>
-			<Unit type="EnemyType4" diapasonSpawnPosition="1"/> 
-			<Unit type="EnemyType4" diapasonSpawnPosition="2"/>
+			<Unit type="EnemyType1" diapasonSpawnPosition="1" bonusType="BonusMachine"/>
+			<Unit type="EnemyType1" diapasonSpawnPosition="2" bonusType="BonusMachine"/>
+			<Unit type="EnemyType1" diapasonSpawnPosition="3" bonusType="BonusMachine"/>
 		</Units>
 		<ObstacleSet id="0"/>
 	</Cell>
-	<Cell id="5" difficult="null">
+	<Cell id="4" difficult="4">
 		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
-		</SpawnPositions>
+			<diapasonSpawnPosition id="1" minXPos="-1.5" maxXPos="-0.5" minYPos="2.8" maxYPos="2.8" ZPos="0"/>
+			<diapasonSpawnPosition id="2" minXPos="1" maxXPos="1.5" minYPos="2.8" maxYPos="2.8" ZPos="0"/>
+      		<diapasonSpawnPosition id="4" minXPos="-2.5" maxXPos="-1.5" minYPos="1" maxYPos="1" ZPos="0"/>
+      		<diapasonSpawnPosition id="5" minXPos="1.5" maxXPos="2.5" minYPos="1" maxYPos="1" ZPos="0"/>
+    	</SpawnPositions>
 		<Units>
-			<Unit type="EnemyType5" diapasonSpawnPosition="1"/> 
+			<Unit type="EnemyType2" diapasonSpawnPosition="1" bonusType="BonusHealth"/>
+			<Unit type="EnemyType2" diapasonSpawnPosition="2" bonusType="BonusHealth"/>
+      		<Unit type="EnemyType1" diapasonSpawnPosition="4" bonusType="BonusHealth"/>
+     		<Unit type="EnemyType1" diapasonSpawnPosition="5" bonusType="BonusHealth"/>
 		</Units>
 		<ObstacleSet id="0"/>
 	</Cell>
-	<Cell id="6" difficult="null">
+	<Cell id="5" difficult="5">
 		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
+			<diapasonSpawnPosition id="1" minXPos="-2.5" maxXPos="-1.5" minYPos="1" maxYPos="1" ZPos="0"/>
+			<diapasonSpawnPosition id="2" minXPos="-1" maxXPos="0" minYPos="1" maxYPos="1" ZPos="0"/> 
+			<diapasonSpawnPosition id="3" minXPos="0.5" maxXPos="2.5" minYPos="1" maxYPos="1" ZPos="0"/> 
 		</SpawnPositions>
 		<Units>
-			<Unit type="EnemyType6" diapasonSpawnPosition="1"/> 
+			<Unit type="EnemyType1" diapasonSpawnPosition="1" bonusType="BonusMachine"/>
+			<Unit type="EnemyType1" diapasonSpawnPosition="2" bonusType="BonusMachine"/>
+			<Unit type="EnemyType1" diapasonSpawnPosition="3" bonusType="BonusMachine"/>
 		</Units>
 		<ObstacleSet id="0"/>
 	</Cell>
-	<Cell id="7" difficult="null">
+	<Cell id="6" difficult="6">
 		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="0" minYPos="1" maxYPos="2" ZPos="0"/>
-			<diapasonSpawnPosition id="2" minXPos="1" maxXPos="2" minYPos="2.5" maxYPos="3" ZPos="0"/>
-		</SpawnPositions>
+			<diapasonSpawnPosition id="1" minXPos="-1.5" maxXPos="-0.5" minYPos="2.8" maxYPos="2.8" ZPos="0"/>
+			<diapasonSpawnPosition id="2" minXPos="1" maxXPos="1.5" minYPos="2.8" maxYPos="2.8" ZPos="0"/>
+      		<diapasonSpawnPosition id="4" minXPos="-2.5" maxXPos="-1.5" minYPos="1" maxYPos="1" ZPos="0"/>
+      		<diapasonSpawnPosition id="5" minXPos="1.5" maxXPos="2.5" minYPos="1" maxYPos="1" ZPos="0"/>
+    	</SpawnPositions>
 		<Units>
-			<Unit type="EnemyType7" diapasonSpawnPosition="1"/>
-			<Unit type="EnemyType7" diapasonSpawnPosition="2"/>
+			<Unit type="EnemyType2" diapasonSpawnPosition="1" bonusType="BonusHealth"/>
+			<Unit type="EnemyType2" diapasonSpawnPosition="2" bonusType="BonusHealth"/>
+      		<Unit type="EnemyType1" diapasonSpawnPosition="4" bonusType="BonusHealth"/>
+     		<Unit type="EnemyType1" diapasonSpawnPosition="5" bonusType="BonusHealth"/>
 		</Units>
 		<ObstacleSet id="0"/>
 	</Cell>
-	<Cell id="8" difficult="null">
-		<SpawnPositions>
-			<diapasonSpawnPosition id="1" minXPos="-2" maxXPos="2" minYPos="1" maxYPos="3" ZPos="0"/> 
-		</SpawnPositions>
-		<Units>
-			<Unit type="EnemyType8" diapasonSpawnPosition="1"/> 
-		</Units>
-		<ObstacleSet id="0"/>
-	</Cell> -->
 </Cells>

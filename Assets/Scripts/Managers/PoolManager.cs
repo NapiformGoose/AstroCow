@@ -17,9 +17,46 @@ public class PoolManager : IPoolManager
         _objectCreateManager.AddPrefabs(_objectStorage.Prefabs);
     }
 
+    IList<ICell> CreateLevel(IList<ICell> currentCellSet)
+    {
+        IList<ICell> cells = new List<ICell>();
+        IList<ICell> temporaryCellList = new List<ICell>();
+
+        int diapasonMinValue = 1;
+        int diapasonMaxValue = 4;
+
+        cells.Add(currentCellSet[0]); //playerCell
+
+        while (currentCellSet.Count != cells.Count)
+        {
+            for (int j = diapasonMinValue; j < diapasonMaxValue; j++)
+            {
+                temporaryCellList.Add(currentCellSet[j]);
+            }
+            for (int j = diapasonMinValue; j < diapasonMaxValue - 1; j++)
+            {
+                int a1 = UnityEngine.Random.Range(0, temporaryCellList.Count);
+                cells.Add(temporaryCellList[a1]);
+                temporaryCellList.RemoveAt(a1);
+            }
+            cells.Add(temporaryCellList[temporaryCellList.Count-1]);
+            diapasonMinValue = diapasonMaxValue;
+            diapasonMaxValue += 3;
+
+            temporaryCellList = new List<ICell>();
+        }
+        //for(int i = 0; i < cells.Count; i++)
+        //{
+        //    Debug.Log($"id - {cells[i].Id} dif - {cells[i].Difficult}");
+
+
+        return cells;
+    }
+
     public void LoadLevel()
     {
-        IList<ICell> currentCellSet = _objectStorage.CellSets[_objectStorage.Levels[0].CellSet];
+        IList<ICell> currentCellSet = CreateLevel(_objectStorage.CellSets[_objectStorage.Levels[0].CellSet]);
+        //IList<ICell> currentCellSet = _objectStorage.CellSets[_objectStorage.Levels[0].CellSet];
         Vector3 currentCellPos = Constants.startCellPosition;
         for (int i = 0; i < currentCellSet.Count; i++)
         {
