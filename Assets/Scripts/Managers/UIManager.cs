@@ -369,7 +369,7 @@ namespace Assets.Scripts.Managers
         void WeaponApplyMenu()
         {
             _player.Behaviour.IsMachineAvailable = false;
-            _player.Weapon.WeaponType = WeaponType.PlayerWeaponType1;
+            _player.Weapon.WeaponType = _selectWeapon.WeaponType;
             _player.Behaviour.CurrentReloadSpeed = _player.Behaviour.TimeBeforeReload = _selectWeapon.ReloadSpeed;
             _player.Behaviour.CurrentFireSpeed = _player.Behaviour.TimeBeforeShot = _selectWeapon.FireSpeed;
             _player.Behaviour.CurrentBaseAttack = _selectWeapon.BaseAttack;
