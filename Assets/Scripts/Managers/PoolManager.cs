@@ -17,7 +17,42 @@ public class PoolManager : IPoolManager
         _objectCreateManager.AddPrefabs(_objectStorage.Prefabs);
     }
 
-    IList<ICell> CreateLevel(IList<ICell> currentCellSet)
+    IList<ICell> CreateLinearLevel(IList<ICell> currentCellSet)
+    {
+        IList<ICell> cells = new List<ICell>();
+        IList<ICell> temporaryCellList = new List<ICell>();
+
+        int diapasonMinValue = 1;
+        int diapasonMaxValue = 4;
+
+        cells.Add(currentCellSet[0]); //playerCell
+
+        while (currentCellSet.Count-1 != cells.Count)
+        {
+            for (int j = diapasonMinValue; j < diapasonMaxValue; j++)
+            {
+                temporaryCellList.Add(currentCellSet[j]);
+            }
+            for (int j = diapasonMinValue; j < diapasonMaxValue - 1; j++)
+            {
+                int index = UnityEngine.Random.Range(0, temporaryCellList.Count);
+                cells.Add(temporaryCellList[index]);
+                temporaryCellList.RemoveAt(index);
+            }
+            cells.Add(temporaryCellList[temporaryCellList.Count - 1]);
+            diapasonMinValue = diapasonMaxValue;
+            diapasonMaxValue += 3;
+
+            temporaryCellList = new List<ICell>();
+        }
+        cells.Add(currentCellSet[currentCellSet.Count-1]);
+        for (int i = 0; i < cells.Count; i++)
+        {
+            Debug.Log($"id - {cells[i].Id} dif - {cells[i].Difficult}");
+        }
+        return cells;
+    }
+    IList<ICell> CreateWaveLevel(IList<ICell> currentCellSet)
     {
         IList<ICell> cells = new List<ICell>();
         IList<ICell> temporaryCellList = new List<ICell>();
@@ -35,27 +70,33 @@ public class PoolManager : IPoolManager
             }
             for (int j = diapasonMinValue; j < diapasonMaxValue - 1; j++)
             {
-                int a1 = UnityEngine.Random.Range(0, temporaryCellList.Count);
-                cells.Add(temporaryCellList[a1]);
-                temporaryCellList.RemoveAt(a1);
+                int index = UnityEngine.Random.Range(0, temporaryCellList.Count);
+                cells.Add(temporaryCellList[index]);
+                temporaryCellList.RemoveAt(index);
             }
-            cells.Add(temporaryCellList[temporaryCellList.Count-1]);
-            diapasonMinValue = diapasonMaxValue;
-            diapasonMaxValue += 3;
+            cells.Add(temporaryCellList[temporaryCellList.Count - 1]);
+            cells.Add(currentCellSet[diapasonMaxValue]);
+
+            diapasonMinValue = diapasonMaxValue + 1;
+            diapasonMaxValue += 4;
 
             temporaryCellList = new List<ICell>();
         }
-        //for(int i = 0; i < cells.Count; i++)
-        //{
-        //    Debug.Log($"id - {cells[i].Id} dif - {cells[i].Difficult}");
-
+        for (int i = 0; i < cells.Count; i++)
+        {
+            Debug.Log($"id - {cells[i].Id} dif - {cells[i].Difficult}");
+        }
 
         return cells;
     }
 
     public void LoadLevel()
     {
-        IList<ICell> currentCellSet = CreateLevel(_objectStorage.CellSets[_objectStorage.Levels[0].CellSet]);
+        //CreateLinearLevel - Линеный
+        //CreateWaveLevel - Волновой
+
+        IList<ICell> currentCellSet = CreateLinearLevel(_objectStorage.CellSets[_objectStorage.Levels[0].CellSet]); //заменить название
+
         //IList<ICell> currentCellSet = _objectStorage.CellSets[_objectStorage.Levels[0].CellSet];
         Vector3 currentCellPos = Constants.startCellPosition;
         for (int i = 0; i < currentCellSet.Count; i++)
