@@ -363,7 +363,7 @@ namespace Assets.Scripts.Managers
                         break;
                     }
             }
-            
+
         }
 
         void WeaponApplyMenu()
@@ -393,7 +393,7 @@ namespace Assets.Scripts.Managers
                 ShowUpgradeView();
                 _player.Behaviour.CurrentExperience = 0;
             }
-            if (_player.Behaviour.CurrentHealth <= 0)
+            if (_player.Behaviour.CurrentHealth <= 0 || !_objectStorage.Units[UnitType.Boss1.ToString()].First().GameObject.activeSelf)
             {
                 if (_player.Behaviour.CurrentResurrectionValue > 0)
                 {
@@ -407,7 +407,10 @@ namespace Assets.Scripts.Managers
                     OpenGameOverMenu();
                 }
             }
-
+            if (!_objectStorage.Units[UnitType.Boss1.ToString()].First().GameObject.activeSelf)
+            {
+                OpenGameOverMenu();
+            }
             _coinValue.text = _player.Behaviour.CurrentCoinValue.ToString();
 
             int currentMagazineCapacity = _player.MagazineCapacity;

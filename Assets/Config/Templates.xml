@@ -9,7 +9,7 @@
 		<UnitTemplate alias="EnemyType6" type="EnemyType6" health="2" moveSpeed="1.5" ghost="false" inactiveTime="3" weaponType="WeaponType5" experienceValue="10" lootPercent="0"/>
 		<UnitTemplate alias="EnemyType7" type="EnemyType7" health="2" moveSpeed="1.5" ghost="false" inactiveTime="1" weaponType="WeaponType7" experienceValue="10" lootPercent="0"/>
 		<UnitTemplate alias="EnemyType8" type="EnemyType8" health="2" moveSpeed="1.5" ghost="false" inactiveTime="1" weaponType="WeaponType1" experienceValue="10" lootPercent="0"/>
-		<UnitTemplate alias="Boss1" type="Boss1" health="200" moveSpeed="1.5" ghost="false" inactiveTime="1" weaponType="WeaponType5" experienceValue="10" lootPercent="0"/>	
+		<UnitTemplate alias="Boss1" type="Boss1" health="20" moveSpeed="1.5" ghost="false" inactiveTime="1" weaponType="WeaponType5" experienceValue="10" lootPercent="0"/>	
 	</UnitTemplates>
 
 	<ObstacleTemplates>

@@ -247,7 +247,7 @@ namespace Assets.Scripts.Managers
                             CurrentBaseAttack = unit.Weapon.BaseAttack,
                             CurrentLootPercent = unit.LootPercent,
                             TimeBeforeShot = unit.Weapon.FireSpeed,
-                            PhaseTimes = new float[] { Constants.phaseTimes[0], Constants.phaseTimes[1] },
+                            PhaseTimes = new float[] { Constants.phaseTimes[0] },
                             CurrentPhase = 0
                         };
                         break;
