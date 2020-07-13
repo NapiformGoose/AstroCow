@@ -229,6 +229,29 @@ namespace Assets.Scripts.Managers
                         };
                         break;
                     }
+                case UnitType.Boss1:
+                    {
+                        unit.Behaviour = new Behaviour
+                        {
+                            StartPos = spawnPos,
+                            MaxLeftPos = new Vector3(-2.7f, 0, 0),
+                            MaxRightPos = new Vector3(2.7f, 0, 0),
+                            Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0),
+                            IsMoving = false,
+                            InactiveTime = -1,
+                            CurrentHealth = unit.Health,
+                            CurrentMoveSpeed = unit.MoveSpeed,
+                            CurrentFireSpeed = unit.Weapon.FireSpeed,
+                            CurrentReloadSpeed = unit.Weapon.ReloadSpeed,
+                            CurrentCritAttack = unit.Weapon.CritAttack,
+                            CurrentBaseAttack = unit.Weapon.BaseAttack,
+                            CurrentLootPercent = unit.LootPercent,
+                            TimeBeforeShot = unit.Weapon.FireSpeed,
+                            PhaseTimes = new float[] { Constants.phaseTimes[0], Constants.phaseTimes[1] },
+                            CurrentPhase = 0
+                        };
+                        break;
+                    }
             }
         }
     }

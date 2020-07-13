@@ -115,7 +115,7 @@ public class WeaponBehaviours
                         unit.Behaviour.TimeBeforeShot -= Time.fixedDeltaTime;
                         if (unit.Behaviour.TimeBeforeShot <= 0)
                         {
-                            WeaponType2Shoot(unit);
+                            WeaponType8Shoot(unit);
                         }
                     }
                     break;
@@ -199,6 +199,19 @@ public class WeaponBehaviours
         }
 
         unit.Behaviour.TimeBeforeShot = unit.Behaviour.CurrentFireSpeed;
+    }
+
+    void WeaponType8Shoot(IUnit unit)
+    {
+        unit.Behaviour.IsAttack = true;
+        Team aim = unit.Team == Team.Player ? Team.Enemy : Team.Player;
+
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.Vertical, unit.ShootPosition, aim, unit.Behaviour.CurrentBaseAttack);
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.LeftDirectional, unit.ShootPosition, aim, unit.Behaviour.CurrentBaseAttack, new Vector3(_player.GameObject.transform.position.x, _player.GameObject.transform.position.y + 5, 0));
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.RightDirectional, unit.ShootPosition, aim, unit.Behaviour.CurrentBaseAttack, new Vector3(_player.GameObject.transform.position.x, _player.GameObject.transform.position.y + 5, 0));
+
+        unit.Behaviour.TimeBeforeShot = unit.Behaviour.CurrentFireSpeed;
+        unit.Behaviour.CurrentBulletValue--;
     }
 
     void CreateBullet(BulletType bulletType, BulletBehaviourType bulletBehaviourType, GameObject shootPosition, Team aim, float damage, Vector3 nextPos = new Vector3())

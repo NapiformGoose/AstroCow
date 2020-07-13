@@ -29,10 +29,10 @@
       		<diapasonSpawnPosition id="5" minXPos="1.5" maxXPos="2.5" minYPos="1" maxYPos="1" ZPos="0"/>
     </SpawnPositions>
 		<Units>
-			<Unit type="EnemyType2" diapasonSpawnPosition="1" bonusType="BonusHealth"/>
-			<Unit type="EnemyType2" diapasonSpawnPosition="2" bonusType="BonusHealth"/>
-      		<Unit type="EnemyType1" diapasonSpawnPosition="4" bonusType="BonusHealth"/>
-     		<Unit type="EnemyType1" diapasonSpawnPosition="5" bonusType="BonusHealth"/>
+			<Unit type="EnemyType2" diapasonSpawnPosition="1" bonusType="BonusMachine"/>
+			<Unit type="EnemyType2" diapasonSpawnPosition="2" bonusType="BonusMachine"/>
+      		<Unit type="EnemyType1" diapasonSpawnPosition="4" bonusType="BonusMachine"/>
+     		<Unit type="EnemyType1" diapasonSpawnPosition="5" bonusType="BonusMachine"/>
 		</Units>
 		<ObstacleSet id="0"/>
 	</Cell>
@@ -115,10 +115,22 @@
       		<diapasonSpawnPosition id="5" minXPos="1.5" maxXPos="2.5" minYPos="1" maxYPos="1" ZPos="0"/>
     	</SpawnPositions>
 		<Units>
-			<Unit type="EnemyType2" diapasonSpawnPosition="1" bonusType="BonusHealth"/>
+			<Unit type="Boss1" diapasonSpawnPosition="1" bonusType="BonusHealth"/>
+		</Units>
+		<ObstacleSet id="0"/>
+	</Cell>
+			<Cell id="9" difficult="8">
+		<SpawnPositions>
+			<diapasonSpawnPosition id="1" minXPos="-1.5" maxXPos="-0.5" minYPos="2.8" maxYPos="2.8" ZPos="0"/>
+			<diapasonSpawnPosition id="2" minXPos="1" maxXPos="1.5" minYPos="2.8" maxYPos="2.8" ZPos="0"/>
+      		<diapasonSpawnPosition id="4" minXPos="-2.5" maxXPos="-1.5" minYPos="1" maxYPos="1" ZPos="0"/>
+      		<diapasonSpawnPosition id="5" minXPos="1.5" maxXPos="2.5" minYPos="1" maxYPos="1" ZPos="0"/>
+    	</SpawnPositions>
+		<Units>
+			<!-- <Unit type="Boss1" diapasonSpawnPosition="1" bonusType="BonusHealth"/>
 			<Unit type="EnemyType2" diapasonSpawnPosition="2" bonusType="BonusHealth"/>
       		<Unit type="EnemyType1" diapasonSpawnPosition="4" bonusType="BonusHealth"/>
-     		<Unit type="EnemyType1" diapasonSpawnPosition="5" bonusType="BonusHealth"/>
+     		<Unit type="EnemyType1" diapasonSpawnPosition="5" bonusType="BonusHealth"/> -->
 		</Units>
 		<ObstacleSet id="0"/>
 	</Cell>

@@ -34,7 +34,8 @@ public class Behaviour : IBehaviour
     public float TimeBeforeReload { get; set; }
     public float InactiveTime { get; set; }
 
-
+    public float[] PhaseTimes { get; set; }
+    public int CurrentPhase { get; set; }
 
     public Behaviour(Vector3 startPos = new Vector3(),
                      Vector3 nextPos = new Vector3(),
@@ -64,7 +65,9 @@ public class Behaviour : IBehaviour
 
                      float timeBeforeShot = 0,
                      float timeBeforeReload = 0,
-                     float inactiveTime = 0)
+                     float inactiveTime = 0,
+
+                     int currentPhase = 0)
     {
         StartPos = startPos;
         NextPos = nextPos;
@@ -95,7 +98,8 @@ public class Behaviour : IBehaviour
         TimeBeforeShot = timeBeforeShot;
         TimeBeforeReload = timeBeforeReload;
         InactiveTime = inactiveTime;
-        
+
+        CurrentPhase = currentPhase;
     }
 
 }

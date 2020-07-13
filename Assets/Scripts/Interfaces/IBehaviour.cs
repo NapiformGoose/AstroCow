@@ -34,4 +34,7 @@ public interface IBehaviour
     float TimeBeforeShot { get; set; }
     float TimeBeforeReload { get; set; }
     float InactiveTime { get; set; }
+
+    float[] PhaseTimes { get; set; }
+    int CurrentPhase { get; set; }
 }

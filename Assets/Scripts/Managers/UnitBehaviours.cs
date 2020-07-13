@@ -82,6 +82,12 @@ public class UnitBehaviours
                     _weaponBehaviour.WeaponAct(unit);
                     break;
                 }
+            case UnitType.Boss1:
+                {
+                    Boss1Moving(unit);
+                    _weaponBehaviour.WeaponAct(unit);
+                    break;
+                }
         }
     }
 
@@ -362,6 +368,53 @@ public class UnitBehaviours
             unit.Behaviour.IsMoving = false;
             unit.Behaviour.InactiveTime = unit.InactiveTime;
             unit.Behaviour.NextPos = Vector3.zero;
+        }
+    }
+
+    void Boss1Moving(IUnit unit)
+    {
+
+        if (unit.Behaviour.CurrentPhase == 0)
+        {
+            unit.Behaviour.PhaseTimes[unit.Behaviour.CurrentPhase] -= Time.fixedDeltaTime;
+            HorizontalMoving(unit);
+
+            if (unit.Behaviour.PhaseTimes[unit.Behaviour.CurrentPhase] < 0 && (unit.GameObject.transform.position.x >= -0.1f && unit.GameObject.transform.position.x <= 0.1f))
+            {
+                unit.Behaviour.PhaseTimes[unit.Behaviour.CurrentPhase] = Constants.phaseTimes[unit.Behaviour.CurrentPhase];
+                unit.Behaviour.CurrentPhase++;
+                unit.Weapon.WeaponType = WeaponType.WeaponType7;
+            }
+            return;
+        }
+        if (unit.Behaviour.CurrentPhase == 1)
+        {
+            unit.Behaviour.PhaseTimes[unit.Behaviour.CurrentPhase] -= Time.fixedDeltaTime;
+            VerticalMoving(unit);
+            if (unit.GameObject.transform.position.y >= Camera.main.transform.position.y - 2f && unit.GameObject.transform.position.y <= Camera.main.transform.position.y -1.9f)
+            {
+                unit.Behaviour.PhaseTimes[unit.Behaviour.CurrentPhase] = Constants.phaseTimes[unit.Behaviour.CurrentPhase];
+                unit.Behaviour.CurrentPhase++;
+                unit.Weapon.WeaponType = WeaponType.WeaponType7;
+            }
+            return;
+        }
+        if (unit.Behaviour.CurrentPhase == 2)
+        {
+            if (unit.GameObject.transform.position.y <= unit.Behaviour.MaxDownPos.y)
+            {
+                unit.Behaviour.Direction = new Vector3(0, (Constants.cameraSpeed * 2) * Time.fixedDeltaTime, 0);
+            }
+            Vector2 newUnitPosition = unit.GameObject.transform.position + unit.Behaviour.Direction;
+            unit.RigidBody2D.MovePosition(Vector2.MoveTowards(unit.GameObject.transform.position, newUnitPosition, Constants.cameraSpeed));
+
+            if (unit.GameObject.transform.position.y >= Camera.main.transform.position.y + 3.2f)
+            {
+                unit.Behaviour.Direction = new Vector3(unit.MoveSpeed * Time.fixedDeltaTime, 0, 0);
+                unit.Behaviour.CurrentPhase = 0;
+                unit.Weapon.WeaponType = WeaponType.WeaponType5;
+            }
+            return;
         }
     }
     #endregion

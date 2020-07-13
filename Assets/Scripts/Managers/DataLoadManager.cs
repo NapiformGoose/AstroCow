@@ -44,6 +44,7 @@ public class DataLoadManager : IDataLoadManager
         _objectStorage.Prefabs.Add(UnitType.EnemyType6.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType6.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(UnitType.EnemyType7.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType7.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(UnitType.EnemyType8.ToString(), Resources.Load(Constants.prefabPath + UnitType.EnemyType8.ToString()) as GameObject);
+        _objectStorage.Prefabs.Add(UnitType.Boss1.ToString(), Resources.Load(Constants.prefabPath + UnitType.Boss1.ToString()) as GameObject);
 
         _objectStorage.Prefabs.Add(ObstacleType.WallType1.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.WallType1.ToString()) as GameObject);
         _objectStorage.Prefabs.Add(ObstacleType.WallType2.ToString(), Resources.Load(Constants.prefabPath + ObstacleType.WallType2.ToString()) as GameObject);

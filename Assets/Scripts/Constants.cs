@@ -15,6 +15,8 @@ namespace Assets.Scripts
         EnemyType6,
         EnemyType7,
         EnemyType8,
+        Boss1,
+        Boss2
     }
 
     public enum ObstacleType
@@ -136,6 +138,8 @@ namespace Assets.Scripts
         public static Vector3 centerActiveField = Camera.main.transform.position;
         public static Vector3 topActiveField = Camera.main.transform.position + new Vector3(0, 6.4f, 0);
 
+        public static float[] phaseTimes = new float[] { 10 };
+
         //UI
         //buttons
         public static string playBatton = "PlayButton";
@@ -155,7 +159,7 @@ namespace Assets.Scripts
         //Bars
         public static float experiencebarMinValue = 0;
         public static float experiencebarMaxValue = 100;
-        public static float experiencebarNextLevelValue = 10;
+        public static float experiencebarNextLevelValue = 100;
 
         //Upgrades
         //values and percent
@@ -164,7 +168,7 @@ namespace Assets.Scripts
 
         public static float bloodthirstiness = 0; //кровожадность на старте
 
-        public static float fireSpeedUpPercent = 10;     //прцоенты
+        public static float fireSpeedUpPercent = 10;     //проценты
         public static float baseAttackUpPercent = 10;
         public static float healthUpPercent = 10;
         public static float reloadSpeedUpPercent = 10;
