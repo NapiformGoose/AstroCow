@@ -58,8 +58,8 @@ namespace Assets.Scripts
         WeaponType4,
         WeaponType5,
         WeaponType7,
-        PlayerWeaponType1,
-        PlayerWeaponType2
+        PlayerBlaster,
+        PlayerShotgun
     }
 
     public enum Team

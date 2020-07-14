@@ -1,6 +1,6 @@
 <Templates>
 	<UnitTemplates>
-		<UnitTemplate alias="Cow" type="Player" health="20" moveSpeed="10" ghost="false" inactiveTime="1" weaponType="PlayerWeaponType2" experienceValue="0" lootPercent="0"/>
+		<UnitTemplate alias="Cow" type="Player" health="20" moveSpeed="10" ghost="false" inactiveTime="1" weaponType="PlayerShotgun" experienceValue="0" lootPercent="0"/>
 		<UnitTemplate alias="EnemyType1" type="EnemyType1" health="2" moveSpeed="1" ghost="false" inactiveTime="1" weaponType="WeaponType5" experienceValue="10" lootPercent="100"/>
 		<UnitTemplate alias="EnemyType2" type="EnemyType2" health="2" moveSpeed="1" ghost="false" inactiveTime="1" weaponType="WeaponType5" experienceValue="10" lootPercent="100"/>
 		<UnitTemplate alias="EnemyType3" type="EnemyType3" health="2" moveSpeed="2" ghost="false" inactiveTime="1" weaponType="WeaponType5" experienceValue="10" lootPercent="0"/>
@@ -30,8 +30,8 @@
 		<WeaponTemplate alias="WeaponType4" type="WeaponType4" fireSpeed="0.5" reloadSpeed="1" critAttack="1" baseAttack="0.1" bulletType="BulletType2"/>	
 		<WeaponTemplate alias="WeaponType5" type="WeaponType5" fireSpeed="0.9" reloadSpeed="1" critAttack="1" baseAttack="0.3" bulletType="BulletType1"/>
     	<WeaponTemplate alias="WeaponType7" type="WeaponType7" fireSpeed="0.7" reloadSpeed="1" critAttack="1" baseAttack="0.3" bulletType="BulletType1"/>
-		<WeaponTemplate alias="PlayerWeaponType1" type="PlayerWeaponType1" fireSpeed="0.5" reloadSpeed="2" critAttack="1" baseAttack="2" bulletType="BulletType4"/>	
-		<WeaponTemplate alias="PlayerWeaponType2" type="PlayerWeaponType2" fireSpeed="0.7" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType2"/>		
+		<WeaponTemplate alias="Blaster" type="PlayerBlaster" fireSpeed="0.5" reloadSpeed="2" critAttack="1" baseAttack="2" bulletType="BulletType4"/>	
+		<WeaponTemplate alias="Shotgun" type="PlayerShotgun" fireSpeed="0.7" reloadSpeed="1" critAttack="1" baseAttack="1" bulletType="BulletType2"/>		
 	</WeaponTemplates>
 
 	<BulletTemplates>

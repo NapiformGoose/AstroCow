@@ -126,8 +126,8 @@ namespace Assets.Scripts.Managers
             _machineDropdown = GameObject.Find("MachineDropdown").GetComponent<TMP_Dropdown>();
             _machineDropdown.options = new List<TMP_Dropdown.OptionData>
             {
-                new TMP_Dropdown.OptionData(WeaponType.PlayerWeaponType1.ToString()),
-                new TMP_Dropdown.OptionData(WeaponType.PlayerWeaponType2.ToString()),
+                new TMP_Dropdown.OptionData(_objectStorage.WeaponTemplates[WeaponType.PlayerBlaster.ToString()].Alias),
+                new TMP_Dropdown.OptionData(_objectStorage.WeaponTemplates[WeaponType.PlayerShotgun.ToString()].Alias),
 
             };
             _machineDropdown.onValueChanged.AddListener(delegate { MachineDropdownValueChangedHandler(_machineDropdown); });
@@ -181,6 +181,7 @@ namespace Assets.Scripts.Managers
             _poolManager.LoadLevel();
             _poolManager.InstantiateEntities();
             _player = _objectStorage.Units[UnitType.Player.ToString()].First();
+            _magazinePanel.SetActive(true);
 
             _updateManager.CustomStart();
         }
@@ -194,6 +195,7 @@ namespace Assets.Scripts.Managers
         {
             _gameMenu.SetActive(true);
             _buttons[Constants.pauseButton].gameObject.SetActive(false);
+            _magazinePanel.SetActive(false);
             _updateManager.Stop();
         }
 
@@ -215,6 +217,7 @@ namespace Assets.Scripts.Managers
         {
             _gameMenu.SetActive(false);
             _buttons[Constants.pauseButton].gameObject.SetActive(true);
+            _magazinePanel.SetActive(true);
 
             _updateManager.CustomStart();
         }
@@ -344,19 +347,20 @@ namespace Assets.Scripts.Managers
 
         void MachineDropdownValueChangedHandler(TMP_Dropdown target)
         {
-            switch ((WeaponType)Enum.Parse(typeof(WeaponType), target.options[target.value].text))
+            string a = _objectStorage.WeaponTemplates[WeaponType.PlayerBlaster.ToString()].Alias;
+            switch (target.options[target.value].text)
             {
-                case WeaponType.PlayerWeaponType1:
+                case "Blaster":
                     {
-                        _selectWeapon = _objectStorage.WeaponTemplates[WeaponType.PlayerWeaponType1.ToString()];
+                        _selectWeapon = _objectStorage.WeaponTemplates[WeaponType.PlayerBlaster.ToString()];
                         _weaponDescription.text = $"Скорострельность: {_player.Behaviour.CurrentFireSpeed} | {_selectWeapon.FireSpeed}\n\n" +
                             $"Скорость перезарядки: {_player.Behaviour.CurrentReloadSpeed} | {_selectWeapon.ReloadSpeed}\n\n" +
                             $"Урон: {_player.Behaviour.CurrentBaseAttack} | {_selectWeapon.BaseAttack}";
                         break;
                     }
-                case WeaponType.PlayerWeaponType2:
+                case "Shotgun":
                     {
-                        _selectWeapon = _objectStorage.WeaponTemplates[WeaponType.PlayerWeaponType2.ToString()];
+                        _selectWeapon = _objectStorage.WeaponTemplates[WeaponType.PlayerShotgun.ToString()];
                         _weaponDescription.text = $"Скорострельность: {_player.Behaviour.CurrentFireSpeed} | {_selectWeapon.FireSpeed}\n\n" +
                             $"Скорость перезарядки: {_player.Behaviour.CurrentReloadSpeed} | {_selectWeapon.ReloadSpeed}\n\n" +
                             $"Урон: {_player.Behaviour.CurrentBaseAttack} | {_selectWeapon.BaseAttack}";
@@ -378,6 +382,7 @@ namespace Assets.Scripts.Managers
             _buttons[Constants.machineButton].gameObject.SetActive(false);
             _coinPanel.SetActive(true);
             _magazinePanel.SetActive(true);
+            _buttons[Constants.pauseButton].gameObject.SetActive(true);
 
             _updateManager.CustomStart();
         }

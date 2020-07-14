@@ -77,7 +77,7 @@ public class WeaponBehaviours
                     }
                     break;
                 }
-            case WeaponType.PlayerWeaponType1:
+            case WeaponType.PlayerBlaster:
                 {
                     if(_player.Behaviour.CurrentBulletValue <= 0)
                     {
@@ -99,7 +99,7 @@ public class WeaponBehaviours
                    
                     break;
                 }
-            case WeaponType.PlayerWeaponType2:
+            case WeaponType.PlayerShotgun:
                 {
                     if (_player.Behaviour.CurrentBulletValue <= 0)
                     {

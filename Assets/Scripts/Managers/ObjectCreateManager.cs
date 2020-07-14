@@ -39,6 +39,7 @@ namespace Assets.Scripts.Managers
 
             newUnit.Weapon = new Weapon
             {
+                Alias = unit.Weapon.Alias,
                 BaseAttack = unit.Weapon.BaseAttack,
                 CritAttack = unit.Weapon.CritAttack,
                 FireSpeed = unit.Weapon.FireSpeed,
