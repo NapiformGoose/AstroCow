@@ -403,6 +403,7 @@ namespace Assets.Scripts.Managers
                 if (_player.Behaviour.CurrentResurrectionValue > 0)
                 {
                     _player.Behaviour.CurrentHealth = _player.Health;
+                    _player.Behaviour.CurrentResurrectionValue--;
                     _player.GameObject.SetActive(true);
                     _player.Text.SetActive(true);
                     ContinueLevel();
