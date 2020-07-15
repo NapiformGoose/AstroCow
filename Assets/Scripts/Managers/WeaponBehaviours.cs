@@ -127,7 +127,7 @@ public class WeaponBehaviours
     {
         unit.Behaviour.IsAttack = true;
         Team aim = unit.Team == Team.Player ? Team.Enemy : Team.Player;
-        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.Vertical, unit.ShootPosition, aim, unit.Weapon.BaseAttack);
+        CreateBullet(unit.Weapon.BulletType, BulletBehaviourType.Vertical, unit.ShootPosition, aim, unit.Behaviour.CurrentBaseAttack);
         unit.Behaviour.TimeBeforeShot = unit.Behaviour.CurrentFireSpeed;
         unit.Behaviour.CurrentBulletValue--;
     }
