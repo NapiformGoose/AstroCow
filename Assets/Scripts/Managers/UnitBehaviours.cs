@@ -389,11 +389,9 @@ public class UnitBehaviours
         }
         if (unit.Behaviour.CurrentPhase == 1)
         {
-            unit.Behaviour.PhaseTimes[unit.Behaviour.CurrentPhase] -= Time.fixedDeltaTime;
             VerticalMoving(unit);
             if (unit.GameObject.transform.position.y >= Camera.main.transform.position.y - 2f && unit.GameObject.transform.position.y <= Camera.main.transform.position.y -1.9f)
             {
-                unit.Behaviour.PhaseTimes[unit.Behaviour.CurrentPhase] = Constants.phaseTimes[unit.Behaviour.CurrentPhase];
                 unit.Behaviour.CurrentPhase++;
                 unit.Weapon.WeaponType = WeaponType.WeaponType7;
             }
