@@ -205,7 +205,7 @@ public class PoolManager : IPoolManager
                 _objectStorage.Bullets[BulletType.BulletType1.ToString()].Add(bullet);
             }
         }
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 50; i++)
         {
             IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType1.ToString()]);
             bullet.BulletType = BulletType.BulletType2;
@@ -223,7 +223,7 @@ public class PoolManager : IPoolManager
                 _objectStorage.Bullets[BulletType.BulletType2.ToString()].Add(bullet);
             }
         }
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 50; i++)
         {
             IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType4.ToString()]);
             bullet.BulletType = BulletType.BulletType2;
@@ -241,7 +241,7 @@ public class PoolManager : IPoolManager
                 _objectStorage.Bullets[BulletType.BulletType3.ToString()].Add(bullet);
             }
         }
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 50; i++)
         {
             IBullet bullet = _objectCreateManager.CreateBullet(_objectStorage.Prefabs[BulletType.BulletType4.ToString()]);
             bullet.BulletType = BulletType.BulletType2;
